@@ -360,13 +360,23 @@ Build
   -> next phase or human gate
 ```
 
-## Key Documents
+## Documentation and Demo
+- [Architecture](docs/architecture.md)
+- [Data dictionary](docs/data-dictionary.md)
+- [Setup](docs/setup.md)
+- [Data dictionary](docs/data-dictionary.md)
+- [Interview demo runbook](docs/demo.md)
+- [Phase 4 lineage](docs/phase4/lineage.md)
+- [Certification catalog](certification/catalog.yml)
+- [Power BI specifications](powerbi/README.md)
 
+## Key Documents
 - [Implementation specification](docs/CODEX_IMPLEMENTATION_SPEC.md)
 - [Independent review specification](docs/CLAUDE_REVIEW_SPEC.md)
 - [Implementation status](docs/implementation-status.md)
 - [Codex handoff](docs/handoff/codex-handoff.md)
 - [Claude review](docs/handoff/claude-review.md)
+- [Gemini review](docs/handoff/gemini-review.md)
 
 ## Publication
 

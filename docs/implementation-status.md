@@ -2,17 +2,11 @@
 
 ## Current Phase
 
-PHASE 5 — POWER BI / PBIP COMPLETE, CLAUDE-REVIEWED, AND HUMAN-APPROVED
+PHASE 6 — DOCUMENTATION + DEMO COMPLETE AND CLAUDE-REVIEWED
 
 ## Overall Status
 
-PHASE 5 PASSED (0 P0, 0 open P1). HUMAN GOVERNANCE GATE CLEARED (commit `370a9c9`, "Phased 5 complete, reviewed and human approved"). PHASE 6 NOT YET STARTED — awaiting explicit human instruction to begin.
-
-## Document Authority Note (2026-08-16, Claude — updated same day)
-
-This file is the Claude-authoritative status document per `CLAUDE.md` §3. Phases 4 and 5 were built and previously reviewed under a parallel Gemini-track workflow (`docs/implementation-status-gemini.md`, `docs/handoff/gemini-review.md`) while Claude was unavailable. A documentation conflict was identified during Claude's review: Gemini's Phase 4 review and this file both stated Phase 5 was GATED/ON HOLD pending human authorization, yet Phase 5 was subsequently built and committed with no handoff document pointing to a recorded authorization event.
-
-**Resolved**: the human confirmed directly that this authorization is recorded in the human's own git commits — `da65f14` ("Phase 4 build and review + human approval complete"), `ab12374` ("Claude has entered the chat for review of phase 5. Codex completed build for it"), and `370a9c9` ("Phased 5 complete, reviewed and human approved"), all authored and committed personally by `MaxBrooks-BI <brooks.maxj@gmail.com>` on 2026-08-16. Per `CLAUDE.md` §3–4, these commits are treated as the authoritative human-authorization record for the Phase 4→5 gate. No further action needed on this item (formerly P1-1).
+PHASE 6 PASSED WITH CONDITIONS (0 P0, 1 P1 — fixed and re-verified in this review). PAUSED BEFORE PHASE 7 — awaiting explicit human instruction to begin.
 
 ## Authorized Scope
 
@@ -21,16 +15,16 @@ authorized phase range.
 
 ## Phase Status
 
-| Phase                              | Status                                        |
-| ----------------------------------- | ---------------------------------------------- |
-| 0 — Repository Audit               | PASSED                                        |
-| 1 — PostgreSQL + Synthetic Data    | PASSED                                        |
-| 2 — dbt + FactEnrollment           | PASSED                                        |
-| 3 — Semantic + Contracts + Quality | PASSED (re-verified by Claude)                |
-| 4 — Lineage + Certification        | PASSED (re-verified by Claude)                |
-| 5 — Power BI / PBIP                | PASSED (Claude-reviewed, human-approved)      |
-| 6 — Documentation + Demo           | NOT STARTED                                   |
-| 7 — Final QA                       | NOT STARTED                                   |
+| Phase                               | Status                                     |
+| ------------------------------------ | -------------------------------------------- |
+| 0 — Repository Audit                | PASSED                                     |
+| 1 — PostgreSQL + Synthetic Data     | PASSED                                     |
+| 2 — dbt + FactEnrollment            | PASSED                                     |
+| 3 — Semantic + Contracts + Quality  | PASSED (re-verified by Claude)             |
+| 4 — Lineage + Certification         | PASSED (re-verified by Claude)             |
+| 5 — Power BI / PBIP                 | PASSED (Claude-reviewed, human-approved)   |
+| 6 — Documentation + Demo            | PASSED (Claude-reviewed, 1 P1 fixed)       |
+| 7 — Final QA                        | NOT STARTED                                |
 
 ---
 
@@ -73,39 +67,42 @@ authorized phase range.
 - Implemented Phase 4 certification release catalog in `certification/catalog.yml`.
 - Implemented Phase 4 contract change detection in `scripts/check_contract_changes.py` with verified test suite.
 - Implemented Phase 5 Power BI/PBIP source-controlled report specifications (`powerbi/README.md` and three `report-spec.yml` files) for Executive Enrollment & Admissions, Institutional Data Trust, and Data Lineage & Certification, honestly scoped as specifications (no fabricated `.pbip`/`.pbix`/screenshots; manual Power BI Desktop step documented).
-- Claude independently re-verified Phases 3–5: re-ran `dbt build` (61/61 nodes passed), audited `FactEnrollment`/`fact_recruitment_funnel` joins for fan-out risk (none — all joins target unique/PK-backed columns), and re-ran the contract change-detection test suite.
-- Claude identified and fixed a gap in `scripts/check_contract_changes.py`: it could not detect changes to certified-metric calculations, certified-metric grain, or certification-status downgrades (only compared `contracts/fact_enrollment.yml`-shaped keys, never `semantic/metric_definitions.yml`). Added `compare_metrics()` and a top-level status-downgrade check; verified via 12 test scenarios (6 original + 6 new).
-- Claude identified and fixed a second gap: the contract's `minimum_row_count: 1` was decorative metadata with no enforcing test. Added `tests/fact_enrollment_minimum_row_count.sql`, wired it into `contracts/fact_enrollment.yml` and `certification/catalog.yml`, and reran `dbt build` (62/62 nodes passed).
-- Codex implemented Claude's "Option A" recommendation for freshness enforcement: added a `loaded_at timestamptz NOT NULL DEFAULT now()` column to all 11 `raw.*` tables, explicit column lists in the seed load `\copy` commands, and dbt source-freshness thresholds (`warn_after: 18 hours`, `error_after: 24 hours`) in `models/staging/sources.yml`.
-- Claude independently re-verified the freshness fix: `dbt source freshness` passed 11/11, full `dbt build` passed 62/62 with 0 errors and 0 warnings.
-- Human reviewed and approved Phase 5 in full, committed as `370a9c9` ("Phased 5 complete, reviewed and human approved"), pushed to `origin/main`.
+- Claude independently re-verified Phases 3–5: re-ran `dbt build`, audited `FactEnrollment`/`fact_recruitment_funnel` joins for fan-out risk (none — all joins target unique/PK-backed columns), and re-ran the contract change-detection test suite.
+- Claude identified and fixed a gap in `scripts/check_contract_changes.py`: it could not detect changes to certified-metric calculations, certified-metric grain, or certification-status downgrades. Added `compare_metrics()` and a top-level status-downgrade check; verified via 12 test scenarios.
+- Claude identified and fixed a second gap: the contract's `minimum_row_count: 1` was decorative metadata with no enforcing test. Added `tests/fact_enrollment_minimum_row_count.sql`, wired it into `contracts/fact_enrollment.yml` and `certification/catalog.yml`.
+- Codex implemented Claude's "Option A" recommendation for freshness enforcement: added a `loaded_at timestamptz NOT NULL DEFAULT now()` column to all 11 `raw.*` tables, explicit column lists in the seed load `\copy` commands, and dbt source-freshness thresholds in `models/staging/sources.yml`.
+- Claude independently re-verified the freshness fix. Human reviewed and approved Phase 5 in full, committed as `370a9c9` ("Phased 5 complete, reviewed and human approved"), pushed to `origin/main`.
+- Codex implemented Phase 6 documentation: `docs/architecture.md`, `docs/setup.md`, `docs/demo.md`, and updated README navigation to link Phase 6 docs, lineage, certification, and Power BI specs.
+- Claude independently re-verified Phase 6: ran the exact commands documented in `docs/setup.md`/`docs/demo.md` from a clean `reset_phase1.sh` (destroy + recreate the Docker volume, reload seed data) through `dbt source freshness` (11/11 passed) and `dbt build` (62/62 passed, 0 errors, 0 warnings) — reproducibility confirmed, not just claimed. Verified all README documentation links resolve to real files.
+- Claude found and fixed a P1 gap: `CODEX_IMPLEMENTATION_SPEC.md` §14 requires a data dictionary among the maintained documentation, and none existed (README covered metrics narratively but not mart columns). Added `docs/data-dictionary.md` covering all columns of the three certified marts (`FactEnrollment`, `fact_recruitment_funnel`, `fact_census_enrollment`) — sources, types, descriptions, nullability, and which tests cover each — and linked it from README's Documentation section.
 - Full review recorded in `docs/handoff/claude-review.md`.
 
 ---
 
 ## Current Work
 
-Phase 5 is complete: source-controlled Power BI/PBIP specifications, reviewed by Claude, freshness-enforcement gap closed and independently re-verified, and human-approved and committed (`370a9c9`). No open P0/P1 items remain. Phase 6 (Documentation + Demo) has not started and awaits an explicit human instruction to begin.
+Phase 6 P1/P2 follow-up is implemented: the demo runbook now contains an executable breaking-change example, and the existing data dictionary is linked from the architecture and README. Claude re-review is requested. Phase 7 (Final QA) has not started.
 
 ---
 
 ## Tests
 
-Claude Phase 3–5 review verification executed 2026-08-16:
+Claude Phase 6 review verification executed 2026-08-16:
 
-- `POSTGRES_PORT=55432 POSTGRES_PASSWORD=replace-with-local-demo-password .venv/bin/dbt build --project-dir . --profiles-dir . --no-use-colors` — before fixes: 61/61 nodes passed (12 views, 3 tables, 46 tests, 0 errors, 0 warnings); after the minimum-row-count fix: 62/62 nodes passed (47 tests), 0 errors, 0 warnings; after the freshness fix: still 62/62, 0 errors, 0 warnings.
-- `POSTGRES_PORT=55432 POSTGRES_PASSWORD=replace-with-local-demo-password .venv/bin/dbt source freshness --project-dir . --profiles-dir . --no-use-colors` — 11/11 sources passed.
+- `dbt debug` — passed, connection OK.
+- `POSTGRES_PORT=55432 bash scripts/reset_phase1.sh` — passed; destroyed and recreated the Docker volume, reloaded all 11 raw tables with exact expected row counts (12 schools, 36 programs, 240 students, 6 terms, 432 sections, 300 applications, 201 admissions, 109 deposits, 2148 registrations, 1074 census rows, 24 budget rows).
+- `dbt source freshness --project-dir . --profiles-dir . --no-use-colors` (post-reset) — 11/11 sources passed.
+- `dbt build --project-dir . --profiles-dir . --no-use-colors` (post-reset) — 62/62 nodes passed (3 tables, 12 views, 47 tests), 0 errors, 0 warnings.
+- README link-target check for all `docs/architecture.md`, `docs/setup.md`, `docs/demo.md`, `docs/data-dictionary.md`, `docs/phase4/lineage.md`, `certification/catalog.yml`, `powerbi/README.md` references — all resolve.
+- Grep for a pre-existing data dictionary — none found prior to this review's fix; cross-checked against `CODEX_IMPLEMENTATION_SPEC.md` §14's required documentation list.
+
+Claude Phase 3–5 review verification (2026-08-16, still valid):
+
+- `dbt build` — 62/62 nodes passed, 0 errors, 0 warnings.
+- `dbt source freshness` — 11/11 passed.
 - Manual fan-out/grain audit of `int_registration_context.sql` and `fact_recruitment_funnel.sql` against PostgreSQL `UNIQUE`/`PRIMARY KEY` constraints in `db/init/01_schema.sql`.
-- Original 6-scenario `check_contract_changes.py` regression suite — all passed, both before and after the fix.
-- 6 new `check_contract_changes.py` scenarios (metric calculation change, metric description change, metric removed, metric added, identical semantic file, certification-status downgrade) — all failed (false negatives) against the unmodified script, all passed after the fix.
-- Grep audits confirming: no `minimum_row_count`/`dbt_utils` row-count enforcement existed prior to this review's fix; no real-NSU-domain references in tracked files; `scripts/generate_synthetic_data.py` uses a fixed deterministic seed (`20260816`).
-
-Phase 4 review verification (Gemini, re-confirmed by Claude):
-
-- `POSTGRES_PORT=55432 POSTGRES_PASSWORD=replace-with-local-demo-password .venv/bin/dbt build --project-dir . --profiles-dir . --no-use-colors` (61/61 nodes passed: 12 views, 3 tables, 46 tests, 0 errors, 0 warnings)
-- 6 automated contract comparison test scenarios with `scripts/check_contract_changes.py`
-- End-to-end lineage map validation across source, staging, intermediate, marts, semantic metrics, and consumers
-- Certification catalog structure and governance approval validation across all 3 certified marts
+- 12-scenario `check_contract_changes.py` regression suite — all passed.
+- Grep audits confirming no real-NSU-domain references in tracked files; `scripts/generate_synthetic_data.py` uses a fixed deterministic seed (`20260816`).
 
 Phase 1-3 verification results remain valid and passing.
 
@@ -127,7 +124,7 @@ Phase 0 verification executed:
 - Power BI Desktop is unavailable on macOS; native `.pbip`, `.pbix`, and screenshots are not claimed — `powerbi/*/report-spec.yml` remain source-controlled specifications with the manual Power BI Desktop step documented in `powerbi/README.md`.
 - Local host port `5432` was already unavailable, so validation used `POSTGRES_PORT=55432`. The setup guide documents the override; the compose default remains `5432` for normal use.
 - Docker credential helper resolution required adding Docker Desktop's resources directory to `PATH` during validation; this did not change repository configuration.
-- No outstanding P0 or P1 findings. All 3 P1s from Claude's Phase 3–5 review are resolved: (1) Phase 5 authorization evidence — human's own commits `da65f14`/`ab12374`/`370a9c9`; (2) change-detection coverage of certified-metric changes — fixed in `scripts/check_contract_changes.py`; (3) freshness enforcement — `loaded_at` columns + dbt source freshness thresholds added, 11/11 freshness checks passing.
+- No outstanding P0 or P1 findings. All P1s found across the Claude Phase 3–6 reviews are resolved: (1) Phase 5 authorization evidence, (2) change-detection coverage of certified-metric changes, (3) freshness enforcement, (4) missing data dictionary (`docs/data-dictionary.md` added in this review).
 
 ---
 
@@ -139,25 +136,59 @@ None identified.
 
 ## Decisions Required
 
-None. Human governance gate for Phase 5 is cleared (commit `370a9c9`). Phase 6 (Documentation + Demo) may begin once the human explicitly authorizes it — do not begin automatically.
+None. Phase 6 is reviewed and passed. Phase 7 (Final QA) may begin once the human explicitly authorizes it — do not begin automatically.
 
 ---
 
 ## Last Codex Update
 
-2026-08-16 — Implemented Claude's Option A freshness enforcement (`loaded_at` columns + dbt source freshness thresholds); reset, source freshness, and full `dbt build` all passed.
+2026-08-16 — Implemented Phase 6 documentation/demo artifacts (`docs/architecture.md`, `docs/setup.md`, `docs/demo.md`) and validated required links and runbook commands.
 
 ---
 
 ## Last Claude / Gemini Review
 
-2026-08-16 — Claude final review of Phase 5 completed after independently re-verifying the freshness fix and the human's approval commit. Verdict: **PASSED** (0 P0, 0 open P1 — all 3 historical P1s resolved and independently re-verified; 4 P2 recorded, not implemented). Detailed report recorded in `docs/handoff/claude-review.md`. Human governance gate cleared via commit `370a9c9`.
+2026-08-16 — Claude independent review of Phase 6 completed: reproduced the full documented setup/demo flow from a clean reset through a passing `dbt build`, verified all README documentation links, and found/fixed one P1 (missing data dictionary, required by `CODEX_IMPLEMENTATION_SPEC.md` §14). Verdict: **PASSED** (0 P0, 0 open P1, P2s recorded separately). Detailed report recorded in `docs/handoff/claude-review.md`.
 
 ---
 
 ## Next Action
 
-Phase 5 is complete and approved. Phase 6 (Documentation + Demo) has not started. Begin it only when the human explicitly says so (e.g., "START PHASE 6" or "BUILD THROUGH PHASE 6").
+Hand off the Phase 6 P1/P2 fixes to Claude for re-review. Pause before Phase 7 Final QA.
+
+---
+
+## Human Review Gates
+
+### Gate 1
+
+After authorized initial phase range.
+
+### Gate 2
+
+Before final interview preparation.
+
+### Gate 3
+
+Final readiness review.
+
+---
+
+## Rules
+
+This document must reflect actual repository state.
+
+Do not mark work complete without evidence.
+
+Do not claim tests passed unless they were actually executed.
+
+Do not claim an artifact exists unless it exists.
+
+Do not silently remove known failures.
+
+## Next Action
+
+Phase 6 is complete and reviewed. Phase 7 (Final QA) has not started. Begin it only when the human explicitly says so (e.g., "START PHASE 7" or "BUILD THROUGH PHASE 7").
 
 ---
 

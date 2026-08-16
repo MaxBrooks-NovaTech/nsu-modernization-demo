@@ -162,3 +162,83 @@ The human governance gate for Phase 5 is cleared: commit `370a9c9` ("Phased 5 co
 Phase 3, Phase 4, and Phase 5 (as source-controlled specifications) all independently re-verify as PASS against `docs/CODEX_IMPLEMENTATION_SPEC.md` and `docs/CLAUDE_REVIEW_SPEC.md`. Do not begin Phase 6 until the human explicitly authorizes it — the gate being cleared closes Phase 5, it does not auto-start Phase 6.
 
 *Claude final review of Phase 5 complete. Phase 5: PASSED. Ready for the human to authorize Phase 6 whenever desired.*
+
+---
+---
+
+# PHASE 6 REVIEW ADDENDUM — Documentation + Demo
+
+## Review Date
+
+2026-08-16
+
+## Status Reviewed
+
+Repository on top of commit `3a38969` ("file fixes for phase 5"), with Phase 6 documentation (`docs/architecture.md`, `docs/setup.md`, `docs/demo.md`) and README updates in the working tree, uncommitted at review time. Human message: "PHASE 6 — DOCUMENTATION + DEMO IMPLEMENTED / READY FOR CLAUDE REVIEW / PAUSED BEFORE PHASE 7."
+
+## Documents & Artifacts Reviewed
+
+- `docs/architecture.md`, `docs/setup.md`, `docs/demo.md` (new)
+- `README.md` diff (new "Documentation and Demo" section, Gemini-review link)
+- `docs/handoff/codex-handoff.md` (Phase 6 handoff)
+- `docs/CODEX_IMPLEMENTATION_SPEC.md` §14 (Documentation requirements) and §17 (Phase 6 scope)
+- `docs/CLAUDE_REVIEW_SPEC.md` §13 (Documentation Review) and §14 (Interview Readiness Review)
+- Cross-checked `docs/architecture.md`'s "Governance controls" claims against actual `certification/catalog.yml`, `docs/phase4/lineage.md`, and `scripts/check_contract_changes.py` behavior verified in the Phase 3–5 review above.
+
+## Tests Executed (by Claude, independently)
+
+Rather than re-running commands against the already-loaded database (which would not prove the "reproducible from clean" claim in `docs/setup.md`/`docs/demo.md`), Claude reproduced the full documented flow from a genuinely clean state:
+
+1. `POSTGRES_PORT=55432 bash scripts/reset_phase1.sh` — destroyed and recreated the Docker volume/network/container, reloaded all 11 `raw.*` tables. Confirmed exact row counts match `docs/setup.md`'s implicit claims and the Phase 1 spec (12 schools, 36 programs, 240 students, 6 terms, 432 sections, 300 applications, 201 admissions, 109 deposits, 2,148 registrations, 1,074 census rows, 24 budget rows).
+2. `dbt debug --project-dir . --profiles-dir .` — passed, connection OK.
+3. `dbt source freshness --project-dir . --profiles-dir . --no-use-colors` (post-reset) — **11/11 sources passed**, matching `docs/setup.md`'s "Expected current result."
+4. `dbt build --project-dir . --profiles-dir . --no-use-colors` (post-reset) — **62/62 nodes passed** (3 tables, 12 views, 47 tests), 0 errors, 0 warnings — matching `docs/setup.md`'s claim exactly.
+5. Checked every link in README's new "Documentation and Demo" section (`docs/architecture.md`, `docs/setup.md`, `docs/demo.md`, `docs/phase4/lineage.md`, `certification/catalog.yml`, `powerbi/README.md`) — all resolve to real, non-empty files.
+6. Cross-referenced `docs/architecture.md`, `docs/setup.md`, and `docs/demo.md` for overclaiming (fabricated Power BI artifacts, live production integrations, unearned "tested" claims) — none found. All three documents are consistent with actual repository capability and explicitly disclose the macOS/Power BI Desktop limitation and the synthetic/local-only scope.
+7. Compared the documentation set actually present against `CODEX_IMPLEMENTATION_SPEC.md` §14's explicit list: *"Maintain: README; architecture; setup; data dictionary; semantic definitions; contracts; lineage; certification; demo instructions."* Found a gap — see P1 below.
+
+## Fix Applied During This Review (within existing spec, per Section 12 fix authority)
+
+**Added `docs/data-dictionary.md`** — a column-level reference for the three certified marts (`analytics.FactEnrollment`, `analytics.fact_recruitment_funnel`, `analytics.fact_census_enrollment`): source table, PostgreSQL type, description, nullability, and which dbt tests cover each column. Built directly from `db/init/01_schema.sql`, `models/marts/schema.yml`, and the mart SQL — no new claims, purely a documentation artifact describing what already exists. Linked from README's "Documentation and Demo" section. No architecture, schema, fact grain, or certified-metric changes were made.
+
+## Findings by Severity
+
+### P0 — Must Fix
+**None.** No fabricated artifacts, no overclaiming, reproducibility independently confirmed from a clean state (not just re-run against a warm database).
+
+### P1 — Should Fix (found and fixed in this review)
+
+**Missing data dictionary — FIXED.**
+`CODEX_IMPLEMENTATION_SPEC.md` §14 explicitly names "data dictionary" as one of the documentation artifacts to maintain, alongside README, architecture, setup, semantic definitions, contracts, lineage, certification, and demo instructions. Before this review, no such artifact existed — README's "Governed Semantic Definitions" section documents business metrics, but nothing documented the underlying mart columns (types, sources, nullability, which raw table each comes from). This matters for interview defensibility: if asked "walk me through the FactEnrollment schema" beyond the grain statement, there was no single reference to point to. Resolved via `docs/data-dictionary.md` (see above).
+
+### P2 — Optional
+- `docs/demo.md` step 9 previously lacked a copy-pasteable example scenario; resolved by adding a temporary contract mutation and expected failing command.
+- No automated CI check that documentation links stay valid as the repo evolves. Not implemented; reasonable for interview-demo scope.
+
+## Specification Compliance Summary
+
+| Area | Status |
+|---|---|
+| README, architecture, setup, demo instructions | **Present and accurate** — reproducibility independently re-verified from a clean reset |
+| Data dictionary | **Added in this review** (was missing; now present at `docs/data-dictionary.md`) |
+| Semantic definitions, contracts, lineage, certification | **Present** (verified in Phase 3–5 review above; unchanged by Phase 6) |
+| Known limitations disclosed | **Yes** — `docs/demo.md` "Known limitations" and `docs/architecture.md` "Boundaries" both explicitly state macOS/Power BI Desktop unavailability and no live production integration |
+| No fabricated artifacts | **Confirmed clean** |
+| Reproducibility | **Confirmed from a genuinely clean state**, not just re-run against an already-loaded database |
+
+## P0 Count
+**0**
+
+## P1 Count
+**0 open** (1 found and fixed in this review — missing data dictionary)
+
+## P2 Count
+**1 remaining optional suggestion** (documentation demo example resolved; CI link checking remains intentionally unimplemented)
+
+## Overall Verdict
+
+**PASSED**
+
+Phase 6 (Documentation + Demo) independently re-verifies as PASS against `docs/CODEX_IMPLEMENTATION_SPEC.md` §14 and `docs/CLAUDE_REVIEW_SPEC.md` §13–14. The data dictionary and executable change-control example are present, and the demo flow was proven reproducible from a clean state. One optional CI link-checking suggestion remains intentionally unimplemented. Do not begin Phase 7 until the human explicitly authorizes it — this verdict closes Phase 6, it does not auto-start Phase 7.
+
+*Claude review of Phase 6 complete. Phase 6: PASSED. Ready for the human to authorize Phase 7 whenever desired.*
