@@ -141,7 +141,7 @@ P1-1 (the Phase 5 gate-advance evidence gap) is resolved: the human's own commit
 **0**
 
 ## P1 Count
-**3 historical findings, all resolved** (2 fixed and re-verified during the initial review; 1 resolved by human authorization evidence; P1-3 subsequently fixed and re-verified via Option A)
+**0 open** (3 historical findings, all resolved: 2 fixed and re-verified during the initial review; 1 resolved by human authorization evidence; P1-3 subsequently fixed and independently re-verified)
 
 ## P2 Count
 **4** (recorded, not implemented, per `CLAUDE.md` §11 — do not let P2 consume P0/P1 time)
@@ -150,13 +150,15 @@ P1-1 (the Phase 5 gate-advance evidence gap) is resolved: the human's own commit
 
 ## Overall Verdict
 
-**READY WITH CONDITIONS**
+**PASSED**
 
-Condition before proceeding to Phase 6:
-1. Human governance gate and commit of the completed Phase 5 plus freshness-enforcement changes.
+All three P1s from this review are resolved and independently re-verified:
+1. Phase 5 authorization evidence (P1-1) — human's own commits `da65f14`, `ab12374`, `370a9c9`.
+2. Certified-metric/logic change detection (P1-2) — fixed and re-verified via 12 test scenarios.
+3. Freshness enforcement (P1-3) — `loaded_at` columns + dbt source freshness thresholds added; independently re-verified 2026-08-16 21:00 UTC via `dbt source freshness` (11/11 passed) and `dbt build` (62/62 passed, 0 errors, 0 warnings).
 
-P1-1 (Phase 5 authorization evidence) and P1-3 (freshness enforcement) are resolved — see above.
+The human governance gate for Phase 5 is cleared: commit `370a9c9` ("Phased 5 complete, reviewed and human approved"), authored by `MaxBrooks-BI`, is on `origin/main` with a clean working tree.
 
-Phase 3, Phase 4, and Phase 5 (as source-controlled specifications) all independently re-verify as PASS against `docs/CODEX_IMPLEMENTATION_SPEC.md` and `docs/CLAUDE_REVIEW_SPEC.md`, with the fixes above already applied and tested. Do not begin Phase 6 until the human governance gate is explicitly passed and the user has committed the current changes.
+Phase 3, Phase 4, and Phase 5 (as source-controlled specifications) all independently re-verify as PASS against `docs/CODEX_IMPLEMENTATION_SPEC.md` and `docs/CLAUDE_REVIEW_SPEC.md`. Do not begin Phase 6 until the human explicitly authorizes it — the gate being cleared closes Phase 5, it does not auto-start Phase 6.
 
-*Claude review complete after Option A freshness re-check. Waiting for human authorization before Phase 6.*
+*Claude final review of Phase 5 complete. Phase 5: PASSED. Ready for the human to authorize Phase 6 whenever desired.*
