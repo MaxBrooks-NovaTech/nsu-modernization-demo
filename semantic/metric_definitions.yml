@@ -1,0 +1,54 @@
+version: 1
+product: Enrollment and Admissions Data Product
+owner: Institutional Research and Analytics
+steward: Data Governance Lead
+metrics:
+  applications:
+    definition: Count of submitted applications.
+    grain: application_id
+    source: analytics.fact_recruitment_funnel
+    calculation: count_distinct(application_id) where application_status = Submitted
+    sensitivity: Internal aggregate; no student-level distribution.
+    certification_status: Certified
+  admits:
+    definition: Count of applications with an admitted decision.
+    grain: application_id
+    source: analytics.fact_recruitment_funnel
+    calculation: count_distinct(application_id) where decision_status = Admitted
+    sensitivity: Internal aggregate; no student-level distribution.
+    certification_status: Certified
+  deposits:
+    definition: Count of paid deposits tied to admitted applications.
+    grain: deposit_id
+    source: analytics.fact_recruitment_funnel
+    calculation: count_distinct(deposit_id) where deposit_status = Paid
+    sensitivity: Internal aggregate; no student-level distribution.
+    certification_status: Certified
+  enrolled:
+    definition: Count of registrations with Registered status.
+    grain: registration_id
+    source: analytics.FactEnrollment
+    calculation: count_distinct(registration_id) where registration_status = Registered
+    sensitivity: Internal aggregate; no student-level distribution.
+    certification_status: Certified
+  yield:
+    definition: Paid deposits divided by admitted applications.
+    grain: term_id, school_id, program_id
+    source: analytics.fact_recruitment_funnel
+    calculation: deposits / admits
+    sensitivity: Internal planning metric; suppress small groups in consumption.
+    certification_status: Certified
+  census_enrollment:
+    definition: Students flagged as enrolled at the institutional census date.
+    grain: student_id, term_id
+    source: analytics.fact_census_enrollment
+    calculation: count_distinct(student_id) where census_enrolled_flag = true
+    sensitivity: Internal aggregate; restricted student-level access.
+    certification_status: Certified
+  ipeds_enrollment:
+    definition: Students meeting the synthetic IPEDS enrollment inclusion flag.
+    grain: student_id, term_id
+    source: analytics.fact_census_enrollment
+    calculation: count_distinct(student_id) where ipeds_enrolled_flag = true
+    sensitivity: Reporting aggregate; validate submission context before use.
+    certification_status: Certified

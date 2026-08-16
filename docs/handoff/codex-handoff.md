@@ -3,12 +3,12 @@
 # Codex -> Gemini Handoff
 
 ## Phase
-PHASE 2
+PHASE 3
 ## Status
-IN PROGRESS — DBT + FACTENROLLMENT IMPLEMENTED AND TESTED; READY FOR GEMINI REVIEW
+IMPLEMENTED AND TESTED — READY FOR GEMINI REVIEW
 
 ## Objective
-Implement and validate the human-authorized Phase 2 dbt and FactEnrollment foundation without expanding into Phase 3 semantic definitions, contracts, or broader governance artifacts.
+Implement and validate the human-authorized Phase 3 semantic layer, certified models, data contract, and actionable quality controls without expanding into Phase 4 lineage, certification workflow, or change management.
 
 ---
 
@@ -55,6 +55,11 @@ Implement and validate the human-authorized Phase 2 dbt and FactEnrollment found
 - Added dbt project/profile configuration using dbt-core 1.10.13 and dbt-postgres 1.9.0.
 - Added raw source declarations, six staging models, an intermediate registration context, and `analytics.FactEnrollment`.
 - Added model tests for nulls, uniqueness, accepted registration statuses, and the custom `(student_id, section_id, term_id)` grain.
+- Added staging models for applications, admissions, deposits, census enrollment, and budget actuals.
+- Added certified recruitment funnel and census enrollment marts.
+- Added semantic definitions for Applications, Admits, Deposits, Enrolled, Yield, Census Enrollment, and IPEDS Enrollment.
+- Added `contracts/fact_enrollment.yml` with schema, grain, freshness, quality, ownership, versioning, and breaking-change rules.
+- Added source/model relationships, census grain, and enrollment business-rule tests.
 
 ---
 
@@ -81,6 +86,17 @@ Implement and validate the human-authorized Phase 2 dbt and FactEnrollment found
 - tests/fact_enrollment_grain.sql
 - macros/generate_schema_name.sql
 - docs/phase2/setup.md
+- semantic/metric_definitions.yml
+- contracts/fact_enrollment.yml
+- models/staging/stg_applications.sql
+- models/staging/stg_admissions.sql
+- models/staging/stg_deposits.sql
+- models/staging/stg_enrollment_census.sql
+- models/staging/stg_budget_actuals.sql
+- models/marts/fact_recruitment_funnel.sql
+- models/marts/fact_census_enrollment.sql
+- tests/fact_enrollment_business_rules.sql
+- tests/fact_census_enrollment_grain.sql
 - requirements.txt
 - .gitignore
 - Previously changed Phase 0 files remain in the repository history.
@@ -132,7 +148,7 @@ Implement and validate the human-authorized Phase 2 dbt and FactEnrollment found
 - `python3 -m venv .venv`
 - `.venv/bin/pip install -r requirements.txt`
 - `.venv/bin/dbt debug --project-dir . --profiles-dir .`
-- `.venv/bin/dbt build --project-dir . --profiles-dir . --no-use-colors`
+- `.venv/bin/dbt build --project-dir . --profiles-dir . --no-use-colors` (with `POSTGRES_PORT=55432 POSTGRES_PASSWORD=replace-with-local-demo-password`)
 
 Gemini Phase 1 review fix verification executed:
 
@@ -176,7 +192,8 @@ P1 fix verification executed:
   names are not present yet.
 - Gemini completed Phase 0 review with PASS WITH CONDITIONS.
 - All Gemini P0/P1/P2 findings have been addressed by Codex; no P0/P1/P2 findings remain for Phase 1.
-- Phase 2 dbt and FactEnrollment implementation is complete for this iteration and ready for Gemini review.
+- Phase 2 dbt and FactEnrollment implementation passed Gemini review.
+- Phase 3 implementation is complete and ready for Gemini review.
 - `git ls-files .DS_Store` returned no tracked file.
 - `git check-ignore -v` confirmed ignores for `.env`, `.DS_Store`, `target/`,
   `dbt_packages/`, `logs/`, `.pytest_cache/`, and Python cache files.
@@ -193,12 +210,12 @@ P1 fix verification executed:
 ---
 
 ## Blockers
-None for Phase 2 implementation. Gemini review is requested before Phase 3.
+None for Phase 3 implementation. Gemini review is requested.
 
 ---
 
 ## Decisions Needed
-Gemini review of the Phase 2 implementation is requested. Do not begin Phase 3 until Phase 2 review and the applicable human gate are complete.
+Gemini review of the Phase 3 implementation is requested. No additional human decision is required within this authorized scope.
 
 ---
 
@@ -218,9 +235,9 @@ Verification included:
 ---
 
 ## Recommended Next Action
-Gemini should review the Phase 2 implementation against `docs/CODEX_IMPLEMENTATION_SPEC_GEMINI.md`, `AGENTS_WITH_GEMINI.md`, `docs/implementation-status-gemini.md`, and the changed dbt artifacts. Do not begin Phase 3.
+Gemini should review the Phase 3 semantic definitions, contract, certified marts, and executed quality tests against `docs/CODEX_IMPLEMENTATION_SPEC_GEMINI.md`, `docs/GEMINI_REVIEW_SPEC.md`, and `AGENTS_WITH_GEMINI.md`.
 
 ---
 
 ## Human Gate
-Phase 2 implementation gate reached for this iteration. Stop before Phase 3 until Gemini review is complete and the human explicitly authorizes the next phase.
+Phase 3 implementation gate reached. Stop before Phase 4 until Gemini review and the applicable human governance gate are complete.

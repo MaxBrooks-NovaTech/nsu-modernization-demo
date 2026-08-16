@@ -1,0 +1,33 @@
+contract_name: FactEnrollment
+version: 1.0.0
+status: Certified
+owner: Institutional Research and Analytics
+steward: Data Governance Lead
+consumer: Executive Enrollment and Admissions reporting
+schema: analytics
+model: FactEnrollment
+grain: One row = one student registration in one section for one academic term.
+freshness:
+  target: 24 hours
+quality:
+  required_tests:
+    [
+      not_null,
+      unique_registration_id,
+      accepted_registration_status,
+      composite_grain,
+      relationships,
+    ]
+  minimum_row_count: 1
+required_fields:
+  - registration_id
+  - student_id
+  - section_id
+  - term_id
+  - registration_status
+  - credit_hours
+breaking_change_rules:
+  - Removing or renaming a required field requires a major version.
+  - Changing the grain requires a major version and governance approval.
+  - Changing a certified metric definition requires a major version and consumer impact review.
+  - Additive nullable fields are minor-version changes.

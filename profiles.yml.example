@@ -4,7 +4,7 @@ nsu_modernization_demo:
     local:
       type: postgres
       host: localhost
-      port: 5432
+      port: "{{ env_var('POSTGRES_PORT', '5432') | as_number }}"
       user: nsu_demo_user
       password: "{{ env_var('POSTGRES_PASSWORD') }}"
       dbname: nsu_modernization_demo

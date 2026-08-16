@@ -5,8 +5,72 @@ sources:
     description: Synthetic source-style tables loaded by the Phase 1 PostgreSQL foundation.
     tables:
       - name: schools
+        columns:
+          - name: school_id
+            tests: [not_null, unique]
       - name: programs
+        columns:
+          - name: program_id
+            tests: [not_null, unique]
+          - name: school_id
+            tests:
+              - relationships:
+                  arguments:
+                    to: source('raw', 'schools')
+                    field: school_id
       - name: students
+        columns:
+          - name: student_id
+            tests: [not_null, unique]
+          - name: entry_term_id
+            tests:
+              - relationships:
+                  arguments:
+                    to: source('raw', 'terms')
+                    field: term_id
       - name: terms
+        columns:
+          - name: term_id
+            tests: [not_null, unique]
       - name: course_sections
+        columns:
+          - name: section_id
+            tests: [not_null, unique]
+          - name: term_id
+            tests:
+              - relationships:
+                  arguments:
+                    to: source('raw', 'terms')
+                    field: term_id
+          - name: school_id
+            tests:
+              - relationships:
+                  arguments:
+                    to: source('raw', 'schools')
+                    field: school_id
+          - name: program_id
+            tests:
+              - relationships:
+                  arguments:
+                    to: source('raw', 'programs')
+                    field: program_id
       - name: registrations
+        tests:
+          - not_null:
+              column_name: registration_id
+          - unique:
+              column_name: registration_id
+      - name: applications
+      - name: admissions
+      - name: deposits
+      - name: enrollment_census
+      - name: budget_actuals
+        columns:
+          - name: budget_actual_id
+            tests: [not_null, unique]
+          - name: school_id
+            tests:
+              - relationships:
+                  arguments:
+                    to: source('raw', 'schools')
+                    field: school_id
