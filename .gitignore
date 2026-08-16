@@ -17,3 +17,5 @@ logs/
 
 # OS and editor artifacts
 .DS_Store
+dbt_internal_packages/
+profiles.yml

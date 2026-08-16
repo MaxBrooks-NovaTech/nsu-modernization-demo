@@ -3,9 +3,9 @@
 # Codex -> Gemini Handoff
 
 ## Phase
-PHASE 1
+PHASE 2
 ## Status
-COMPLETE — GEMINI P0/P1/P2 FIXES IMPLEMENTED AND VERIFIED; READY FOR PHASE 2 AUTHORIZATION
+IN PROGRESS — DBT + FACTENROLLMENT IMPLEMENTED AND TESTED; READY FOR GEMINI REVIEW
 
 ## Objective
 Implement and validate the authorized Phase 1 Docker, PostgreSQL, and synthetic-data foundation without expanding into dbt or semantic-layer work.
@@ -48,6 +48,10 @@ Implement and validate the authorized Phase 1 Docker, PostgreSQL, and synthetic-
 - Implemented PostgreSQL schema/load initialization, reset, validation, and setup documentation.
 - Verified the running database with Docker Desktop using host port `55432` because `5432` was unavailable.
 - Implemented Gemini Phase 1 review fixes: `students.entry_term_id` foreign key, dependency-correct seed load order, exact row-count and complete reviewed FK assertions, budget and section business uniqueness constraints, and port-collision setup documentation.
+- Began human-authorized Phase 2 without changing the approved FactEnrollment grain.
+- Added dbt project/profile configuration using dbt-core 1.10.13 and dbt-postgres 1.9.0.
+- Added raw source declarations, six staging models, an intermediate registration context, and `analytics.FactEnrollment`.
+- Added model tests for nulls, uniqueness, accepted registration statuses, and the custom `(student_id, section_id, term_id)` grain.
 
 ---
 
@@ -64,6 +68,18 @@ Implement and validate the authorized Phase 1 Docker, PostgreSQL, and synthetic-
 - scripts/validate_phase1.sh
 - seeds/*.csv
 - docs/phase1/setup.md
+- dbt_project.yml
+- profiles.yml.example
+- models/staging/*.sql
+- models/staging/sources.yml
+- models/intermediate/int_registration_context.sql
+- models/marts/fact_enrollment.sql
+- models/marts/schema.yml
+- tests/fact_enrollment_grain.sql
+- macros/generate_schema_name.sql
+- docs/phase2/setup.md
+- requirements.txt
+- .gitignore
 - Previously changed Phase 0 files remain in the repository history.
 
 ---
@@ -110,12 +126,18 @@ Implement and validate the authorized Phase 1 Docker, PostgreSQL, and synthetic-
 - `psql` raw-schema inspection
 - `POSTGRES_PORT=55432 bash scripts/validate_phase1.sh`
 - `POSTGRES_PORT=55432 docker compose exec -T postgres psql ...` constraint inspection
+- `python3 -m venv .venv`
+- `.venv/bin/pip install -r requirements.txt`
+- `.venv/bin/dbt debug --project-dir . --profiles-dir .`
+- `.venv/bin/dbt build --project-dir . --profiles-dir . --no-use-colors`
 
 Gemini Phase 1 review fix verification executed:
 
 - `POSTGRES_PORT=55432 bash scripts/reset_phase1.sh` (passed)
 - `POSTGRES_PORT=55432 bash scripts/validate_phase1.sh` (passed exact row counts and reviewed FK/grain assertions)
 - PostgreSQL catalog inspection confirmed `students_entry_term_id_fkey`, section uniqueness, and budget uniqueness constraints.
+- dbt debug passed against the local PostgreSQL container on port `55432`.
+- dbt build passed: 27 total results, 0 errors, including 2,148-row `analytics.FactEnrollment` and the custom composite-grain test.
 
 P1 fix verification executed:
 
@@ -151,6 +173,7 @@ P1 fix verification executed:
   names are not present yet.
 - Gemini completed Phase 0 review with PASS WITH CONDITIONS.
 - All Gemini P0/P1/P2 findings have been addressed by Codex; no P0/P1/P2 findings remain for Phase 1.
+- Phase 2 dbt and FactEnrollment implementation is complete for this iteration and ready for Gemini review.
 - `git ls-files .DS_Store` returned no tracked file.
 - `git check-ignore -v` confirmed ignores for `.env`, `.DS_Store`, `target/`,
   `dbt_packages/`, `logs/`, `.pytest_cache/`, and Python cache files.
@@ -162,7 +185,7 @@ P1 fix verification executed:
 ## Known Issues
 - Docker Desktop's credential helper was not on the shell `PATH`; validation used `/Applications/Docker.app/Contents/Resources` in `PATH` without changing user configuration.
 - The default host port `5432` is occupied on this machine; use the documented `POSTGRES_PORT=55432` override locally when needed.
-- Phase 2 dbt + FactEnrollment work is intentionally not included.
+- Phase 2 semantic definitions, contracts, lineage, certification, and Power BI work are intentionally not included; they belong to later phases.
 
 ---
 
@@ -172,7 +195,7 @@ None for Phase 1. Human authorization is needed before Phase 2.
 ---
 
 ## Decisions Needed
-Authorize Phase 2 (dbt + FactEnrollment). Claude remains unavailable due to session limits; Gemini is the fallback reviewer.
+Gemini review of the Phase 2 implementation is requested. Do not begin Phase 3 until Phase 2 review and the applicable human gate are complete.
 
 ---
 
@@ -197,4 +220,4 @@ Await explicit human authorization to begin Phase 2 (dbt + FactEnrollment). Do n
 ---
 
 ## Human Gate
-Phase 1 completion gate: reached. Gemini review fixes are complete and verified. Stop before Phase 2 until a human explicitly authorizes Phase 2.
+Phase 2 implementation gate reached for this iteration. Stop before Phase 3 until Gemini review is complete and the human explicitly authorizes the next phase.

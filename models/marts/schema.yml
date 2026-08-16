@@ -1,0 +1,20 @@
+version: 2
+models:
+  - name: fact_enrollment
+    description: "One row per student registration in one section for one academic term."
+    columns:
+      - name: registration_id
+        tests: [not_null, unique]
+      - name: student_id
+        tests: [not_null]
+      - name: section_id
+        tests: [not_null]
+      - name: term_id
+        tests: [not_null]
+      - name: credit_hours
+        tests: [not_null]
+      - name: registration_status
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['Dropped', 'Registered', 'Withdrawn']

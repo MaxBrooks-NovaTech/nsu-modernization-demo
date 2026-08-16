@@ -1,0 +1,12 @@
+version: 2
+sources:
+  - name: raw
+    schema: raw
+    description: Synthetic source-style tables loaded by the Phase 1 PostgreSQL foundation.
+    tables:
+      - name: schools
+      - name: programs
+      - name: students
+      - name: terms
+      - name: course_sections
+      - name: registrations

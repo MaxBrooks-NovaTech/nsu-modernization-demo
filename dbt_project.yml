@@ -1,0 +1,20 @@
+name: nsu_modernization_demo
+version: '1.0.0'
+config-version: 2
+profile: nsu_modernization_demo
+model-paths: [models]
+test-paths: [tests]
+seeds:
+  nsu_modernization_demo:
+    +enabled: false
+models:
+  nsu_modernization_demo:
+    staging:
+      +schema: staging
+      +materialized: view
+    intermediate:
+      +schema: intermediate
+      +materialized: view
+    marts:
+      +schema: analytics
+      +materialized: table

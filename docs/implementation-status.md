@@ -1,9 +1,9 @@
 # NSU BI / Data Products Interview Demonstration
 
 ## Current Phase
-PHASE 1 — DOCKER + POSTGRESQL + SYNTHETIC DATA COMPLETE
+PHASE 2 — DBT + FACTENROLLMENT IN PROGRESS
 ## Overall Status
-PASS WITH CONDITIONS — P0/P1/P2 REVIEW FIXES COMPLETE; READY FOR PHASE 2 AUTHORIZATION
+IN PROGRESS — DBT BUILD PASSING; READY FOR GEMINI REVIEW
 
 ## Authorized Scope
 
@@ -16,7 +16,7 @@ authorized phase range.
 |---|---|
 | 0 — Repository Audit | PASSED |
 | 1 — PostgreSQL + Synthetic Data | PASSED |
-| 2 — dbt + FactEnrollment | NOT STARTED |
+| 2 — dbt + FactEnrollment | IN PROGRESS |
 | 3 — Semantic + Contracts + Quality | NOT STARTED |
 | 4 — Lineage + Certification | NOT STARTED |
 | 5 — Power BI / PBIP | NOT STARTED |
@@ -56,11 +56,12 @@ authorized phase range.
 - Created initialization/load SQL, reset script, validation script, and Phase 1 setup documentation.
 - Verified the database end to end using Docker Desktop with host port `55432` because local port `5432` was unavailable.
 - Implemented all Gemini Phase 1 P1/P2 fixes: complete entry-term FK, load ordering correction, expected-count and referential-integrity assertions, business uniqueness constraints, and port-collision documentation.
+- Added dbt-core 1.10.13/dbt-postgres 1.9.0 configuration, source declarations, staging/intermediate models, `analytics.FactEnrollment`, and Phase 2 tests.
 
 ---
 
 ## Current Work
-Phase 1 review fixes are complete. The repository now has a reproducible local PostgreSQL foundation with hardened constraints and validation. Phase 2 has not started.
+Phase 2 dbt and FactEnrollment implementation is complete for this iteration. Gemini review and handoff are pending; Phase 3 has not started.
 
 ---
 
@@ -73,8 +74,10 @@ Phase 1 verification executed:
 - PostgreSQL readiness check with `pg_isready`
 - Schema inspection with `psql`
 - `bash scripts/validate_phase1.sh`
+- `.venv/bin/dbt debug --project-dir . --profiles-dir .`
+- `.venv/bin/dbt build --project-dir . --profiles-dir . --no-use-colors`
 
-Results: deterministic seed generation passed; PostgreSQL initialized successfully; all 11 raw tables loaded; exact expected row counts passed; complete reviewed referential-integrity checks passed; business uniqueness constraints verified; duplicate registration-grain check passed.
+Results: Phase 1 validations passed. dbt debug passed against PostgreSQL on port `55432`; dbt build passed with 27 total results, including 11 seeds, 7 staging/intermediate views, `analytics.FactEnrollment` with 2,148 rows, and 8 passing data tests.
 
 Phase 0 verification executed:
 
@@ -92,8 +95,9 @@ Phase 0 verification executed:
 ## Known Issues
 - Local host port `5432` was already unavailable, so validation used `POSTGRES_PORT=55432`. The setup guide documents the override; the compose default remains `5432` for normal use.
 - Docker credential helper resolution required adding Docker Desktop's resources directory to `PATH` during validation; this did not change repository configuration.
-- Phase 1 does not include dbt models or the semantic layer; those belong to later phases.
+- Phase 2 semantic definitions, contracts, lineage, certification, and Power BI work remain for later phases.
 - No outstanding P0, P1, or P2 findings from the Gemini Phase 1 review.
+- Phase 2 review is pending; semantic definitions, contracts, lineage, certification, and Power BI remain future phases.
 
 ---
 
@@ -104,12 +108,12 @@ None identified.
 ---
 
 ## Decisions Required
-Gemini review is required before any Phase 2 authorization. After Gemini review, human authorization is required before beginning Phase 2 (dbt + FactEnrollment). Claude remains temporarily unavailable due to session limits; Gemini is the documented fallback reviewer.
+Gemini review of Phase 2 is requested. Do not begin Phase 3 until Phase 2 review and the next human gate are complete.
 
 ---
 
 ## Last Codex Update
-2026-08-16 15:04:55 EDT — Completed and validated all Gemini Phase 1 P1 and P2 fixes and the full reset/validation lifecycle.
+2026-08-16 19:14:53 EDT — Began authorized Phase 2; installed dbt-core 1.10.13/dbt-postgres 1.9.0, passed dbt debug, and passed dbt build with FactEnrollment and all tests.
 
 ---
 
@@ -120,7 +124,7 @@ Gemini review is required before any Phase 2 authorization. After Gemini review,
 ---
 
 ## Next Action
-Await human authorization to start Phase 2 (dbt + FactEnrollment). Do not begin Phase 2 without explicit authorization.
+Complete Gemini review of Phase 2. Do not begin Phase 3.
 
 ---
 

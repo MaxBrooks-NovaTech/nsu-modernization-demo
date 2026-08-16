@@ -1,0 +1,12 @@
+nsu_modernization_demo:
+  target: local
+  outputs:
+    local:
+      type: postgres
+      host: localhost
+      port: 5432
+      user: nsu_demo_user
+      password: "{{ env_var('POSTGRES_PASSWORD') }}"
+      dbname: nsu_modernization_demo
+      schema: analytics
+      threads: 4

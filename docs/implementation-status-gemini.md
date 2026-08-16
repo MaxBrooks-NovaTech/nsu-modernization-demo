@@ -2,11 +2,11 @@
 
 ## Current Phase
 
-PHASE 1 — DOCKER + POSTGRESQL + SYNTHETIC DATA REVIEW COMPLETE
+PHASE 2 — DBT + FACTENROLLMENT IN PROGRESS
 
 ## Overall Status
 
-PASS WITH CONDITIONS — AWAITING HUMAN AUTHORIZATION FOR PHASE 2
+IN PROGRESS — PHASE 2 AUTHORIZED BY HUMAN; DBT BUILD PASSING
 
 ## Authorized Scope
 
@@ -19,7 +19,7 @@ authorized phase range.
 |---|---|
 | 0 — Repository Audit | PASSED |
 | 1 — PostgreSQL + Synthetic Data | PASS WITH CONDITIONS |
-| 2 — dbt + FactEnrollment | NOT STARTED |
+| 2 — dbt + FactEnrollment | IN PROGRESS |
 | 3 — Semantic + Contracts + Quality | NOT STARTED |
 | 4 — Lineage + Certification | NOT STARTED |
 | 5 — Power BI / PBIP | NOT STARTED |
@@ -62,12 +62,14 @@ authorized phase range.
   - expanded validation with exact row counts for all 11 tables and reviewed referential-integrity checks;
   - added business uniqueness constraints for budget actuals and course sections;
   - documented host-port collision handling with `POSTGRES_PORT` overrides.
+- Added dbt 1.10/Postgres 1.9 project configuration, source declarations, staging models, intermediate registration context, and `analytics.FactEnrollment`.
+- Added dbt schema tests and a custom FactEnrollment grain test.
 
 ---
 
 ## Current Work
 
-Phase 1 review complete. Awaiting human gate authorization before starting Phase 2 (dbt + FactEnrollment).
+Phase 2 implementation is in progress. The dbt project and FactEnrollment model are implemented; remaining Phase 2 work is documentation/status completion and reviewer handoff.
 
 ---
 
@@ -81,31 +83,34 @@ Phase 1 review verification executed:
 - `POSTGRES_PORT=55432 bash scripts/reset_phase1.sh`
 - `bash scripts/validate_phase1.sh`
 - Schema and constraint validation via `psql` in `raw` schema
+- `.venv/bin/dbt debug --project-dir . --profiles-dir .`
+- `.venv/bin/dbt build --project-dir . --profiles-dir . --no-use-colors`
 
-Results: All 11 tables verified loaded and constrained; exact expected row counts passed; student entry-term, admissions-to-applications, deposits-to-admissions, program-to-school, and enrollment referential-integrity checks passed; registration grain `(student_id, section_id, term_id)` unique; enrollment grain `(student_id, term_id)` unique; budget and course-section uniqueness constraints verified; all 12 schools represented; reset lifecycle clean.
+Results: Phase 1 validations passed. dbt debug passed against PostgreSQL on host port `55432`; dbt build passed with 27 total results, including 11 seeds, 7 staging/intermediate views, the `analytics.FactEnrollment` table with 2,148 rows, and 8 passing data tests including the custom composite-grain test.
 
 ---
 
 ## Known Issues
 - Host port `5432` collision on local machine handled cleanly using `POSTGRES_PORT=55432`.
-- No outstanding P0, P1, or P2 findings from the Gemini Phase 1 review. The reviewed schema, validation coverage, and setup documentation fixes have been implemented and verified.
+- No outstanding P0, P1, or P2 findings from the Gemini Phase 1 review.
+- Phase 2 remains in progress; dbt and FactEnrollment implementation is not yet handed off for Gemini review.
 
 ---
 
 ## Blockers
 
-None identified.
+None identified for the completed work. Phase 2 remains in progress pending final documentation and handoff review.
 
 ---
 
 ## Decisions Required
 
-Human authorization required to begin Phase 2 (dbt + FactEnrollment).
+Human authorization for Phase 2 was granted by the user. Continue implementation and stop at the next authorized review gate.
 
 ---
 
 ## Last Codex Update
-2026-08-16 15:04:55 EDT — Completed and validated all Gemini Phase 1 P1 and P2 fixes, including schema foreign-key/uniqueness hardening, expanded validation assertions, seed load ordering, and port-collision documentation.
+2026-08-16 19:14:53 EDT — Began authorized Phase 2; installed dbt-core 1.10.13/dbt-postgres 1.9.0, passed dbt debug, and passed dbt build with FactEnrollment and all tests.
 
 ---
 
@@ -116,7 +121,7 @@ Human authorization required to begin Phase 2 (dbt + FactEnrollment).
 ---
 
 ## Next Action
-Awaiting human gate authorization to start Phase 2 (dbt + FactEnrollment). Phase 2 remains on hold.
+Complete the Phase 2 documentation and Codex handoff, then request Gemini review. Do not begin Phase 3.
 
 ---
 
