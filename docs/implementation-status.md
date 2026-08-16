@@ -1,9 +1,9 @@
 # NSU BI / Data Products Interview Demonstration
 
 ## Current Phase
-PHASE 2 — DBT + FACTENROLLMENT COMPLETED & REVIEWED
+PHASE 4 — LINEAGE + CERTIFICATION + CHANGE MANAGEMENT COMPLETED & REVIEWED
 ## Overall Status
-PHASE 2 PASSED INDEPENDENT GEMINI REVIEW — AWAITING HUMAN GOVERNANCE GATE FOR PHASE 3
+PHASE 4 PASSED INDEPENDENT GEMINI REVIEW — AWAITING HUMAN GOVERNANCE GATE FOR PHASE 5
 
 ## Authorized Scope
 
@@ -17,8 +17,8 @@ authorized phase range.
 | 0 — Repository Audit | PASSED |
 | 1 — PostgreSQL + Synthetic Data | PASSED |
 | 2 — dbt + FactEnrollment | PASSED |
-| 3 — Semantic + Contracts + Quality | NOT STARTED |
-| 4 — Lineage + Certification | NOT STARTED |
+| 3 — Semantic + Contracts + Quality | PASSED |
+| 4 — Lineage + Certification | PASSED |
 | 5 — Power BI / PBIP | NOT STARTED |
 | 6 — Documentation + Demo | NOT STARTED |
 | 7 — Final QA | NOT STARTED |
@@ -57,27 +57,29 @@ authorized phase range.
 - Verified the database end to end using Docker Desktop with host port `55432` because local port `5432` was unavailable.
 - Implemented all Gemini Phase 1 P1/P2 fixes: complete entry-term FK, load ordering correction, expected-count and referential-integrity assertions, business uniqueness constraints, and port-collision documentation.
 - Added dbt-core 1.10.13/dbt-postgres 1.9.0 configuration, source declarations, staging/intermediate models, `analytics.FactEnrollment`, and Phase 2 tests.
+- Implemented Phase 3 certified recruitment funnel and census enrollment marts.
+- Added governed definitions for Applications, Admits, Deposits, Enrolled, Yield, Census Enrollment, and IPEDS Enrollment.
+- Added FactEnrollment data contract and automated quality test suite.
+- Implemented Phase 4 source-to-consumer lineage map in `docs/phase4/lineage.md`.
+- Implemented Phase 4 certification release catalog in `certification/catalog.yml`.
+- Implemented Phase 4 contract change detection in `scripts/check_contract_changes.py` with verified test suite.
 
 ---
 
 ## Current Work
-Phase 2 dbt and FactEnrollment implementation is complete for this iteration. Gemini review and handoff are pending; Phase 3 has not started.
+Phase 4 lineage, certification catalog, and contract change detection have passed independent Gemini review. Phase 5 (Power BI / PBIP) remains on hold pending human governance gate authorization.
 
 ---
 
 ## Tests
-Phase 1 verification executed:
+Phase 4 review verification executed:
 
-- `python3 scripts/generate_synthetic_data.py`
-- `docker compose config`
-- Docker Compose PostgreSQL startup using host port `55432`
-- PostgreSQL readiness check with `pg_isready`
-- Schema inspection with `psql`
-- `bash scripts/validate_phase1.sh`
-- `.venv/bin/dbt debug --project-dir . --profiles-dir .`
-- `.venv/bin/dbt build --project-dir . --profiles-dir . --no-use-colors`
+- `POSTGRES_PORT=55432 POSTGRES_PASSWORD=replace-with-local-demo-password .venv/bin/dbt build --project-dir . --profiles-dir . --no-use-colors` (61/61 nodes passed: 12 views, 3 tables, 46 tests, 0 errors, 0 warnings)
+- 6 automated contract comparison test scenarios with `scripts/check_contract_changes.py`
+- End-to-end lineage map validation across source, staging, intermediate, marts, semantic metrics, and consumers
+- Certification catalog structure and governance approval validation across all 3 certified marts
 
-Results: Phase 1 validations passed. dbt debug passed against PostgreSQL on port `55432`; dbt build passed with 27 total results, including 11 seeds, 7 staging/intermediate views, `analytics.FactEnrollment` with 2,148 rows, and 8 passing data tests.
+Phase 1-3 verification results remain valid and passing.
 
 Phase 0 verification executed:
 
@@ -124,7 +126,7 @@ Gemini review of Phase 2 is requested. Do not begin Phase 3 until Phase 2 review
 ---
 
 ## Next Action
-Phase 2 independent review complete with verdict PASS. Phase 3 (Semantic Layer + Contracts + Quality) is on HOLD awaiting explicit human governance authorization. Codex must stand by.
+Phase 4 independent review complete with verdict PASS. Phase 5 (Power BI / PBIP) is on HOLD awaiting explicit human governance authorization. Codex must stand by.
 
 ---
 

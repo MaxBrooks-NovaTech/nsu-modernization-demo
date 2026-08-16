@@ -38,6 +38,9 @@ products:
       - yield
     consumers:
       - Admissions funnel reporting
+    approval:
+      approver_role: Data Governance Lead
+      decision: Approved for demonstration use
   census_enrollment:
     model: analytics.fact_census_enrollment
     version: 1.0.0
@@ -52,3 +55,6 @@ products:
       - ipeds_enrollment
     consumers:
       - Official census and institutional reporting
+    approval:
+      approver_role: Data Governance Lead
+      decision: Approved for demonstration use
