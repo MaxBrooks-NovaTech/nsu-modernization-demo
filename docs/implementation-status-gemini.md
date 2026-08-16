@@ -2,11 +2,11 @@
 
 ## Current Phase
 
-PHASE 0 — REPOSITORY PREPARATION
+PHASE 0 — REPOSITORY AUDIT COMPLETE
 
 ## Overall Status
 
-IN PROGRESS
+PASSED — AWAITING HUMAN AUTHORIZATION FOR PHASE 1
 
 ## Authorized Scope
 
@@ -17,7 +17,7 @@ authorized phase range.
 
 | Phase | Status |
 |---|---|
-| 0 — Repository Audit | IN PROGRESS |
+| 0 — Repository Audit | PASSED |
 | 1 — PostgreSQL + Synthetic Data | NOT STARTED |
 | 2 — dbt + FactEnrollment | NOT STARTED |
 | 3 — Semantic + Contracts + Quality | NOT STARTED |
@@ -44,25 +44,41 @@ authorized phase range.
   names, including OpenAI, Claude, Gemini, and GitHub PAT placeholders.
 - Aligned Gemini-specific Codex and review instructions with the correct Gemini
   document names.
+- Addressed Gemini Phase 0 P1 findings:
+  - removed `.DS_Store` from Git tracking while leaving the local file intact;
+  - expanded `.gitignore` for OS, Python, dbt, logs, caches, and local env
+    artifacts;
+  - normalized `.env.example` keys to uppercase underscore names for shell,
+    Docker Compose, Python, and dbt compatibility;
+  - synchronized Gemini status tracking with current Phase 0 review state.
 
 ---
 
 ## Current Work
 
-Repository preparation for private publication.
+Phase 0 complete. Awaiting human gate authorization to start Phase 1.
 
 ---
 
 ## Tests
 
-No code tests executed. Repository metadata was inspected with `git status` and
-`git remote -v`.
+No code tests executed because implementation has not started.
+
+Phase 0 P1 fix verification executed:
+
+- `git rm --cached .DS_Store`
+- `git check-ignore -v .env .DS_Store target/ dbt_packages/ logs/ .pytest_cache/ __pycache__/example.pyc`
+- `git ls-files .DS_Store`
+- `.env.example` key-name validation for uppercase underscore format
+- tracked-file secret-pattern scan excluding `.env`
 
 ---
 
 ## Known Issues
 
-None identified.
+None currently identified for Phase 0 after P1 fixes. README.md remains a
+finished-state target document, and Phase 1 implementation artifacts are not
+expected to exist yet.
 
 ---
 
@@ -74,27 +90,26 @@ None identified.
 
 ## Decisions Required
 
-None currently.
+Gemini re-review is required to confirm P1 fixes are accepted.
 
 ---
 
 ## Last Codex Update
 
-2026-08-16 12:58:26 EDT — Enabled Python terminal env-file loading and aligned
-Gemini-specific docs and .env.example placeholders.
+2026-08-16 13:49:25 EDT — Fixed Gemini Phase 0 P1 findings and prepared for
+Gemini re-review.
 
 ---
 
 ## Last Gemini Review
 
-Not started.
+2026-08-16 13:55:00 EDT — Completed Phase 0 P1 re-review. Assessment: PASS. Verified `.DS_Store` untracked, `.gitignore` standard development patterns, `.env.example` uppercase underscore variable naming, and status tracking synchronization.
 
 ---
 
 ## Next Action
 
-Publish the private GitHub repository, then begin Phase 0 repository audit when
-authorized.
+Request human authorization to start Phase 1 (Docker + PostgreSQL + Synthetic Data).
 
 ---
 
