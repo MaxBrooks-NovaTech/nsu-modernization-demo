@@ -85,7 +85,7 @@ Gemini-specific docs and .env.example placeholders.
 
 ---
 
-## Last Claude Review
+## Last Gemini Review
 
 Not started.
 
