@@ -3,16 +3,21 @@
 # Codex -> Gemini Handoff
 
 ## Phase
-PHASE 4
+PHASE 5
 ## Status
 IMPLEMENTED AND TESTED — READY FOR GEMINI REVIEW
 
 ## Objective
-Implement and validate the human-approved Phase 4 lineage map, certification release catalog, and actionable contract change detection without expanding into Power BI or final documentation phases.
+Implement and validate the human-approved Phase 5 Power BI/PBIP artifacts for the three required report experiences without fabricating unavailable Power BI Desktop outputs.
 
 ---
 
 ## Implemented
+- Confirmed Gemini Phase 4 review verdict: PASS with 0 P0 and 0 P1 issues; one P2 suggestion was approved for Phase 5 handling.
+- Commenced Phase 5 under explicit human authorization.
+- Added `powerbi/README.md` documenting the PBIP specifications, report targets, and unavoidable Power BI Desktop manual step.
+- Added source-controlled report specifications for Executive Enrollment & Admissions, Institutional Data Trust, and Data Lineage & Certification.
+- Connected the specifications to certified marts, semantic definitions, lineage, and certification metadata.
 - Human approved proceeding after Gemini returned Phase 3 PASS with only P2 suggestions.
 - Added `docs/phase4/lineage.md` with source-to-transformation-to-model-to-semantic-to-consumer lineage and impact analysis.
 - Added `certification/catalog.yml` with owner, steward, definitions, tests, lineage, approval, status, version, and consumers for three certified products.
@@ -210,18 +215,18 @@ P1 fix verification executed:
 ## Known Issues
 - Docker Desktop's credential helper was not on the shell `PATH`; validation used `/Applications/Docker.app/Contents/Resources` in `PATH` without changing user configuration.
 - The default host port `5432` is occupied on this machine; use the documented `POSTGRES_PORT=55432` override locally when needed.
-- The lineage map and certification catalog are source-controlled demonstration artifacts; live platform metadata integration remains out of scope.
-- Power BI/PBIP work remains for Phase 5.
+- Power BI Desktop is unavailable on this macOS environment; actual `.pbip`, `.pbix`, and rendered screenshot generation remains a documented manual step.
+- No Power BI artifact is claimed beyond the checked-in specifications.
 
 ---
 
 ## Blockers
-None for Phase 4 implementation. Gemini review is requested.
+None for the Phase 5 specification implementation. Gemini review is requested.
 
 ---
 
 ## Decisions Needed
-Gemini review of Phase 4 is requested. Do not begin Phase 5 until review and the applicable human governance gate are complete.
+Gemini review of Phase 5 is requested. Do not begin Phase 6 until review and the applicable human governance gate are complete.
 
 ---
 
@@ -241,9 +246,9 @@ Verification included:
 ---
 
 ## Recommended Next Action
-Gemini should review `docs/phase4/lineage.md`, `certification/catalog.yml`, and `scripts/check_contract_changes.py` against the Phase 4 requirements and execute the documented tests.
+Gemini should review the three `powerbi/*/report-spec.yml` files and `powerbi/README.md` against the Phase 5 requirements, with particular attention to direct reflection of the Phase 4 certification and lineage metadata.
 
 ---
 
 ## Human Gate
-Phase 4 implementation gate reached. Stop before Phase 5 until Gemini review and the applicable human governance gate are complete.
+Phase 5 implementation gate reached. Stop before Phase 6 until Gemini review and the applicable human governance gate are complete.

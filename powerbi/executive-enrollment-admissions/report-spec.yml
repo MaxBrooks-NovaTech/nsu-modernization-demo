@@ -1,0 +1,30 @@
+report_name: Executive Enrollment & Admissions
+artifact_type: PBIP specification
+status: specification-ready
+source_models:
+  - analytics.FactEnrollment
+  - analytics.fact_recruitment_funnel
+semantic_definitions:
+  - applications
+  - admits
+  - deposits
+  - enrolled
+  - yield
+pages:
+  - name: Executive Enrollment & Admissions
+    purpose: Show the governed recruitment funnel and active registration volume.
+    visuals:
+      - type: card
+        metric: applications
+      - type: card
+        metric: admits
+      - type: card
+        metric: deposits
+      - type: card
+        metric: enrolled
+      - type: funnel
+        metric: yield
+      - type: column_chart
+        axis: school_name
+        value: enrolled
+    slicers: [term_name, school_name, program_name]

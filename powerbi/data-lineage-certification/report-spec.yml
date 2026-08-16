@@ -1,0 +1,20 @@
+report_name: Data Lineage & Certification
+artifact_type: PBIP specification
+status: specification-ready
+metadata_sources:
+  - docs/phase4/lineage.md
+  - certification/catalog.yml
+  - semantic/metric_definitions.yml
+pages:
+  - name: Data Lineage & Certification
+    purpose: Explain how source changes affect certified products and consumers.
+    visuals:
+      - type: flow
+        stages:
+          [source, transformation, certified_model, semantic_definition, report]
+      - type: table
+        fields:
+          [product, source_entities, model, semantic_definitions, consumers]
+      - type: table
+        fields: [product, owner, steward, version, status, approval]
+    slicers: [product, consumer, status]

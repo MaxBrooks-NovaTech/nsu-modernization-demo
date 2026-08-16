@@ -1,0 +1,25 @@
+report_name: Institutional Data Trust
+artifact_type: PBIP specification
+status: specification-ready
+source_models:
+  - analytics.FactEnrollment
+  - analytics.fact_recruitment_funnel
+  - analytics.fact_census_enrollment
+metadata_sources:
+  - certification/catalog.yml
+  - docs/phase4/lineage.md
+pages:
+  - name: Institutional Data Trust
+    purpose: Make quality, freshness, ownership, and certification visible to consumers.
+    visuals:
+      - type: card
+        label: Certification status
+        value: Certified
+      - type: card
+        label: Release gate
+        value: Enabled
+      - type: table
+        fields: [product, model, version, owner, steward, status, last_reviewed]
+      - type: table
+        fields: [test_name, result, evidence]
+    slicers: [product, status]
