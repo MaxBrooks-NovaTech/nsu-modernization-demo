@@ -362,7 +362,6 @@ Build
 
 ## Documentation and Demo
 - [Architecture](docs/architecture.md)
-- [Data dictionary](docs/data-dictionary.md)
 - [Setup](docs/setup.md)
 - [Data dictionary](docs/data-dictionary.md)
 - [Interview demo runbook](docs/demo.md)

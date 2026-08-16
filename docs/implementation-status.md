@@ -6,7 +6,7 @@ PHASE 6 — DOCUMENTATION + DEMO COMPLETE AND CLAUDE-REVIEWED
 
 ## Overall Status
 
-PHASE 6 PASSED WITH CONDITIONS (0 P0, 1 P1 — fixed and re-verified in this review). PAUSED BEFORE PHASE 7 — awaiting explicit human instruction to begin.
+PHASE 6 PASSED, CONFIRMED ON RE-REVIEW (0 P0, 0 open P1, 0 blocking P2). Committed as `3ddea2b` ("Phase 6 build complete, review complete, P1 complete and 1 P2 left undone because it's outside of demo scope. Human approved"), pushed to `origin/main`. PAUSED BEFORE PHASE 7 — awaiting explicit human instruction to begin.
 
 ## Authorized Scope
 
@@ -23,7 +23,7 @@ authorized phase range.
 | 3 — Semantic + Contracts + Quality  | PASSED (re-verified by Claude)             |
 | 4 — Lineage + Certification         | PASSED (re-verified by Claude)             |
 | 5 — Power BI / PBIP                 | PASSED (Claude-reviewed, human-approved)   |
-| 6 — Documentation + Demo            | PASSED (Claude-reviewed, 1 P1 fixed)       |
+| 6 — Documentation + Demo            | PASSED, confirmed on re-review             |
 | 7 — Final QA                        | NOT STARTED                                |
 
 ---
@@ -81,13 +81,21 @@ authorized phase range.
 
 ## Current Work
 
-Phase 6 P1/P2 follow-up is implemented: the demo runbook now contains an executable breaking-change example, and the existing data dictionary is linked from the architecture and README. Claude re-review is requested. Phase 7 (Final QA) has not started.
+Phase 6 is complete and confirmed on re-review: the demo runbook's breaking-change example was independently re-run and matches its documented claim exactly, the data dictionary is linked from both README and architecture.md, and a trivial duplicate-line defect in README (the "Data dictionary" link listed twice) was found and fixed. Fully committed and pushed (`3ddea2b`). Phase 7 (Final QA) has not started.
 
 ---
 
 ## Tests
 
-Claude Phase 6 review verification executed 2026-08-16:
+Claude Phase 6 re-review verification executed 2026-08-16:
+
+- Ran the exact breaking-change example script from `docs/demo.md` step 9 verbatim — correctly detected `breaking: required field removed: registration_id`, exit code 1.
+- Confirmed `docs/data-dictionary.md` is linked from both `README.md` and `docs/architecture.md`.
+- `git diff --check HEAD~1 HEAD` — clean.
+- Re-ran `dbt source freshness` (11/11) and `dbt build` (62/62, 0 errors, 0 warnings) against the committed state — unchanged and passing.
+- Found and fixed a duplicate "Data dictionary" link line in `README.md` (cosmetic, not a broken link or false claim).
+
+Claude Phase 6 initial review verification executed 2026-08-16:
 
 - `dbt debug` — passed, connection OK.
 - `POSTGRES_PORT=55432 bash scripts/reset_phase1.sh` — passed; destroyed and recreated the Docker volume, reloaded all 11 raw tables with exact expected row counts (12 schools, 36 programs, 240 students, 6 terms, 432 sections, 300 applications, 201 admissions, 109 deposits, 2148 registrations, 1074 census rows, 24 budget rows).
@@ -142,13 +150,13 @@ None. Phase 6 is reviewed and passed. Phase 7 (Final QA) may begin once the huma
 
 ## Last Codex Update
 
-2026-08-16 — Implemented Phase 6 documentation/demo artifacts (`docs/architecture.md`, `docs/setup.md`, `docs/demo.md`) and validated required links and runbook commands.
+2026-08-16 — Implemented Phase 6 documentation/demo artifacts, then the P1/P2 follow-up (executable breaking-change example in `docs/demo.md`, data-dictionary link in `docs/architecture.md`); committed as `3ddea2b` with human approval. One P2 (CI documentation-link checking) intentionally left unimplemented as out of scope.
 
 ---
 
 ## Last Claude / Gemini Review
 
-2026-08-16 — Claude independent review of Phase 6 completed: reproduced the full documented setup/demo flow from a clean reset through a passing `dbt build`, verified all README documentation links, and found/fixed one P1 (missing data dictionary, required by `CODEX_IMPLEMENTATION_SPEC.md` §14). Verdict: **PASSED** (0 P0, 0 open P1, P2s recorded separately). Detailed report recorded in `docs/handoff/claude-review.md`.
+2026-08-16 — Claude re-review of Phase 6 completed after Codex's P1/P2 follow-up: independently re-ran the breaking-change example (matches documented claim exactly), confirmed the data-dictionary link in both README and architecture.md, re-ran `dbt source freshness`/`dbt build` against the committed state, and found/fixed one trivial defect (a duplicated "Data dictionary" link line in README). Verdict: **PASSED, confirmed** (0 P0, 0 open P1, 0 blocking P2). Detailed report recorded in `docs/handoff/claude-review.md`.
 
 ---
 

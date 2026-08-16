@@ -242,3 +242,31 @@ Rather than re-running commands against the already-loaded database (which would
 Phase 6 (Documentation + Demo) independently re-verifies as PASS against `docs/CODEX_IMPLEMENTATION_SPEC.md` §14 and `docs/CLAUDE_REVIEW_SPEC.md` §13–14. The data dictionary and executable change-control example are present, and the demo flow was proven reproducible from a clean state. One optional CI link-checking suggestion remains intentionally unimplemented. Do not begin Phase 7 until the human explicitly authorizes it — this verdict closes Phase 6, it does not auto-start Phase 7.
 
 *Claude review of Phase 6 complete. Phase 6: PASSED. Ready for the human to authorize Phase 7 whenever desired.*
+
+---
+---
+
+# PHASE 6 RE-REVIEW — P1/P2 Follow-up
+
+## Review Date
+
+2026-08-16 (repository at commit `3ddea2b`, "Phase 6 build complete, review complete, P1 complete and 1 P2 left undone because it's outside of demo scope. Human approved" — clean working tree, fully committed)
+
+## Independently Verified
+
+1. **Breaking-change example (`docs/demo.md` step 9)** — ran the exact script verbatim as written in the doc (copy contract, strip `registration_id` from `required_fields`, run `scripts/check_contract_changes.py`). Result: `breaking: required field removed: registration_id`, exit code `1` — matches the doc's claim exactly.
+2. **Data dictionary linkage** — `docs/data-dictionary.md` is linked from both `README.md` and `docs/architecture.md` (architecture: "Governance controls" bullet list).
+3. **`git diff --check` equivalent** (`git diff --check HEAD~1 HEAD`) — clean, no whitespace errors.
+4. Re-ran `dbt source freshness` (11/11) and `dbt build` (62/62, 0 errors, 0 warnings) against the committed state — unchanged and still passing.
+5. **Found and fixed one trivial defect**: README's "Documentation and Demo" section listed "Data dictionary" twice (lines 365 and 367 — a duplicate-line artifact from the earlier edit). Removed the duplicate. Not a P1 — pure cosmetic duplication, no broken link, no false claim — but fixed since it was a one-line, zero-risk correction.
+
+## P2 Disposition
+
+- **P2-1 (executable breaking-change example)**: resolved — `docs/demo.md` step 9 now has a copy-pasteable script, independently verified above.
+- **P2-2 (automated CI documentation-link checking)**: intentionally left unimplemented. Agreed this is reasonable — it's infrastructure overhead disproportionate to an interview-demo repository, and all links were verified manually in this and the prior review. Not a blocker.
+
+## Verdict
+
+**PASSED — confirmed on re-review.** 0 P0, 0 open P1, 0 blocking P2. Phase 6 is complete, independently re-verified twice (initial review + this follow-up), and fully committed (`3ddea2b`) with a clean working tree. Phase 7 (Final QA) has not started and should begin only on explicit human instruction.
+
+*Claude re-review of Phase 6 complete. Phase 6: PASSED, confirmed. Waiting for the human to authorize Phase 7.*
