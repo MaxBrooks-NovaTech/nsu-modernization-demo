@@ -17,6 +17,7 @@ quality:
       accepted_registration_status,
       composite_grain,
       relationships,
+      minimum_row_count,
     ]
   minimum_row_count: 1
 required_fields:

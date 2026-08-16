@@ -15,6 +15,7 @@ products:
       - dbt build
       - tests/fact_enrollment_grain.sql
       - tests/fact_enrollment_business_rules.sql
+      - tests/fact_enrollment_minimum_row_count.sql
     lineage: docs/phase4/lineage.md
     semantic_definitions:
       - enrolled

@@ -15,7 +15,8 @@ DROP TABLE IF EXISTS raw.schools CASCADE;
 CREATE TABLE raw.schools (
     school_id text PRIMARY KEY,
     school_name text NOT NULL,
-    school_code text NOT NULL UNIQUE
+    school_code text NOT NULL UNIQUE,
+    loaded_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE raw.programs (
@@ -23,7 +24,8 @@ CREATE TABLE raw.programs (
     school_id text NOT NULL REFERENCES raw.schools (school_id),
     program_name text NOT NULL,
     degree_level text NOT NULL,
-    cip_code text NOT NULL
+    cip_code text NOT NULL,
+    loaded_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE raw.terms (
@@ -32,7 +34,8 @@ CREATE TABLE raw.terms (
     academic_year text NOT NULL,
     term_start_date date NOT NULL,
     census_date date NOT NULL,
-    term_end_date date NOT NULL
+    term_end_date date NOT NULL,
+    loaded_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE raw.students (
@@ -42,7 +45,8 @@ CREATE TABLE raw.students (
     entry_term_id text NOT NULL REFERENCES raw.terms (term_id),
     admit_school_id text NOT NULL REFERENCES raw.schools (school_id),
     admit_program_id text NOT NULL REFERENCES raw.programs (program_id),
-    synthetic_birth_year integer NOT NULL
+    synthetic_birth_year integer NOT NULL,
+    loaded_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE raw.course_sections (
@@ -54,7 +58,8 @@ CREATE TABLE raw.course_sections (
     section_number text NOT NULL,
     modality text NOT NULL,
     capacity integer NOT NULL,
-    UNIQUE (term_id, program_id, course_code, section_number)
+    UNIQUE (term_id, program_id, course_code, section_number),
+    loaded_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE raw.applications (
@@ -64,14 +69,16 @@ CREATE TABLE raw.applications (
     school_id text NOT NULL REFERENCES raw.schools (school_id),
     program_id text NOT NULL REFERENCES raw.programs (program_id),
     application_date date NOT NULL,
-    application_status text NOT NULL
+    application_status text NOT NULL,
+    loaded_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE raw.admissions (
     admission_id text PRIMARY KEY,
     application_id text NOT NULL UNIQUE REFERENCES raw.applications (application_id),
     decision_date date NOT NULL,
-    decision_status text NOT NULL
+    decision_status text NOT NULL,
+    loaded_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE raw.deposits (
@@ -79,7 +86,8 @@ CREATE TABLE raw.deposits (
     admission_id text NOT NULL UNIQUE REFERENCES raw.admissions (admission_id),
     deposit_date date NOT NULL,
     deposit_status text NOT NULL,
-    deposit_amount numeric(10, 2) NOT NULL
+    deposit_amount numeric(10, 2) NOT NULL,
+    loaded_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE raw.registrations (
@@ -91,7 +99,8 @@ CREATE TABLE raw.registrations (
     registration_status text NOT NULL,
     credit_hours numeric(4, 1) NOT NULL,
     grade_mode text NOT NULL,
-    UNIQUE (student_id, section_id, term_id)
+    UNIQUE (student_id, section_id, term_id),
+    loaded_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE raw.enrollment_census (
@@ -104,7 +113,8 @@ CREATE TABLE raw.enrollment_census (
     ipeds_enrolled_flag boolean NOT NULL,
     total_credit_hours numeric(5, 1) NOT NULL,
     enrollment_status text NOT NULL,
-    UNIQUE (student_id, term_id)
+    UNIQUE (student_id, term_id),
+    loaded_at timestamptz NOT NULL DEFAULT now()
 );
 
 CREATE TABLE raw.budget_actuals (
@@ -115,5 +125,6 @@ CREATE TABLE raw.budget_actuals (
     revenue_actual numeric(12, 2) NOT NULL,
     expense_budget numeric(12, 2) NOT NULL,
     expense_actual numeric(12, 2) NOT NULL,
-    UNIQUE (fiscal_year, school_id)
+    UNIQUE (fiscal_year, school_id),
+    loaded_at timestamptz NOT NULL DEFAULT now()
 );

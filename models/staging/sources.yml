@@ -3,6 +3,10 @@ sources:
   - name: raw
     schema: raw
     description: Synthetic source-style tables loaded by the Phase 1 PostgreSQL foundation.
+    freshness:
+      warn_after: {count: 18, period: hour}
+      error_after: {count: 24, period: hour}
+    loaded_at_field: loaded_at
     tables:
       - name: schools
         columns:

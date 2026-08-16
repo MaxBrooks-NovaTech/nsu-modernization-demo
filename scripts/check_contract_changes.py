@@ -20,10 +20,53 @@ def extract_contract(data: dict) -> dict:
     return data
 
 
+def compare_metrics(old_metrics: dict, new_metrics: dict) -> list[str]:
+    """Compare semantic metric definitions (semantic/metric_definitions.yml style)."""
+    changes: list[str] = []
+    old_names = set(old_metrics or {})
+    new_names = set(new_metrics or {})
+
+    for name in sorted(old_names - new_names):
+        changes.append(f"breaking: certified metric removed: {name}")
+    for name in sorted(new_names - old_names):
+        changes.append(f"info: new metric added: {name}")
+
+    for name in sorted(old_names & new_names):
+        old_metric = old_metrics[name] or {}
+        new_metric = new_metrics[name] or {}
+        was_certified = old_metric.get("certification_status") == "Certified"
+
+        if was_certified and old_metric.get("calculation") != new_metric.get("calculation"):
+            changes.append(f"breaking: certified metric calculation changed: {name}")
+        if was_certified and old_metric.get("grain") != new_metric.get("grain"):
+            changes.append(f"breaking: certified metric grain changed: {name}")
+
+        old_status = old_metric.get("certification_status")
+        new_status = new_metric.get("certification_status")
+        if old_status != new_status:
+            if was_certified:
+                changes.append(
+                    f"breaking: certified metric status changed: {name} ('{old_status}' -> '{new_status}')"
+                )
+            else:
+                changes.append(
+                    f"info: metric certification status changed: {name} ('{old_status}' -> '{new_status}')"
+                )
+
+        if old_metric.get("definition") != new_metric.get("definition"):
+            changes.append(f"info: metric description changed: {name}")
+
+    return changes
+
+
 def compare(before: dict, after: dict) -> list[str]:
     changes: list[str] = []
     old = extract_contract(before)
     new = extract_contract(after)
+
+    # 0. Semantic metric definition documents (e.g. semantic/metric_definitions.yml)
+    if "metrics" in old or "metrics" in new:
+        return compare_metrics(old.get("metrics", {}), new.get("metrics", {}))
 
     # 1. Required fields comparison
     old_fields = set(old.get("required_fields", []) or [])
@@ -50,7 +93,15 @@ def compare(before: dict, after: dict) -> list[str]:
         for test in sorted(old_tests - new_tests):
             changes.append(f"breaking: required quality test removed: {test}")
 
-    # 4. Breaking change rules comparison
+    # 4. Certification status comparison
+    old_status = old.get("status")
+    new_status = new.get("status")
+    if old_status == "Certified" and new_status != "Certified":
+        changes.append(
+            f"breaking: certification status changed from '{old_status}' to '{new_status}'"
+        )
+
+    # 5. Breaking change rules comparison
     old_rules = old.get("breaking_change_rules", []) or []
     new_rules = new.get("breaking_change_rules", []) or []
     if old_rules != new_rules:
