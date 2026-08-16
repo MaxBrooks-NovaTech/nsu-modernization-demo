@@ -89,7 +89,7 @@ No changes were made to fact grain, semantic architecture, PostgreSQL schema, or
 - `docs/handoff/gemini-review.md` (the last Gemini review on record) states explicitly: *"Explicit Statement on Phase 5: Phase 5 (Power BI / PBIP) remains GATED. Codex must NOT proceed to Phase 5 until explicit human governance authorization is granted."* and *"Phase 5 Status: NOT AUTHORIZED / HOLD."*
 - `docs/implementation-status.md` (the Claude-authoritative status file, per `CLAUDE.md` §3) still reads, unmodified until this review: *"Phase 5 (Power BI / PBIP) is on HOLD awaiting explicit human governance authorization. Codex must stand by."*
 - Yet `docs/implementation-status-gemini.md` and `docs/handoff/codex-handoff.md` were updated to assert *"Human approved proceeding..."* / *"Commenced Phase 5 under explicit human authorization"* with no recorded who/when/how, and the Phase 5 `powerbi/*` artifacts were built and committed (`ab12374`).
-- Per `CLAUDE.md` §4 ("If two authoritative documents conflict: STOP. Document the conflict. Do not silently choose one.") this is exactly such a conflict. I am not treating it as a blocking STOP in this review because the current human instruction directing this review explicitly asked me to review "all work completed by Gemini through Phase 5," which is itself the highest-priority authority per §4 and functions as retroactive direction to proceed — but the underlying gap (a phase advance not evidenced by a recorded human decision) should be corrected going forward. **Recommend**: the human explicitly confirm (a sentence in `docs/implementation-status.md` is sufficient) that Phase 5 was authorized, so the audit trail is self-consistent. This matters specifically because the project's own interview narrative is "certification is a release gate" — an ungated phase advance inside a project about governed release gates is a credibility risk if raised in an interview.
+- Per `CLAUDE.md` §4 ("If two authoritative documents conflict: STOP. Document the conflict. Do not silently choose one.") this is exactly such a conflict. I am not treating it as a blocking STOP in this review because the current human instruction directing this review explicitly asked me to review "all work completed by Gemini through Phase 5," which is itself the highest-priority authority per §4 and functions as retroactive direction to proceed — but the underlying gap (a phase advance not evidenced by a recorded human decision) should be corrected going forward. **Recommend**: the human explicitly confirm (a sentence in `docs/implementation-status.md` is sufficient) that Phase 5 was authorized, so the audit trail is self-consistent. This matters specifically because the project's own narrative is "certification is a release gate" — an ungated phase advance inside a project about governed release gates is a credibility risk if raised in a stakeholder review.
 - **Resolution**: The human confirmed directly that commit `da65f14` ("Phase 4 build and review + human approval complete") carries the Phase 4 approval, and both `da65f14` and `ab12374` ("Claude has entered the chat for review of phase 5. Codex completed build for it") are authored and committed personally by the human (`MaxBrooks-BI <brooks.maxj@gmail.com>`, 2026-08-16 16:15:56 and 16:23:36 -0400) — i.e., the human's own git commits are the authorization record. This is a valid audit trail; the gap was that no handoff document pointed to it explicitly. Closed.
 
 **P1-2: Contract change detection could not detect certified-metric or logic changes (now fixed in this review).**
@@ -104,10 +104,10 @@ No changes were made to fact grain, semantic architecture, PostgreSQL schema, or
 
 #### P2 — Optional (not implemented, recorded for awareness only)
 
-- `certification/catalog.yml`'s "consumer impact" coverage is a flat `consumers:` list per product rather than a per-product narrative of what breaks downstream; `docs/phase4/lineage.md`'s "Impact analysis" section is a general statement rather than product-specific. Sufficient for interview-demo purposes; could be sharpened later.
+- `certification/catalog.yml`'s "consumer impact" coverage is a flat `consumers:` list per product rather than a per-product narrative of what breaks downstream; `docs/phase4/lineage.md`'s "Impact analysis" section is a general statement rather than product-specific. Sufficient for demo purposes; could be sharpened later.
 - The Power BI "Institutional Data Trust" spec's `table: fields: [test_name, result, evidence]` visual has no defined data source that would populate it in an actual PBIP build (expected, since Phase 5 is specification-only, not implemented — worth revisiting when/if a real PBIP is built in Phase 6+).
 - `check_contract_changes.py`'s generic "No breaking contract changes detected." message is slightly imprecise when comparing a semantic-metrics file rather than a contract file (cosmetic wording only).
-- No CI wiring (e.g., GitHub Actions) automatically runs `dbt build` and `check_contract_changes.py` on PRs. Reasonable for interview-demo scope; would be a natural Phase 6+ enhancement to mention in the interview narrative.
+- No CI wiring (e.g., GitHub Actions) automatically runs `dbt build` and `check_contract_changes.py` on PRs. Reasonable for demo scope; would be a natural Phase 6+ enhancement to mention in the project narrative.
 
 ---
 
@@ -128,7 +128,7 @@ No changes were made to fact grain, semantic architecture, PostgreSQL schema, or
 
 ---
 
-### Interview Readiness Review
+### Readiness Review
 
 The candidate can currently defend, with repository evidence:
 
@@ -179,7 +179,7 @@ Repository on top of commit `3a38969` ("file fixes for phase 5"), with Phase 6 d
 - `README.md` diff (new "Documentation and Demo" section, Gemini-review link)
 - `docs/handoff/codex-handoff.md` (Phase 6 handoff)
 - `docs/CODEX_IMPLEMENTATION_SPEC.md` §14 (Documentation requirements) and §17 (Phase 6 scope)
-- `docs/CLAUDE_REVIEW_SPEC.md` §13 (Documentation Review) and §14 (Interview Readiness Review)
+- `docs/CLAUDE_REVIEW_SPEC.md` §13 (Documentation Review) and §14 (Readiness Review)
 - Cross-checked `docs/architecture.md`'s "Governance controls" claims against actual `certification/catalog.yml`, `docs/phase4/lineage.md`, and `scripts/check_contract_changes.py` behavior verified in the Phase 3–5 review above.
 
 ### Tests Executed (Phase 6 Addendum)
@@ -208,12 +208,12 @@ Rather than re-running commands against the already-loaded database (which would
 
 **Missing data dictionary — FIXED.**
 
-`CODEX_IMPLEMENTATION_SPEC.md` §14 explicitly names "data dictionary" as one of the documentation artifacts to maintain, alongside README, architecture, setup, semantic definitions, contracts, lineage, certification, and demo instructions. Before this review, no such artifact existed — README's "Governed Semantic Definitions" section documents business metrics, but nothing documented the underlying mart columns (types, sources, nullability, which raw table each comes from). This matters for interview defensibility: if asked "walk me through the FactEnrollment schema" beyond the grain statement, there was no single reference to point to. Resolved via `docs/data-dictionary.md` (see above).
+`CODEX_IMPLEMENTATION_SPEC.md` §14 explicitly names "data dictionary" as one of the documentation artifacts to maintain, alongside README, architecture, setup, semantic definitions, contracts, lineage, certification, and demo instructions. Before this review, no such artifact existed — README's "Governed Semantic Definitions" section documents business metrics, but nothing documented the underlying mart columns (types, sources, nullability, which raw table each comes from). This matters for defensibility: if asked "walk me through the FactEnrollment schema" beyond the grain statement, there was no single reference to point to. Resolved via `docs/data-dictionary.md` (see above).
 
 #### P2 — Optional (Phase 6 Addendum)
 
 - `docs/demo.md` step 9 previously lacked a copy-pasteable example scenario; resolved by adding a temporary contract mutation and expected failing command.
-- No automated CI check that documentation links stay valid as the repo evolves. Not implemented; reasonable for interview-demo scope.
+- No automated CI check that documentation links stay valid as the repo evolves. Not implemented; reasonable for demo scope.
 
 ### Specification Compliance Summary (Phase 6 Addendum)
 
@@ -256,7 +256,7 @@ Phase 6 (Documentation + Demo) independently re-verifies as PASS against `docs/C
 ### P2 Disposition (Phase 6 Re-Review)
 
 - **P2-1 (executable breaking-change example)**: resolved — `docs/demo.md` step 9 now has a copy-pasteable script, independently verified above.
-- **P2-2 (automated CI documentation-link checking)**: intentionally left unimplemented. Agreed this is reasonable — it's infrastructure overhead disproportionate to an interview-demo repository, and all links were verified manually in this and the prior review. Not a blocker.
+- **P2-2 (automated CI documentation-link checking)**: intentionally left unimplemented. Agreed this is reasonable — it's infrastructure overhead disproportionate to a demo repository, and all links were verified manually in this and the prior review. Not a blocker.
 
 ### Phase 6 Re-Review Verdict
 
@@ -340,7 +340,7 @@ Everything outside the new PBIP artifact was independently re-verified and is ge
 
 Everything through Phase 6 (data foundation, dbt, fact grain, semantic definitions, contracts, quality, lineage, certification, change detection, documentation, demo runbook) is genuinely ready, independently re-verified multiple times across this review process, and reproducible from a clean state.
 
-**One condition remains before the project can be called fully ready**, and it is squarely in the P0 category this project's own guardrails exist to catch: the native Power BI artifact — the thing most likely to be opened and clicked through live in an interview — currently has no visuals on any page, and until this review's fixes, would have shown materially wrong numbers for every certified metric if it had been refreshed and demoed as committed. The connection/type/formula errors are now fixed at the text level; a human with Power BI Desktop access must (1) reopen this project to confirm it loads correctly against the corrected connection string, (2) build the actual visuals for all three pages per the `report-spec.yml` files, and (3) do a real refresh-and-click-through pass before presenting it — not before Phase 8 or any further build phase, since none is planned, but before this is represented to anyone as a finished, working Power BI deliverable.
+**One condition remains before the project can be called fully ready**, and it is squarely in the P0 category this project's own guardrails exist to catch: the native Power BI artifact — the thing most likely to be opened and clicked through live in a presentation — currently has no visuals on any page, and until this review's fixes, would have shown materially wrong numbers for every certified metric if it had been refreshed and demoed as committed. The connection/type/formula errors are now fixed at the text level; a human with Power BI Desktop access must (1) reopen this project to confirm it loads correctly against the corrected connection string, (2) build the actual visuals for all three pages per the `report-spec.yml` files, and (3) do a real refresh-and-click-through pass before presenting it — not before Phase 8 or any further build phase, since none is planned, but before this is represented to anyone as a finished, working Power BI deliverable.
 
 This is not a reason to distrust the rest of the project — the evidence strongly indicates the PBIP was created in a rush on limited Windows access, which is exactly the resource constraint this review flagged as worth planning around several turns ago. It is a reason not to sign off on it sight-unseen.
 
@@ -434,7 +434,7 @@ Human, directly: a beginner-friendly quickstart guide (Docker/Python/pip/venv se
 1. **`docs/quickstart.md`** — a from-scratch setup guide assuming no prior Docker/Python/dbt experience: Docker Desktop install and verification, Python/pip check-or-install (with the Windows "Add to PATH" checkbox called out, a common miss), venv creation, `pip install -r requirements.txt`, then the real demo steps through a passing `dbt build`, plus a troubleshooting table. Linked from README's Quick Start and Documentation sections.
 2. **`docs/images/dbt-build-log.png`** — a real captured `dbt build` run (not synthesized), rendered as a terminal-style block: model creation, `FactEnrollment`'s grain/quality tests, and the real `PASS=62 WARN=0 ERROR=0` summary line.
 3. **`docs/images/dashboard-quality-metrics-summary.png`** — test pass count and all 7 governed metrics with **current real values**, queried live from the database at generation time (`applications: 272`, `admits: 201`, `deposits: 109`, `yield: 54.2%`, `enrolled: 1,897`, `census_enrollment: 240`, `ipeds_enrollment: 240`) — computed using each metric's exact certified `calculation` from `semantic/metric_definitions.yml`, not approximated. Labeled directly on the image itself as a rendered mockup, not a native Power BI screenshot (Power BI Desktop is still unavailable on macOS). Both images documented in `docs/images/README.md` with how they were generated.
-4. **Untracked and gitignored, per explicit human request**: `max_instructions.md` (human operating/orchestration procedure), `vs_code_instructions.md` (VS Code + Codex extension setup), and `docs/demo.md` (the interview walkthrough). All three remain on disk locally, just no longer tracked in git or visible to anyone who clones the repository fresh.
+4. **Untracked and gitignored, per explicit human request**: `max_instructions.md` (human operating/orchestration procedure), `vs_code_instructions.md` (VS Code + Codex extension setup), and `docs/demo.md` (the walkthrough). All three remain on disk locally, just no longer tracked in git or visible to anyone who clones the repository fresh.
 5. **Fixed the resulting forward-facing references** so a fresh clone doesn't hit dead links: `README.md`'s "Documentation and Demo" section (was a markdown link to `docs/demo.md`, now plain text noting it's local-only) and `docs/quickstart.md`'s closing pointer (same treatment) and `docs/phase6/setup.md`'s artifact list. **Deliberately left untouched**: the many mentions of `docs/demo.md` inside this file's own historical Phase 6 review entries above, and inside `docs/implementation-status.md`'s dated "Completed Work" log — those are accurate records of what was true when written, and rewriting them would misrepresent the audit trail rather than clean it up.
 
 ### Verification (Third Follow-Up)

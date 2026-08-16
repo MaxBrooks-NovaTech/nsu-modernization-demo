@@ -1,6 +1,6 @@
 # CLAUDE_REVIEW_SPEC.md
 
-# NSU BI / Data Products Interview Demonstration
+# NSU BI / Data Products Demonstration
 # Independent Review Specification
 # Version 1.0
 
@@ -33,7 +33,7 @@ Every review should answer:
 7. Is quality measurable?
 8. Is certification meaningful?
 9. Is the architecture sustainable?
-10. Can the candidate defend it in an NSU interview?
+10. Can the presenter defend it to institutional stakeholders?
 
 ---
 
@@ -300,7 +300,7 @@ Documentation must describe what actually exists.
 
 ---
 
-## 14. INTERVIEW READINESS REVIEW
+## 14. READINESS REVIEW
 
 Evaluate whether the candidate can credibly explain:
 
@@ -329,7 +329,7 @@ Evaluate whether the candidate can credibly explain:
 - TCO;
 - value measurement.
 
-The interview prep specifically identifies questions around modernization
+The prep materials specifically identify questions around modernization
 without breaking existing systems, security before touching production
 student data, platform cost, downstream consumers, and conflicting
 numbers. Use those as adversarial review scenarios.
@@ -387,7 +387,7 @@ Final review must validate:
 [ ] Documentation is accurate.
 [ ] Demo is reproducible.
 [ ] No real NSU data exists.
-[ ] Interview narrative is defensible.
+[ ] Narrative is defensible.
 
 ---
 

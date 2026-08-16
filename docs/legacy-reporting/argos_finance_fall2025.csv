@@ -1,0 +1,2 @@
+report_source,report_owner,report_title,term,metric_label,value,filter_notes,last_modified_by,definition_documented
+Argos,Finance / Billing,Fall Billable Enrollment,Fall 2025,Enrolled Students,188,"distinct student IDs with credit_hours > 0; unclear whether Withdrawn students are still counted as billable",M. Petrov,No

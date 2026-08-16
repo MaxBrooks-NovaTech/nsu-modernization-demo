@@ -1,4 +1,4 @@
-# NSU BI / Data Products Interview Demonstration
+# NSU BI / Data Products Demonstration
 
 ## Current Phase
 
@@ -143,7 +143,7 @@ After authorized initial phase range.
 
 ### Gate 2
 
-Before final interview preparation.
+Before final preparation.
 
 ### Gate 3
 

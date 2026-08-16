@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This repository is an interview demonstration of a governed institutional BI data-product operating model. It is isolated, synthetic, and not an NSU production implementation.
+This repository is a demonstration of a governed institutional BI data-product operating model. It is isolated, synthetic, and not an NSU production implementation.
 
 ## End-to-end flow
 
@@ -20,7 +20,7 @@ Synthetic source-style extracts
 
 ## Current-state narrative
 
-SQL Server/Banner represents the conceptual source environment in the interview story. The runnable demonstration uses local PostgreSQL in Docker and never connects to NSU systems. This separation demonstrates modernization without breaking existing systems or exposing production student data.
+SQL Server/Banner represents the conceptual source environment in the project's narrative, with Evisions Argos (or an equivalent ad-hoc reporting tool) as the conceptual stand-in for the disconnected, self-service reporting layer that typically grows up around Banner — many offices, many canned reports, no shared semantic layer. `docs/legacy-reporting/` makes that concrete with four real, differently-defined "enrollment" numbers computed against this demo's own data. The runnable demonstration uses local PostgreSQL in Docker and never connects to NSU systems. This separation demonstrates modernization without breaking existing systems or exposing production student data.
 
 ## Certified products
 
@@ -38,6 +38,7 @@ SQL Server/Banner represents the conceptual source environment in the interview 
 - `docs/phase4/lineage.md` documents source-to-report impact paths.
 - `docs/data-dictionary.md` documents certified mart columns, grain, sources, and quality coverage.
 - `scripts/check_contract_changes.py` detects breaking contract and certified-metric changes.
+- `docs/ferpa-ipeds-governance.md` maps existing controls (sensitivity classification, lineage, grain, change detection) to FERPA/IPEDS requirements.
 
 ## Boundaries
 

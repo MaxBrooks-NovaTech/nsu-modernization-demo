@@ -1,6 +1,6 @@
 # Phase 5 — Power BI / PBIP
 
-This directory contains both the source-controlled Power BI report specifications and a real native PBIP project for the interview demonstration.
+This directory contains both the source-controlled Power BI report specifications and a real native PBIP project for this demonstration.
 
 ## Contents
 

@@ -1,6 +1,6 @@
 # Phase 5 — Power BI / PBIP
 
-Phase 5 delivers the Power BI layer for the three required interview report experiences: Executive Enrollment & Admissions, Institutional Data Trust, and Data Lineage & Certification.
+Phase 5 delivers the Power BI layer for the three required report experiences: Executive Enrollment & Admissions, Institutional Data Trust, and Data Lineage & Certification.
 
 ## Purpose & Scope
 

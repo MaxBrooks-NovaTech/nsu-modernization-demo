@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document records the demonstrable source-to-consumption lineage for the synthetic NSU BI interview demonstration. The PostgreSQL database is local demonstration infrastructure, not NSU production.
+This document records the demonstrable source-to-consumption lineage for the synthetic NSU BI demonstration. The PostgreSQL database is local demonstration infrastructure, not NSU production.
 
 ## End-to-end lineage
 

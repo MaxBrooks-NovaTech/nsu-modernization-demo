@@ -1,6 +1,6 @@
 # AGENTS_WITH_GEMINI.md
 
-# NSU BI / Data Products Interview Demonstration
+# NSU BI / Data Products Demonstration
 # Codex Operating Instructions
 # Version 1.0
 
@@ -71,7 +71,7 @@ If present:
 
 docs/handoff/gemini-review.md
 
-The NSU interview preparation document is contextual reference material.
+The NSU preparation document is contextual reference material.
 
 ---
 
@@ -176,7 +176,7 @@ PostgreSQL is the demonstration database unless explicitly changed.
 Use Docker to avoid requiring the user to manage PostgreSQL manually.
 
 SQL Server is the conceptual/current-state source environment for the
-interview narrative.
+project narrative.
 
 Do not imply that the demonstration PostgreSQL instance is NSU's
 production database.
@@ -302,7 +302,7 @@ if a human decision is required.
 
 ## 16. FINAL OBJECTIVE
 
-Build a working, reproducible, interview-ready demonstration.
+Build a working, reproducible, presentation-ready demonstration.
 
 Prefer:
 
@@ -310,4 +310,4 @@ working > elegant
 reproducible > sophisticated
 governed > clever
 defensible > exhaustive
-interview-ready > production-grade
+presentation-ready > production-grade

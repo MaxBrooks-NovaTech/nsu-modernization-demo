@@ -1,0 +1,447 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1480 1336" width="1480" height="1336">
+<rect x="0" y="0" width="1480" height="1336" fill="#f7f8fa"/>
+<text x="40" y="30" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="20" font-weight="800" fill="#12203f">Transactional Data Model — raw schema (PostgreSQL)</text>
+<text x="40" y="52" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="12.5" fill="#666">11 tables, real primary/foreign keys from db/init/01_schema.sql. Blue = primary key, orange = foreign key.</text>
+<g transform="translate(0, 70)">
+<path d="M 170.0 260 C 170.0 260, 170.0 146, 170.0 146" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="170.0" cy="146" r="3" fill="#5b6b8c"/><circle cx="170.0" cy="260" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 700 396.0 C 940.0 396.0, 940.0 76.0, 1180 76.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="1180" cy="76.0" r="3" fill="#5b6b8c"/><circle cx="700" cy="396.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 440 416.0 C 370.0 416.0, 370.0 76.0, 300 76.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="300" cy="76.0" r="3" fill="#5b6b8c"/><circle cx="440" cy="416.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 440 436.0 C 370.0 436.0, 370.0 296.0, 300 296.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="300" cy="296.0" r="3" fill="#5b6b8c"/><circle cx="440" cy="436.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 1310.0 260 C 1310.0 260, 1310.0 206, 1310.0 206" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="1310.0" cy="206" r="3" fill="#5b6b8c"/><circle cx="1310.0" cy="260" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 1180 336.0 C 740.0 336.0, 740.0 76.0, 300 76.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="300" cy="76.0" r="3" fill="#5b6b8c"/><circle cx="1180" cy="336.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 1180 356.0 C 740.0 356.0, 740.0 296.0, 300 296.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="300" cy="296.0" r="3" fill="#5b6b8c"/><circle cx="1180" cy="356.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 300 676.0 C 370.0 676.0, 370.0 336.0, 440 336.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="440" cy="336.0" r="3" fill="#5b6b8c"/><circle cx="300" cy="676.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 300 696.0 C 740.0 696.0, 740.0 76.0, 1180 76.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="1180" cy="76.0" r="3" fill="#5b6b8c"/><circle cx="300" cy="696.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 170.0 620 C 170.0 620, 170.0 146, 170.0 146" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="170.0" cy="146" r="3" fill="#5b6b8c"/><circle cx="170.0" cy="620" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 170.0 620 C 170.0 620, 170.0 406, 170.0 406" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="170.0" cy="406" r="3" fill="#5b6b8c"/><circle cx="170.0" cy="620" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 170.0 900 C 170.0 900, 170.0 806, 170.0 806" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="170.0" cy="806" r="3" fill="#5b6b8c"/><circle cx="170.0" cy="900" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 170.0 1080 C 170.0 1080, 170.0 1026, 170.0 1026" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="170.0" cy="1026" r="3" fill="#5b6b8c"/><circle cx="170.0" cy="1080" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 570.0 700 C 570.0 700, 570.0 486, 570.0 486" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="570.0" cy="486" r="3" fill="#5b6b8c"/><circle cx="570.0" cy="700" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 700 776.0 C 940.0 776.0, 940.0 296.0, 1180 296.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="1180" cy="296.0" r="3" fill="#5b6b8c"/><circle cx="700" cy="776.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 700 796.0 C 940.0 796.0, 940.0 76.0, 1180 76.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="1180" cy="76.0" r="3" fill="#5b6b8c"/><circle cx="700" cy="796.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 840 756.0 C 770.0 756.0, 770.0 336.0, 700 336.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="700" cy="336.0" r="3" fill="#5b6b8c"/><circle cx="840" cy="756.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 1100 776.0 C 1140.0 776.0, 1140.0 76.0, 1180 76.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="1180" cy="76.0" r="3" fill="#5b6b8c"/><circle cx="1100" cy="776.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 840 796.0 C 570.0 796.0, 570.0 76.0, 300 76.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="300" cy="76.0" r="3" fill="#5b6b8c"/><circle cx="840" cy="796.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 840 816.0 C 570.0 816.0, 570.0 296.0, 300 296.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="300" cy="296.0" r="3" fill="#5b6b8c"/><circle cx="840" cy="816.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<path d="M 1180 696.0 C 740.0 696.0, 740.0 76.0, 300 76.0" fill="none" stroke="#5b6b8c" stroke-width="1.4" opacity="0.75"/><circle cx="300" cy="76.0" r="3" fill="#5b6b8c"/><circle cx="1180" cy="696.0" r="2.5" fill="none" stroke="#5b6b8c" stroke-width="1.4"/>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="40" y="40" width="260" height="106" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="40" y="40" width="260" height="26" rx="6" fill="#12203f"/>
+<rect x="40" y="58" width="260" height="8" fill="#12203f"/>
+<text x="170.0" y="57.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">raw.schools</text>
+<rect x="40" y="66" width="260" height="20" fill="#eef4ff"/>
+<text x="50" y="80.0" fill="#1a1a1a" font-weight="700">school_id</text>
+<text x="290" y="80.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="80.0" fill="#a34c00" font-size="9.5" font-weight="700">PK</text>
+<line x1="40" y1="86" x2="300" y2="86" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="86" width="260" height="20" fill="#fbfbfc"/>
+<text x="50" y="100.0" fill="#1a1a1a" font-weight="400">school_name</text>
+<text x="290" y="100.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="40" y1="106" x2="300" y2="106" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="106" width="260" height="20" fill="#ffffff"/>
+<text x="50" y="120.0" fill="#1a1a1a" font-weight="400">school_code</text>
+<text x="290" y="120.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="120.0" fill="#a34c00" font-size="9.5" font-weight="700">UQ</text>
+<line x1="40" y1="126" x2="300" y2="126" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="126" width="260" height="20" fill="#fbfbfc"/>
+<text x="50" y="140.0" fill="#1a1a1a" font-weight="400">loaded_at</text>
+<text x="290" y="140.0" fill="#888" font-size="10.5" text-anchor="end">timestamptz</text>
+<line x1="40" y1="146" x2="300" y2="146" stroke="#c7ccd6" stroke-width="0.6"/>
+</g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="1180" y="40" width="260" height="166" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="1180" y="40" width="260" height="26" rx="6" fill="#12203f"/>
+<rect x="1180" y="58" width="260" height="8" fill="#12203f"/>
+<text x="1310.0" y="57.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">raw.terms</text>
+<rect x="1180" y="66" width="260" height="20" fill="#eef4ff"/>
+<text x="1190" y="80.0" fill="#1a1a1a" font-weight="700">term_id</text>
+<text x="1430" y="80.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="1330" y="80.0" fill="#a34c00" font-size="9.5" font-weight="700">PK</text>
+<line x1="1180" y1="86" x2="1440" y2="86" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="86" width="260" height="20" fill="#fbfbfc"/>
+<text x="1190" y="100.0" fill="#1a1a1a" font-weight="400">term_name</text>
+<text x="1430" y="100.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="1180" y1="106" x2="1440" y2="106" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="106" width="260" height="20" fill="#ffffff"/>
+<text x="1190" y="120.0" fill="#1a1a1a" font-weight="400">academic_year</text>
+<text x="1430" y="120.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="1180" y1="126" x2="1440" y2="126" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="126" width="260" height="20" fill="#fbfbfc"/>
+<text x="1190" y="140.0" fill="#1a1a1a" font-weight="400">term_start_date</text>
+<text x="1430" y="140.0" fill="#888" font-size="10.5" text-anchor="end">date</text>
+<line x1="1180" y1="146" x2="1440" y2="146" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="146" width="260" height="20" fill="#ffffff"/>
+<text x="1190" y="160.0" fill="#1a1a1a" font-weight="400">census_date</text>
+<text x="1430" y="160.0" fill="#888" font-size="10.5" text-anchor="end">date</text>
+<line x1="1180" y1="166" x2="1440" y2="166" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="166" width="260" height="20" fill="#fbfbfc"/>
+<text x="1190" y="180.0" fill="#1a1a1a" font-weight="400">term_end_date</text>
+<text x="1430" y="180.0" fill="#888" font-size="10.5" text-anchor="end">date</text>
+<line x1="1180" y1="186" x2="1440" y2="186" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="186" width="260" height="20" fill="#ffffff"/>
+<text x="1190" y="200.0" fill="#1a1a1a" font-weight="400">loaded_at</text>
+<text x="1430" y="200.0" fill="#888" font-size="10.5" text-anchor="end">timestamptz</text>
+<line x1="1180" y1="206" x2="1440" y2="206" stroke="#c7ccd6" stroke-width="0.6"/>
+</g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="40" y="260" width="260" height="146" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="40" y="260" width="260" height="26" rx="6" fill="#12203f"/>
+<rect x="40" y="278" width="260" height="8" fill="#12203f"/>
+<text x="170.0" y="277.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">raw.programs</text>
+<rect x="40" y="286" width="260" height="20" fill="#eef4ff"/>
+<text x="50" y="300.0" fill="#1a1a1a" font-weight="700">program_id</text>
+<text x="290" y="300.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="300.0" fill="#a34c00" font-size="9.5" font-weight="700">PK</text>
+<line x1="40" y1="306" x2="300" y2="306" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="306" width="260" height="20" fill="#fff7e6"/>
+<text x="50" y="320.0" fill="#1a1a1a" font-weight="400">school_id</text>
+<text x="290" y="320.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="320.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="40" y1="326" x2="300" y2="326" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="326" width="260" height="20" fill="#ffffff"/>
+<text x="50" y="340.0" fill="#1a1a1a" font-weight="400">program_name</text>
+<text x="290" y="340.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="40" y1="346" x2="300" y2="346" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="346" width="260" height="20" fill="#fbfbfc"/>
+<text x="50" y="360.0" fill="#1a1a1a" font-weight="400">degree_level</text>
+<text x="290" y="360.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="40" y1="366" x2="300" y2="366" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="366" width="260" height="20" fill="#ffffff"/>
+<text x="50" y="380.0" fill="#1a1a1a" font-weight="400">cip_code</text>
+<text x="290" y="380.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="40" y1="386" x2="300" y2="386" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="386" width="260" height="20" fill="#fbfbfc"/>
+<text x="50" y="400.0" fill="#1a1a1a" font-weight="400">loaded_at</text>
+<text x="290" y="400.0" fill="#888" font-size="10.5" text-anchor="end">timestamptz</text>
+<line x1="40" y1="406" x2="300" y2="406" stroke="#c7ccd6" stroke-width="0.6"/>
+</g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="440" y="300" width="260" height="186" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="440" y="300" width="260" height="26" rx="6" fill="#12203f"/>
+<rect x="440" y="318" width="260" height="8" fill="#12203f"/>
+<text x="570.0" y="317.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">raw.students</text>
+<rect x="440" y="326" width="260" height="20" fill="#eef4ff"/>
+<text x="450" y="340.0" fill="#1a1a1a" font-weight="700">student_id</text>
+<text x="690" y="340.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="590" y="340.0" fill="#a34c00" font-size="9.5" font-weight="700">PK</text>
+<line x1="440" y1="346" x2="700" y2="346" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="346" width="260" height="20" fill="#fbfbfc"/>
+<text x="450" y="360.0" fill="#1a1a1a" font-weight="400">student_type</text>
+<text x="690" y="360.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="440" y1="366" x2="700" y2="366" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="366" width="260" height="20" fill="#ffffff"/>
+<text x="450" y="380.0" fill="#1a1a1a" font-weight="400">residency_status</text>
+<text x="690" y="380.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="440" y1="386" x2="700" y2="386" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="386" width="260" height="20" fill="#fff7e6"/>
+<text x="450" y="400.0" fill="#1a1a1a" font-weight="400">entry_term_id</text>
+<text x="690" y="400.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="590" y="400.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="440" y1="406" x2="700" y2="406" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="406" width="260" height="20" fill="#fff7e6"/>
+<text x="450" y="420.0" fill="#1a1a1a" font-weight="400">admit_school_id</text>
+<text x="690" y="420.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="590" y="420.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="440" y1="426" x2="700" y2="426" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="426" width="260" height="20" fill="#fff7e6"/>
+<text x="450" y="440.0" fill="#1a1a1a" font-weight="400">admit_program_id</text>
+<text x="690" y="440.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="590" y="440.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="440" y1="446" x2="700" y2="446" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="446" width="260" height="20" fill="#ffffff"/>
+<text x="450" y="460.0" fill="#1a1a1a" font-weight="400">synthetic_birth_year</text>
+<text x="690" y="460.0" fill="#888" font-size="10.5" text-anchor="end">integer</text>
+<line x1="440" y1="466" x2="700" y2="466" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="466" width="260" height="20" fill="#fbfbfc"/>
+<text x="450" y="480.0" fill="#1a1a1a" font-weight="400">loaded_at</text>
+<text x="690" y="480.0" fill="#888" font-size="10.5" text-anchor="end">timestamptz</text>
+<line x1="440" y1="486" x2="700" y2="486" stroke="#c7ccd6" stroke-width="0.6"/>
+</g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="1180" y="260" width="260" height="206" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="1180" y="260" width="260" height="26" rx="6" fill="#12203f"/>
+<rect x="1180" y="278" width="260" height="8" fill="#12203f"/>
+<text x="1310.0" y="277.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">raw.course_sections</text>
+<rect x="1180" y="286" width="260" height="20" fill="#eef4ff"/>
+<text x="1190" y="300.0" fill="#1a1a1a" font-weight="700">section_id</text>
+<text x="1430" y="300.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="1330" y="300.0" fill="#a34c00" font-size="9.5" font-weight="700">PK</text>
+<line x1="1180" y1="306" x2="1440" y2="306" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="306" width="260" height="20" fill="#fff7e6"/>
+<text x="1190" y="320.0" fill="#1a1a1a" font-weight="400">term_id</text>
+<text x="1430" y="320.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="1330" y="320.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="1180" y1="326" x2="1440" y2="326" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="326" width="260" height="20" fill="#fff7e6"/>
+<text x="1190" y="340.0" fill="#1a1a1a" font-weight="400">school_id</text>
+<text x="1430" y="340.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="1330" y="340.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="1180" y1="346" x2="1440" y2="346" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="346" width="260" height="20" fill="#fff7e6"/>
+<text x="1190" y="360.0" fill="#1a1a1a" font-weight="400">program_id</text>
+<text x="1430" y="360.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="1330" y="360.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="1180" y1="366" x2="1440" y2="366" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="366" width="260" height="20" fill="#ffffff"/>
+<text x="1190" y="380.0" fill="#1a1a1a" font-weight="400">course_code</text>
+<text x="1430" y="380.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="1180" y1="386" x2="1440" y2="386" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="386" width="260" height="20" fill="#fbfbfc"/>
+<text x="1190" y="400.0" fill="#1a1a1a" font-weight="400">section_number</text>
+<text x="1430" y="400.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="1180" y1="406" x2="1440" y2="406" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="406" width="260" height="20" fill="#ffffff"/>
+<text x="1190" y="420.0" fill="#1a1a1a" font-weight="400">modality</text>
+<text x="1430" y="420.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="1180" y1="426" x2="1440" y2="426" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="426" width="260" height="20" fill="#fbfbfc"/>
+<text x="1190" y="440.0" fill="#1a1a1a" font-weight="400">capacity</text>
+<text x="1430" y="440.0" fill="#888" font-size="10.5" text-anchor="end">integer</text>
+<line x1="1180" y1="446" x2="1440" y2="446" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="446" width="260" height="20" fill="#ffffff"/>
+<text x="1190" y="460.0" fill="#1a1a1a" font-weight="400">loaded_at</text>
+<text x="1430" y="460.0" fill="#888" font-size="10.5" text-anchor="end">timestamptz</text>
+<line x1="1180" y1="466" x2="1440" y2="466" stroke="#c7ccd6" stroke-width="0.6"/>
+</g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="40" y="620" width="260" height="186" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="40" y="620" width="260" height="26" rx="6" fill="#12203f"/>
+<rect x="40" y="638" width="260" height="8" fill="#12203f"/>
+<text x="170.0" y="637.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">raw.applications</text>
+<rect x="40" y="646" width="260" height="20" fill="#eef4ff"/>
+<text x="50" y="660.0" fill="#1a1a1a" font-weight="700">application_id</text>
+<text x="290" y="660.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="660.0" fill="#a34c00" font-size="9.5" font-weight="700">PK</text>
+<line x1="40" y1="666" x2="300" y2="666" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="666" width="260" height="20" fill="#fff7e6"/>
+<text x="50" y="680.0" fill="#1a1a1a" font-weight="400">student_id</text>
+<text x="290" y="680.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="680.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="40" y1="686" x2="300" y2="686" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="686" width="260" height="20" fill="#fff7e6"/>
+<text x="50" y="700.0" fill="#1a1a1a" font-weight="400">term_id</text>
+<text x="290" y="700.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="700.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="40" y1="706" x2="300" y2="706" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="706" width="260" height="20" fill="#fff7e6"/>
+<text x="50" y="720.0" fill="#1a1a1a" font-weight="400">school_id</text>
+<text x="290" y="720.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="720.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="40" y1="726" x2="300" y2="726" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="726" width="260" height="20" fill="#fff7e6"/>
+<text x="50" y="740.0" fill="#1a1a1a" font-weight="400">program_id</text>
+<text x="290" y="740.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="740.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="40" y1="746" x2="300" y2="746" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="746" width="260" height="20" fill="#fbfbfc"/>
+<text x="50" y="760.0" fill="#1a1a1a" font-weight="400">application_date</text>
+<text x="290" y="760.0" fill="#888" font-size="10.5" text-anchor="end">date</text>
+<line x1="40" y1="766" x2="300" y2="766" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="766" width="260" height="20" fill="#ffffff"/>
+<text x="50" y="780.0" fill="#1a1a1a" font-weight="400">application_status</text>
+<text x="290" y="780.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="40" y1="786" x2="300" y2="786" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="786" width="260" height="20" fill="#fbfbfc"/>
+<text x="50" y="800.0" fill="#1a1a1a" font-weight="400">loaded_at</text>
+<text x="290" y="800.0" fill="#888" font-size="10.5" text-anchor="end">timestamptz</text>
+<line x1="40" y1="806" x2="300" y2="806" stroke="#c7ccd6" stroke-width="0.6"/>
+</g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="440" y="700" width="260" height="206" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="440" y="700" width="260" height="26" rx="6" fill="#12203f"/>
+<rect x="440" y="718" width="260" height="8" fill="#12203f"/>
+<text x="570.0" y="717.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">raw.registrations</text>
+<rect x="440" y="726" width="260" height="20" fill="#eef4ff"/>
+<text x="450" y="740.0" fill="#1a1a1a" font-weight="700">registration_id</text>
+<text x="690" y="740.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="590" y="740.0" fill="#a34c00" font-size="9.5" font-weight="700">PK</text>
+<line x1="440" y1="746" x2="700" y2="746" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="746" width="260" height="20" fill="#fff7e6"/>
+<text x="450" y="760.0" fill="#1a1a1a" font-weight="400">student_id</text>
+<text x="690" y="760.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="590" y="760.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="440" y1="766" x2="700" y2="766" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="766" width="260" height="20" fill="#fff7e6"/>
+<text x="450" y="780.0" fill="#1a1a1a" font-weight="400">section_id</text>
+<text x="690" y="780.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="590" y="780.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="440" y1="786" x2="700" y2="786" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="786" width="260" height="20" fill="#fff7e6"/>
+<text x="450" y="800.0" fill="#1a1a1a" font-weight="400">term_id</text>
+<text x="690" y="800.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="590" y="800.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="440" y1="806" x2="700" y2="806" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="806" width="260" height="20" fill="#ffffff"/>
+<text x="450" y="820.0" fill="#1a1a1a" font-weight="400">registration_date</text>
+<text x="690" y="820.0" fill="#888" font-size="10.5" text-anchor="end">date</text>
+<line x1="440" y1="826" x2="700" y2="826" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="826" width="260" height="20" fill="#fbfbfc"/>
+<text x="450" y="840.0" fill="#1a1a1a" font-weight="400">registration_status</text>
+<text x="690" y="840.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="440" y1="846" x2="700" y2="846" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="846" width="260" height="20" fill="#ffffff"/>
+<text x="450" y="860.0" fill="#1a1a1a" font-weight="400">credit_hours</text>
+<text x="690" y="860.0" fill="#888" font-size="10.5" text-anchor="end">numeric(4,1)</text>
+<line x1="440" y1="866" x2="700" y2="866" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="866" width="260" height="20" fill="#fbfbfc"/>
+<text x="450" y="880.0" fill="#1a1a1a" font-weight="400">grade_mode</text>
+<text x="690" y="880.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="440" y1="886" x2="700" y2="886" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="440" y="886" width="260" height="20" fill="#ffffff"/>
+<text x="450" y="900.0" fill="#1a1a1a" font-weight="400">loaded_at</text>
+<text x="690" y="900.0" fill="#888" font-size="10.5" text-anchor="end">timestamptz</text>
+<line x1="440" y1="906" x2="700" y2="906" stroke="#c7ccd6" stroke-width="0.6"/>
+</g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="840" y="700" width="260" height="226" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="840" y="700" width="260" height="26" rx="6" fill="#12203f"/>
+<rect x="840" y="718" width="260" height="8" fill="#12203f"/>
+<text x="970.0" y="717.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">raw.enrollment_census</text>
+<rect x="840" y="726" width="260" height="20" fill="#eef4ff"/>
+<text x="850" y="740.0" fill="#1a1a1a" font-weight="700">enrollment_id</text>
+<text x="1090" y="740.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="990" y="740.0" fill="#a34c00" font-size="9.5" font-weight="700">PK</text>
+<line x1="840" y1="746" x2="1100" y2="746" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="840" y="746" width="260" height="20" fill="#fff7e6"/>
+<text x="850" y="760.0" fill="#1a1a1a" font-weight="400">student_id</text>
+<text x="1090" y="760.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="990" y="760.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="840" y1="766" x2="1100" y2="766" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="840" y="766" width="260" height="20" fill="#fff7e6"/>
+<text x="850" y="780.0" fill="#1a1a1a" font-weight="400">term_id</text>
+<text x="1090" y="780.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="990" y="780.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="840" y1="786" x2="1100" y2="786" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="840" y="786" width="260" height="20" fill="#fff7e6"/>
+<text x="850" y="800.0" fill="#1a1a1a" font-weight="400">school_id</text>
+<text x="1090" y="800.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="990" y="800.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="840" y1="806" x2="1100" y2="806" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="840" y="806" width="260" height="20" fill="#fff7e6"/>
+<text x="850" y="820.0" fill="#1a1a1a" font-weight="400">program_id</text>
+<text x="1090" y="820.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="990" y="820.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="840" y1="826" x2="1100" y2="826" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="840" y="826" width="260" height="20" fill="#fbfbfc"/>
+<text x="850" y="840.0" fill="#1a1a1a" font-weight="400">census_enrolled_flag</text>
+<text x="1090" y="840.0" fill="#888" font-size="10.5" text-anchor="end">boolean</text>
+<line x1="840" y1="846" x2="1100" y2="846" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="840" y="846" width="260" height="20" fill="#ffffff"/>
+<text x="850" y="860.0" fill="#1a1a1a" font-weight="400">ipeds_enrolled_flag</text>
+<text x="1090" y="860.0" fill="#888" font-size="10.5" text-anchor="end">boolean</text>
+<line x1="840" y1="866" x2="1100" y2="866" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="840" y="866" width="260" height="20" fill="#fbfbfc"/>
+<text x="850" y="880.0" fill="#1a1a1a" font-weight="400">total_credit_hours</text>
+<text x="1090" y="880.0" fill="#888" font-size="10.5" text-anchor="end">numeric(5,1)</text>
+<line x1="840" y1="886" x2="1100" y2="886" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="840" y="886" width="260" height="20" fill="#ffffff"/>
+<text x="850" y="900.0" fill="#1a1a1a" font-weight="400">enrollment_status</text>
+<text x="1090" y="900.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="840" y1="906" x2="1100" y2="906" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="840" y="906" width="260" height="20" fill="#fbfbfc"/>
+<text x="850" y="920.0" fill="#1a1a1a" font-weight="400">loaded_at</text>
+<text x="1090" y="920.0" fill="#888" font-size="10.5" text-anchor="end">timestamptz</text>
+<line x1="840" y1="926" x2="1100" y2="926" stroke="#c7ccd6" stroke-width="0.6"/>
+</g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="1180" y="620" width="260" height="186" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="1180" y="620" width="260" height="26" rx="6" fill="#12203f"/>
+<rect x="1180" y="638" width="260" height="8" fill="#12203f"/>
+<text x="1310.0" y="637.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">raw.budget_actuals</text>
+<rect x="1180" y="646" width="260" height="20" fill="#eef4ff"/>
+<text x="1190" y="660.0" fill="#1a1a1a" font-weight="700">budget_actual_id</text>
+<text x="1430" y="660.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="1330" y="660.0" fill="#a34c00" font-size="9.5" font-weight="700">PK</text>
+<line x1="1180" y1="666" x2="1440" y2="666" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="666" width="260" height="20" fill="#fbfbfc"/>
+<text x="1190" y="680.0" fill="#1a1a1a" font-weight="400">fiscal_year</text>
+<text x="1430" y="680.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="1180" y1="686" x2="1440" y2="686" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="686" width="260" height="20" fill="#fff7e6"/>
+<text x="1190" y="700.0" fill="#1a1a1a" font-weight="400">school_id</text>
+<text x="1430" y="700.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="1330" y="700.0" fill="#a34c00" font-size="9.5" font-weight="700">FK</text>
+<line x1="1180" y1="706" x2="1440" y2="706" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="706" width="260" height="20" fill="#fbfbfc"/>
+<text x="1190" y="720.0" fill="#1a1a1a" font-weight="400">revenue_budget</text>
+<text x="1430" y="720.0" fill="#888" font-size="10.5" text-anchor="end">numeric(12,2)</text>
+<line x1="1180" y1="726" x2="1440" y2="726" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="726" width="260" height="20" fill="#ffffff"/>
+<text x="1190" y="740.0" fill="#1a1a1a" font-weight="400">revenue_actual</text>
+<text x="1430" y="740.0" fill="#888" font-size="10.5" text-anchor="end">numeric(12,2)</text>
+<line x1="1180" y1="746" x2="1440" y2="746" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="746" width="260" height="20" fill="#fbfbfc"/>
+<text x="1190" y="760.0" fill="#1a1a1a" font-weight="400">expense_budget</text>
+<text x="1430" y="760.0" fill="#888" font-size="10.5" text-anchor="end">numeric(12,2)</text>
+<line x1="1180" y1="766" x2="1440" y2="766" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="766" width="260" height="20" fill="#ffffff"/>
+<text x="1190" y="780.0" fill="#1a1a1a" font-weight="400">expense_actual</text>
+<text x="1430" y="780.0" fill="#888" font-size="10.5" text-anchor="end">numeric(12,2)</text>
+<line x1="1180" y1="786" x2="1440" y2="786" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1180" y="786" width="260" height="20" fill="#fbfbfc"/>
+<text x="1190" y="800.0" fill="#1a1a1a" font-weight="400">loaded_at</text>
+<text x="1430" y="800.0" fill="#888" font-size="10.5" text-anchor="end">timestamptz</text>
+<line x1="1180" y1="806" x2="1440" y2="806" stroke="#c7ccd6" stroke-width="0.6"/>
+</g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="40" y="900" width="260" height="126" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="40" y="900" width="260" height="26" rx="6" fill="#12203f"/>
+<rect x="40" y="918" width="260" height="8" fill="#12203f"/>
+<text x="170.0" y="917.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">raw.admissions</text>
+<rect x="40" y="926" width="260" height="20" fill="#eef4ff"/>
+<text x="50" y="940.0" fill="#1a1a1a" font-weight="700">admission_id</text>
+<text x="290" y="940.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="940.0" fill="#a34c00" font-size="9.5" font-weight="700">PK</text>
+<line x1="40" y1="946" x2="300" y2="946" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="946" width="260" height="20" fill="#fff7e6"/>
+<text x="50" y="960.0" fill="#1a1a1a" font-weight="400">application_id</text>
+<text x="290" y="960.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="960.0" fill="#a34c00" font-size="9.5" font-weight="700">FK/UQ</text>
+<line x1="40" y1="966" x2="300" y2="966" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="966" width="260" height="20" fill="#ffffff"/>
+<text x="50" y="980.0" fill="#1a1a1a" font-weight="400">decision_date</text>
+<text x="290" y="980.0" fill="#888" font-size="10.5" text-anchor="end">date</text>
+<line x1="40" y1="986" x2="300" y2="986" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="986" width="260" height="20" fill="#fbfbfc"/>
+<text x="50" y="1000.0" fill="#1a1a1a" font-weight="400">decision_status</text>
+<text x="290" y="1000.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="40" y1="1006" x2="300" y2="1006" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="1006" width="260" height="20" fill="#ffffff"/>
+<text x="50" y="1020.0" fill="#1a1a1a" font-weight="400">loaded_at</text>
+<text x="290" y="1020.0" fill="#888" font-size="10.5" text-anchor="end">timestamptz</text>
+<line x1="40" y1="1026" x2="300" y2="1026" stroke="#c7ccd6" stroke-width="0.6"/>
+</g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="40" y="1080" width="260" height="146" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="40" y="1080" width="260" height="26" rx="6" fill="#12203f"/>
+<rect x="40" y="1098" width="260" height="8" fill="#12203f"/>
+<text x="170.0" y="1097.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">raw.deposits</text>
+<rect x="40" y="1106" width="260" height="20" fill="#eef4ff"/>
+<text x="50" y="1120.0" fill="#1a1a1a" font-weight="700">deposit_id</text>
+<text x="290" y="1120.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="1120.0" fill="#a34c00" font-size="9.5" font-weight="700">PK</text>
+<line x1="40" y1="1126" x2="300" y2="1126" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="1126" width="260" height="20" fill="#fff7e6"/>
+<text x="50" y="1140.0" fill="#1a1a1a" font-weight="400">admission_id</text>
+<text x="290" y="1140.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="190" y="1140.0" fill="#a34c00" font-size="9.5" font-weight="700">FK/UQ</text>
+<line x1="40" y1="1146" x2="300" y2="1146" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="1146" width="260" height="20" fill="#ffffff"/>
+<text x="50" y="1160.0" fill="#1a1a1a" font-weight="400">deposit_date</text>
+<text x="290" y="1160.0" fill="#888" font-size="10.5" text-anchor="end">date</text>
+<line x1="40" y1="1166" x2="300" y2="1166" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="1166" width="260" height="20" fill="#fbfbfc"/>
+<text x="50" y="1180.0" fill="#1a1a1a" font-weight="400">deposit_status</text>
+<text x="290" y="1180.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="40" y1="1186" x2="300" y2="1186" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="1186" width="260" height="20" fill="#ffffff"/>
+<text x="50" y="1200.0" fill="#1a1a1a" font-weight="400">deposit_amount</text>
+<text x="290" y="1200.0" fill="#888" font-size="10.5" text-anchor="end">numeric(10,2)</text>
+<line x1="40" y1="1206" x2="300" y2="1206" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="40" y="1206" width="260" height="20" fill="#fbfbfc"/>
+<text x="50" y="1220.0" fill="#1a1a1a" font-weight="400">loaded_at</text>
+<text x="290" y="1220.0" fill="#888" font-size="10.5" text-anchor="end">timestamptz</text>
+<line x1="40" y1="1226" x2="300" y2="1226" stroke="#c7ccd6" stroke-width="0.6"/>
+</g>
+</g>
+</svg>

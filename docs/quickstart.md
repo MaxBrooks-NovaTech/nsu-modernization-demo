@@ -122,7 +122,7 @@ Then open <http://localhost:8180/> in a browser to explore the data model, colum
 
 At this point you have a working local copy of the entire demo: a PostgreSQL database with realistic synthetic data, dbt models and passing tests, and browsable documentation. From here:
 
-- `docs/demo.md` — the interview walkthrough script (if present — it's a local-only file for the repository owner, not tracked in git).
+- `docs/demo.md` — the walkthrough script (if present — it's a local-only file for the repository owner, not tracked in git).
 - `docs/architecture.md` — how the pieces fit together.
 - `docs/images/` — screenshots if you'd rather look than run things live.
 - `PowerBIDashboard.md` (repository root, if present) — instructions for the Power BI portion, which requires Power BI Desktop on Windows separately.

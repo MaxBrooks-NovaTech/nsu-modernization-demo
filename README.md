@@ -1,6 +1,6 @@
 # NSU BI Modernization Demo
 
-A reproducible interview demonstration of a governed institutional BI and data
+A reproducible demonstration of a governed institutional BI and data
 products operating model.
 
 The demo shows how institutional data can move from source-system extracts into
@@ -30,7 +30,7 @@ It demonstrates:
   Power BI consumption
 - Change-management examples for schema, logic, dependency, metric, and grain
   changes
-- Power BI / PBIP-ready assets for interview walkthroughs
+- Power BI / PBIP-ready assets for project walkthroughs
 
 ## Architecture
 
@@ -49,7 +49,7 @@ Synthetic source data
 ```
 
 PostgreSQL is used as the local demonstration database. SQL Server remains the
-conceptual current-state source environment for the interview narrative.
+conceptual current-state source environment for the project narrative.
 
 ## Technology Stack
 
@@ -267,7 +267,7 @@ Source
   -> report
 ```
 
-This supports the interview narrative around moving from disconnected reporting
+This supports the narrative around moving from disconnected reporting
 logic to governed, traceable data products.
 
 ## Certification
@@ -314,7 +314,7 @@ than represented as automated.
 
 ## Demo Walkthrough
 
-A typical interview walkthrough:
+A typical walkthrough:
 
 1. Start with the modernization problem: many reports, many definitions, uneven
    trust.
@@ -368,10 +368,13 @@ Build
 - [Architecture](docs/architecture.md)
 - [Setup](docs/setup.md)
 - [Data dictionary](docs/data-dictionary.md)
-- Interview demo runbook: `docs/demo.md` (local-only; not tracked in git — see `.gitignore`)
+- Demo runbook: `docs/demo.md` (local-only; not tracked in git — see `.gitignore`)
 - [Visual evidence (dbt docs and PostgreSQL screenshots)](docs/images/README.md)
 - [Phase 4 lineage](docs/phase4/lineage.md)
 - [Certification catalog](certification/catalog.yml)
+- [Legacy reporting — the "before" picture](docs/legacy-reporting/README.md)
+- [FERPA and IPEDS governance](docs/ferpa-ipeds-governance.md)
+- [ER diagrams (transactional and analytics)](docs/er_diagrams/README.md)
 - [Power BI specifications](powerbi/README.md)
 - [Power BI dashboard build instructions](PowerBIDashboard.md) (local-only checklist; not tracked in git — see `.gitignore`)
 

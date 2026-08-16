@@ -1,0 +1,2 @@
+report_source,report_owner,report_title,term,metric_label,value,filter_notes,last_modified_by,definition_documented
+Argos,Enrollment Management,Fall Headcount Dashboard,Fall 2025,Enrolled Students,188,"distinct student IDs with any registration row this term; drops not excluded because report predates a Registrar policy change",R. Okafor,No

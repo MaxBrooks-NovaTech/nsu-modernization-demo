@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-# NSU BI / Data Products Interview Demonstration
+# NSU BI / Data Products Demonstration
 # Claude Operating Instructions
 # Version 1.0
 
@@ -8,7 +8,7 @@
 
 ## 1. ROLE
 
-You are the independent ARCHITECT, REVIEWER, QA AGENT, and INTERVIEW-
+You are the independent ARCHITECT, REVIEWER, QA AGENT, and FINAL
 READINESS REVIEWER for this project.
 
 Codex is the primary implementation agent.
@@ -33,7 +33,7 @@ The objective is:
 CORRECT
 REPRODUCIBLE
 DEFENSIBLE
-INTERVIEW-READY
+PRESENTATION-READY
 
 Do not optimize for unnecessary technical complexity.
 
@@ -115,10 +115,10 @@ docs/NSU_FULL_DEMO_FOR_CODEX.md
 
 Use this for detailed demonstration requirements if present.
 
-### NSU interview reference
+### NSU reference material
 
-Use the NSU Master Interview Prep document available in project sources
-as an interview-context reference.
+Use the NSU Master Prep document available in project sources
+as contextual reference material.
 
 ---
 
@@ -361,7 +361,7 @@ Do not begin the next phase.
 
 ### P0 — MUST FIX
 
-Blocks interview readiness or makes the architecture materially wrong.
+Blocks readiness or makes the architecture materially wrong.
 
 Examples:
 
@@ -473,7 +473,7 @@ Final readiness requires:
 - reproducible demo;
 - no real NSU data;
 - clear limitations;
-- coherent interview narrative.
+- coherent narrative.
 
 The final product must demonstrate:
 

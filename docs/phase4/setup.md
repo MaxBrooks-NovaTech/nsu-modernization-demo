@@ -76,7 +76,7 @@ _Expected output_: 61/61 nodes passing (12 views, 3 tables, 46 data tests, 0 err
 
 ---
 
-## Interview Demonstration Narrative
+## Demonstration Narrative
 
 - **"If Banner changes, what breaks?"**: `docs/phase4/lineage.md` maps upstream sources directly to mart models and semantic metrics, enabling immediate blast-radius impact analysis.
 - **"Certification as a Release Gate"**: `certification/catalog.yml` proves that a data product cannot be certified or published without satisfying its contract, passing all dbt tests, and receiving Data Governance Lead sign-off.

@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1380 610" width="1380" height="610">
+<rect x="0" y="0" width="1380" height="610" fill="#f7f8fa"/>
+<text x="40" y="30" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="20" font-weight="800" fill="#12203f">Analytics Data Model — certified marts (analytics schema)</text>
+<text x="40" y="52" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="12.5" fill="#666">3 independently-materialized, denormalized fact tables from models/marts/*.sql — no FK constraints between them (dbt does not enforce cross-model FKs). Conformed by shared business keys, not database relationships.</text>
+<text x="40" y="72" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="12.5" fill="#666">Purple = grain key. Orange KEY = shared conformed business key (student_id/term_id/school_id/program_id). Green = certified metrics from semantic/metric_definitions.yml.</text>
+<line x1="340" y1="180" x2="560" y2="180" stroke="#9a7bb0" stroke-width="1.3" stroke-dasharray="5,4" opacity="0.85"/><text x="450.0" y="175" fill="#7a2a8c" font-size="9.5" text-anchor="middle" font-family="ui-monospace,monospace">conformed keys (no FK)</text>
+<line x1="840" y1="180" x2="1060" y2="180" stroke="#9a7bb0" stroke-width="1.3" stroke-dasharray="5,4" opacity="0.85"/><text x="950.0" y="175" fill="#7a2a8c" font-size="9.5" text-anchor="middle" font-family="ui-monospace,monospace">conformed keys (no FK)</text>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="60" y="120" width="280" height="450" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="60" y="120" width="280" height="26" rx="6" fill="#7a2a8c"/>
+<rect x="60" y="138" width="280" height="8" fill="#7a2a8c"/>
+<text x="200.0" y="137.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">analytics.FactEnrollment</text>
+<rect x="60" y="146" width="280" height="34" fill="#f3e8ff"/>
+<text x="70" y="160" font-size="10" fill="#4a2a5c" font-family="-apple-system,Helvetica,Arial,sans-serif">One row = one student registration in one</text>
+<text x="70" y="173" font-size="10" fill="#4a2a5c" font-family="-apple-system,Helvetica,Arial,sans-serif">section for one academic term.</text>
+<rect x="60" y="180" width="280" height="20" fill="#f3e8ff"/>
+<text x="70" y="194.0" fill="#1a1a1a" font-weight="700">registration_id</text>
+<text x="330" y="194.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="250" y="194.0" fill="#a34c00" font-size="9" font-weight="700">GRAIN</text>
+<line x1="60" y1="200" x2="340" y2="200" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="200" width="280" height="20" fill="#fff7e6"/>
+<text x="70" y="214.0" fill="#1a1a1a" font-weight="400">student_id</text>
+<text x="330" y="214.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="250" y="214.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="60" y1="220" x2="340" y2="220" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="220" width="280" height="20" fill="#fff7e6"/>
+<text x="70" y="234.0" fill="#1a1a1a" font-weight="400">section_id</text>
+<text x="330" y="234.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="250" y="234.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="60" y1="240" x2="340" y2="240" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="240" width="280" height="20" fill="#fff7e6"/>
+<text x="70" y="254.0" fill="#1a1a1a" font-weight="400">term_id</text>
+<text x="330" y="254.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="250" y="254.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="60" y1="260" x2="340" y2="260" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="260" width="280" height="20" fill="#fff7e6"/>
+<text x="70" y="274.0" fill="#1a1a1a" font-weight="400">school_id</text>
+<text x="330" y="274.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="250" y="274.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="60" y1="280" x2="340" y2="280" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="280" width="280" height="20" fill="#fff7e6"/>
+<text x="70" y="294.0" fill="#1a1a1a" font-weight="400">program_id</text>
+<text x="330" y="294.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="250" y="294.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="60" y1="300" x2="340" y2="300" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="300" width="280" height="20" fill="#ffffff"/>
+<text x="70" y="314.0" fill="#1a1a1a" font-weight="400">course_code</text>
+<text x="330" y="314.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="60" y1="320" x2="340" y2="320" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="320" width="280" height="20" fill="#fbfbfc"/>
+<text x="70" y="334.0" fill="#1a1a1a" font-weight="400">section_number</text>
+<text x="330" y="334.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="60" y1="340" x2="340" y2="340" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="340" width="280" height="20" fill="#ffffff"/>
+<text x="70" y="354.0" fill="#1a1a1a" font-weight="400">registration_date</text>
+<text x="330" y="354.0" fill="#888" font-size="10.5" text-anchor="end">date</text>
+<line x1="60" y1="360" x2="340" y2="360" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="360" width="280" height="20" fill="#fbfbfc"/>
+<text x="70" y="374.0" fill="#1a1a1a" font-weight="400">registration_status</text>
+<text x="330" y="374.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="60" y1="380" x2="340" y2="380" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="380" width="280" height="20" fill="#ffffff"/>
+<text x="70" y="394.0" fill="#1a1a1a" font-weight="400">credit_hours</text>
+<text x="330" y="394.0" fill="#888" font-size="10.5" text-anchor="end">numeric(4,1)</text>
+<line x1="60" y1="400" x2="340" y2="400" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="400" width="280" height="20" fill="#fbfbfc"/>
+<text x="70" y="414.0" fill="#1a1a1a" font-weight="400">grade_mode</text>
+<text x="330" y="414.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="60" y1="420" x2="340" y2="420" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="420" width="280" height="20" fill="#ffffff"/>
+<text x="70" y="434.0" fill="#1a1a1a" font-weight="400">student_type</text>
+<text x="330" y="434.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="60" y1="440" x2="340" y2="440" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="440" width="280" height="20" fill="#fbfbfc"/>
+<text x="70" y="454.0" fill="#1a1a1a" font-weight="400">residency_status</text>
+<text x="330" y="454.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="60" y1="460" x2="340" y2="460" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="460" width="280" height="20" fill="#ffffff"/>
+<text x="70" y="474.0" fill="#1a1a1a" font-weight="400">admit_school_id</text>
+<text x="330" y="474.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="60" y1="480" x2="340" y2="480" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="480" width="280" height="20" fill="#fbfbfc"/>
+<text x="70" y="494.0" fill="#1a1a1a" font-weight="400">admit_program_id</text>
+<text x="330" y="494.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="60" y1="500" x2="340" y2="500" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="500" width="280" height="20" fill="#ffffff"/>
+<text x="70" y="514.0" fill="#1a1a1a" font-weight="400">modality</text>
+<text x="330" y="514.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="60" y1="520" x2="340" y2="520" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="520" width="280" height="20" fill="#fbfbfc"/>
+<text x="70" y="534.0" fill="#1a1a1a" font-weight="400">capacity</text>
+<text x="330" y="534.0" fill="#888" font-size="10.5" text-anchor="end">integer</text>
+<line x1="60" y1="540" x2="340" y2="540" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="60" y="540" width="280" height="30" fill="#e6f4ea"/>
+<text x="70" y="558" fill="#1a7f37" font-size="10.5" font-weight="700" font-family="-apple-system,Helvetica,Arial,sans-serif">Certified metrics: enrolled</text>
+</g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="560" y="120" width="280" height="410" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="560" y="120" width="280" height="26" rx="6" fill="#7a2a8c"/>
+<rect x="560" y="138" width="280" height="8" fill="#7a2a8c"/>
+<text x="700.0" y="137.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">analytics.fact_recruitment_funnel</text>
+<rect x="560" y="146" width="280" height="34" fill="#f3e8ff"/>
+<text x="570" y="160" font-size="10" fill="#4a2a5c" font-family="-apple-system,Helvetica,Arial,sans-serif">One row = one application, with its</text>
+<text x="570" y="173" font-size="10" fill="#4a2a5c" font-family="-apple-system,Helvetica,Arial,sans-serif">admission and deposit outcome (if any).</text>
+<rect x="560" y="180" width="280" height="20" fill="#f3e8ff"/>
+<text x="570" y="194.0" fill="#1a1a1a" font-weight="700">application_id</text>
+<text x="830" y="194.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="750" y="194.0" fill="#a34c00" font-size="9" font-weight="700">GRAIN</text>
+<line x1="560" y1="200" x2="840" y2="200" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="200" width="280" height="20" fill="#fff7e6"/>
+<text x="570" y="214.0" fill="#1a1a1a" font-weight="400">student_id</text>
+<text x="830" y="214.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="750" y="214.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="560" y1="220" x2="840" y2="220" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="220" width="280" height="20" fill="#fff7e6"/>
+<text x="570" y="234.0" fill="#1a1a1a" font-weight="400">term_id</text>
+<text x="830" y="234.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="750" y="234.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="560" y1="240" x2="840" y2="240" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="240" width="280" height="20" fill="#fff7e6"/>
+<text x="570" y="254.0" fill="#1a1a1a" font-weight="400">school_id</text>
+<text x="830" y="254.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="750" y="254.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="560" y1="260" x2="840" y2="260" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="260" width="280" height="20" fill="#fff7e6"/>
+<text x="570" y="274.0" fill="#1a1a1a" font-weight="400">program_id</text>
+<text x="830" y="274.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="750" y="274.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="560" y1="280" x2="840" y2="280" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="280" width="280" height="20" fill="#fbfbfc"/>
+<text x="570" y="294.0" fill="#1a1a1a" font-weight="400">application_date</text>
+<text x="830" y="294.0" fill="#888" font-size="10.5" text-anchor="end">date</text>
+<line x1="560" y1="300" x2="840" y2="300" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="300" width="280" height="20" fill="#ffffff"/>
+<text x="570" y="314.0" fill="#1a1a1a" font-weight="400">application_status</text>
+<text x="830" y="314.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="560" y1="320" x2="840" y2="320" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="320" width="280" height="20" fill="#fbfbfc"/>
+<text x="570" y="334.0" fill="#1a1a1a" font-weight="400">admission_id</text>
+<text x="830" y="334.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="560" y1="340" x2="840" y2="340" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="340" width="280" height="20" fill="#ffffff"/>
+<text x="570" y="354.0" fill="#1a1a1a" font-weight="400">decision_date</text>
+<text x="830" y="354.0" fill="#888" font-size="10.5" text-anchor="end">date</text>
+<line x1="560" y1="360" x2="840" y2="360" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="360" width="280" height="20" fill="#fbfbfc"/>
+<text x="570" y="374.0" fill="#1a1a1a" font-weight="400">decision_status</text>
+<text x="830" y="374.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="560" y1="380" x2="840" y2="380" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="380" width="280" height="20" fill="#ffffff"/>
+<text x="570" y="394.0" fill="#1a1a1a" font-weight="400">deposit_id</text>
+<text x="830" y="394.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="560" y1="400" x2="840" y2="400" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="400" width="280" height="20" fill="#fbfbfc"/>
+<text x="570" y="414.0" fill="#1a1a1a" font-weight="400">deposit_date</text>
+<text x="830" y="414.0" fill="#888" font-size="10.5" text-anchor="end">date</text>
+<line x1="560" y1="420" x2="840" y2="420" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="420" width="280" height="20" fill="#ffffff"/>
+<text x="570" y="434.0" fill="#1a1a1a" font-weight="400">deposit_status</text>
+<text x="830" y="434.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="560" y1="440" x2="840" y2="440" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="440" width="280" height="20" fill="#fbfbfc"/>
+<text x="570" y="454.0" fill="#1a1a1a" font-weight="400">deposit_amount</text>
+<text x="830" y="454.0" fill="#888" font-size="10.5" text-anchor="end">numeric(10,2)</text>
+<line x1="560" y1="460" x2="840" y2="460" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="460" width="280" height="20" fill="#ffffff"/>
+<text x="570" y="474.0" fill="#1a1a1a" font-weight="400">is_admitted</text>
+<text x="830" y="474.0" fill="#888" font-size="10.5" text-anchor="end">boolean</text>
+<line x1="560" y1="480" x2="840" y2="480" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="480" width="280" height="20" fill="#fbfbfc"/>
+<text x="570" y="494.0" fill="#1a1a1a" font-weight="400">is_deposited</text>
+<text x="830" y="494.0" fill="#888" font-size="10.5" text-anchor="end">boolean</text>
+<line x1="560" y1="500" x2="840" y2="500" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="560" y="500" width="280" height="30" fill="#e6f4ea"/>
+<text x="570" y="518" fill="#1a7f37" font-size="10.5" font-weight="700" font-family="-apple-system,Helvetica,Arial,sans-serif">Certified metrics: applications, admits, deposits, yield</text>
+</g>
+<g font-family="ui-monospace,Menlo,monospace" font-size="12">
+<rect x="1060" y="120" width="280" height="270" rx="6" fill="#ffffff" stroke="#c7ccd6" stroke-width="1.2"/>
+<rect x="1060" y="120" width="280" height="26" rx="6" fill="#7a2a8c"/>
+<rect x="1060" y="138" width="280" height="8" fill="#7a2a8c"/>
+<text x="1200.0" y="137.0" fill="#ffffff" font-weight="700" font-size="13" text-anchor="middle">analytics.fact_census_enrollment</text>
+<rect x="1060" y="146" width="280" height="34" fill="#f3e8ff"/>
+<text x="1070" y="160" font-size="10" fill="#4a2a5c" font-family="-apple-system,Helvetica,Arial,sans-serif">One row = one student per academic term, as</text>
+<text x="1070" y="173" font-size="10" fill="#4a2a5c" font-family="-apple-system,Helvetica,Arial,sans-serif">of the institutional census date.</text>
+<rect x="1060" y="180" width="280" height="20" fill="#f3e8ff"/>
+<text x="1070" y="194.0" fill="#1a1a1a" font-weight="700">enrollment_id</text>
+<text x="1330" y="194.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="1250" y="194.0" fill="#a34c00" font-size="9" font-weight="700">GRAIN</text>
+<line x1="1060" y1="200" x2="1340" y2="200" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1060" y="200" width="280" height="20" fill="#fff7e6"/>
+<text x="1070" y="214.0" fill="#1a1a1a" font-weight="400">student_id</text>
+<text x="1330" y="214.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="1250" y="214.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="1060" y1="220" x2="1340" y2="220" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1060" y="220" width="280" height="20" fill="#fff7e6"/>
+<text x="1070" y="234.0" fill="#1a1a1a" font-weight="400">term_id</text>
+<text x="1330" y="234.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="1250" y="234.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="1060" y1="240" x2="1340" y2="240" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1060" y="240" width="280" height="20" fill="#fff7e6"/>
+<text x="1070" y="254.0" fill="#1a1a1a" font-weight="400">school_id</text>
+<text x="1330" y="254.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="1250" y="254.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="1060" y1="260" x2="1340" y2="260" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1060" y="260" width="280" height="20" fill="#fff7e6"/>
+<text x="1070" y="274.0" fill="#1a1a1a" font-weight="400">program_id</text>
+<text x="1330" y="274.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<text x="1250" y="274.0" fill="#a34c00" font-size="9" font-weight="700">KEY</text>
+<line x1="1060" y1="280" x2="1340" y2="280" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1060" y="280" width="280" height="20" fill="#fbfbfc"/>
+<text x="1070" y="294.0" fill="#1a1a1a" font-weight="400">census_enrolled_flag</text>
+<text x="1330" y="294.0" fill="#888" font-size="10.5" text-anchor="end">boolean</text>
+<line x1="1060" y1="300" x2="1340" y2="300" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1060" y="300" width="280" height="20" fill="#ffffff"/>
+<text x="1070" y="314.0" fill="#1a1a1a" font-weight="400">ipeds_enrolled_flag</text>
+<text x="1330" y="314.0" fill="#888" font-size="10.5" text-anchor="end">boolean</text>
+<line x1="1060" y1="320" x2="1340" y2="320" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1060" y="320" width="280" height="20" fill="#fbfbfc"/>
+<text x="1070" y="334.0" fill="#1a1a1a" font-weight="400">total_credit_hours</text>
+<text x="1330" y="334.0" fill="#888" font-size="10.5" text-anchor="end">numeric(5,1)</text>
+<line x1="1060" y1="340" x2="1340" y2="340" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1060" y="340" width="280" height="20" fill="#ffffff"/>
+<text x="1070" y="354.0" fill="#1a1a1a" font-weight="400">enrollment_status</text>
+<text x="1330" y="354.0" fill="#888" font-size="10.5" text-anchor="end">text</text>
+<line x1="1060" y1="360" x2="1340" y2="360" stroke="#c7ccd6" stroke-width="0.6"/>
+<rect x="1060" y="360" width="280" height="30" fill="#e6f4ea"/>
+<text x="1070" y="378" fill="#1a7f37" font-size="10.5" font-weight="700" font-family="-apple-system,Helvetica,Arial,sans-serif">Certified metrics: census_enrollment, ipeds_enrollment</text>
+</g>
+</svg>

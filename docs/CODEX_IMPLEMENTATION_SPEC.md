@@ -1,6 +1,6 @@
 # CODEX_IMPLEMENTATION_SPEC.md
 
-# NSU BI / Data Products Interview Demonstration
+# NSU BI / Data Products Demonstration
 # Implementation Specification
 # Version 1.0
 
@@ -31,7 +31,7 @@ DATA PRODUCT
  ↓
 CONSUMPTION
 
-This is an interview demonstration.
+This is a demonstration project.
 
 It is NOT an NSU production implementation.
 
@@ -259,7 +259,7 @@ Maintain:
 
 ---
 
-## 15. INTERVIEW STORY
+## 15. PROJECT STORY
 
 The implementation should demonstrate:
 
