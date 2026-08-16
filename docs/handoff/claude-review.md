@@ -416,3 +416,34 @@ Human, directly: fix all remaining IDE-surfaced lint/type diagnostics, create `P
 ### Status (Second Follow-Up)
 
 Complete. Does not change the PBIP artifact's outstanding condition (a human with Power BI Desktop still needs to do the Step 1–6 walkthrough in `PowerBIDashboard.md`) — this follow-up made that walkthrough more complete (governance pages now have real data to bind to, not just the transactional pages) and easier to execute correctly.
+
+---
+
+## Third Post-Phase-7 Follow-Up — Quickstart Guide, Images, and Untracking Personal/Demo Files
+
+### Date (Third Follow-Up)
+
+2026-08-16
+
+### Requested By (Third Follow-Up)
+
+Human, directly: a beginner-friendly quickstart guide (Docker/Python/pip/venv setup) for someone unfamiliar with the project to run it themselves; two new images in `docs/images/` showing a real dbt build log and a metrics/quality dashboard summary; and, in a follow-up message, to untrack and gitignore all "instructions for me" (including the VS Code setup instructions) and the demo walkthrough.
+
+### What Was Done
+
+1. **`docs/quickstart.md`** — a from-scratch setup guide assuming no prior Docker/Python/dbt experience: Docker Desktop install and verification, Python/pip check-or-install (with the Windows "Add to PATH" checkbox called out, a common miss), venv creation, `pip install -r requirements.txt`, then the real demo steps through a passing `dbt build`, plus a troubleshooting table. Linked from README's Quick Start and Documentation sections.
+2. **`docs/images/dbt-build-log.png`** — a real captured `dbt build` run (not synthesized), rendered as a terminal-style block: model creation, `FactEnrollment`'s grain/quality tests, and the real `PASS=62 WARN=0 ERROR=0` summary line.
+3. **`docs/images/dashboard-quality-metrics-summary.png`** — test pass count and all 7 governed metrics with **current real values**, queried live from the database at generation time (`applications: 272`, `admits: 201`, `deposits: 109`, `yield: 54.2%`, `enrolled: 1,897`, `census_enrollment: 240`, `ipeds_enrollment: 240`) — computed using each metric's exact certified `calculation` from `semantic/metric_definitions.yml`, not approximated. Labeled directly on the image itself as a rendered mockup, not a native Power BI screenshot (Power BI Desktop is still unavailable on macOS). Both images documented in `docs/images/README.md` with how they were generated.
+4. **Untracked and gitignored, per explicit human request**: `max_instructions.md` (human operating/orchestration procedure), `vs_code_instructions.md` (VS Code + Codex extension setup), and `docs/demo.md` (the interview walkthrough). All three remain on disk locally, just no longer tracked in git or visible to anyone who clones the repository fresh.
+5. **Fixed the resulting forward-facing references** so a fresh clone doesn't hit dead links: `README.md`'s "Documentation and Demo" section (was a markdown link to `docs/demo.md`, now plain text noting it's local-only) and `docs/quickstart.md`'s closing pointer (same treatment) and `docs/phase6/setup.md`'s artifact list. **Deliberately left untouched**: the many mentions of `docs/demo.md` inside this file's own historical Phase 6 review entries above, and inside `docs/implementation-status.md`'s dated "Completed Work" log — those are accurate records of what was true when written, and rewriting them would misrepresent the audit trail rather than clean it up.
+
+### Verification (Third Follow-Up)
+
+- Both new images visually inspected (via the `Read` tool) before being reported as done.
+- The 7 metric values were queried directly against the live database using each metric's exact `calculation` expression from `semantic/metric_definitions.yml` — not read from a cache or approximated.
+- `git status` confirmed all three files show as deleted-from-tracking (`D`) while `ls -la` confirmed all three are still present on disk.
+- Grepped the full tracked tree for remaining references to the three untracked files — only historical, dated log entries remain (in this file and `docs/implementation-status.md`), which is correct and expected.
+
+### Status (Third Follow-Up)
+
+Complete.

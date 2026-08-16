@@ -28,3 +28,8 @@ profiles.yml
 **/.pbi/cache.abf
 **/.pbi/editorSettings.json
 PowerBIDashboard.md
+
+# Local-only human instructions and demo notes (not published)
+max_instructions.md
+vs_code_instructions.md
+docs/demo.md

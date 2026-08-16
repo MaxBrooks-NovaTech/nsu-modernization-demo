@@ -7,12 +7,12 @@ Phase 6 delivers the documentation and interview demo runbook that make the rest
 1. **Architecture**: `docs/architecture.md` — end-to-end flow, certified products, governance controls, and explicit boundaries.
 2. **Setup**: `docs/setup.md` — reproducible local setup from a clean machine.
 3. **Data dictionary**: `docs/data-dictionary.md` — column-level reference for the three certified marts (source, type, description, nullability, test coverage).
-4. **Demo runbook**: `docs/demo.md` — the interview walkthrough, including a ready-to-run breaking-change example.
+4. **Demo runbook**: `docs/demo.md` — the interview walkthrough, including a ready-to-run breaking-change example. Local-only; not tracked in git (see `.gitignore`).
 5. **Visual evidence**: `docs/images/` — screenshots of the dbt docs site (model graph, column descriptions, semantic layer) and the loaded PostgreSQL tables, so the governed model and column-level documentation are visible without a live walkthrough.
 
 ## Core Artifacts
 
-- `docs/architecture.md`, `docs/setup.md`, `docs/demo.md`, `docs/data-dictionary.md`
+- `docs/architecture.md`, `docs/setup.md`, `docs/data-dictionary.md` (tracked); `docs/demo.md` (local-only)
 - `docs/images/` — dbt docs and PostgreSQL screenshots (see `docs/images/README.md` for what each file shows and how it was generated)
 - README's "Documentation and Demo" section, linking all of the above
 

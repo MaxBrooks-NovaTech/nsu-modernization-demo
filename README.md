@@ -96,6 +96,8 @@ The authoritative implementation status is maintained in
 
 ## Quick Start
 
+New to Docker, Python, or this repository? [docs/quickstart.md](docs/quickstart.md) is a from-scratch, beginner-friendly walkthrough with install links and copy-pasteable commands. The steps below assume you already have the prerequisites.
+
 Prerequisites:
 
 - Docker Desktop
@@ -362,10 +364,11 @@ Build
 
 ## Documentation and Demo
 
+- [Quickstart (beginner-friendly setup)](docs/quickstart.md)
 - [Architecture](docs/architecture.md)
 - [Setup](docs/setup.md)
 - [Data dictionary](docs/data-dictionary.md)
-- [Interview demo runbook](docs/demo.md)
+- Interview demo runbook: `docs/demo.md` (local-only; not tracked in git — see `.gitignore`)
 - [Visual evidence (dbt docs and PostgreSQL screenshots)](docs/images/README.md)
 - [Phase 4 lineage](docs/phase4/lineage.md)
 - [Certification catalog](certification/catalog.yml)
