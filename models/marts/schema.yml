@@ -1,11 +1,13 @@
 version: 2
 models:
   - name: fact_enrollment
-    description: "One row per student registration in one section for one academic term."
+    description: "One row per student registration in one section for one academic term. Certified via contracts/fact_enrollment.yml. See docs/data-dictionary.md for full column reference."
     columns:
       - name: registration_id
+        description: "Unique identifier for one student's registration in one section/term. Grain key."
         tests: [not_null, unique]
       - name: student_id
+        description: "Registering student. References raw.students."
         tests:
           - not_null
           - relationships:
@@ -13,6 +15,7 @@ models:
                 to: ref('stg_students')
                 field: student_id
       - name: section_id
+        description: "Course section registered into. References raw.course_sections."
         tests:
           - not_null
           - relationships:
@@ -20,25 +23,54 @@ models:
                 to: ref('stg_course_sections')
                 field: section_id
       - name: term_id
+        description: "Academic term of the registration. References raw.terms."
         tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('stg_terms')
                 field: term_id
-      - name: credit_hours
-        tests: [not_null]
+      - name: school_id
+        description: "School offering the section (not necessarily the student's admitting school)."
+      - name: program_id
+        description: "Program offering the section."
+      - name: course_code
+        description: "Course identifier (subject + number)."
+      - name: section_number
+        description: "Section number within the course/term."
+      - name: registration_date
+        description: "Date the registration was recorded."
       - name: registration_status
+        description: "One of Registered, Dropped, Withdrawn."
         tests:
           - accepted_values:
               arguments:
                 values: ['Dropped', 'Registered', 'Withdrawn']
+      - name: credit_hours
+        description: "Credit hours for the registration. 0 only permitted when Dropped; must be > 0 for Registered/Withdrawn (fact_enrollment_business_rules test)."
+        tests: [not_null]
+      - name: grade_mode
+        description: "Grading basis for the registration."
+      - name: student_type
+        description: "Student classification at the student level (e.g. new, continuing, transfer)."
+      - name: residency_status
+        description: "Student's residency classification."
+      - name: admit_school_id
+        description: "School the student was originally admitted to (may differ from the section's school_id)."
+      - name: admit_program_id
+        description: "Program the student was originally admitted to."
+      - name: modality
+        description: "Delivery mode of the section (e.g. in-person, online, hybrid)."
+      - name: capacity
+        description: "Maximum enrollment capacity of the section."
   - name: fact_recruitment_funnel
-    description: "One row per application, with governed admission and deposit outcomes."
+    description: "One row per application, with governed admission and deposit outcomes. Grain: one row per application_id."
     columns:
       - name: application_id
+        description: "Unique application identifier. Grain key."
         tests: [not_null, unique]
       - name: student_id
+        description: "Applicant. References raw.students."
         tests:
           - not_null
           - relationships:
@@ -46,24 +78,63 @@ models:
                 to: ref('stg_students')
                 field: student_id
       - name: term_id
+        description: "Term the application targets."
         tests:
           - not_null
           - relationships:
               arguments:
                 to: ref('stg_terms')
                 field: term_id
+      - name: school_id
+        description: "School applied to."
+      - name: program_id
+        description: "Program applied to."
+      - name: application_date
+        description: "Date the application was submitted."
       - name: application_status
+        description: "Status of the application (e.g. Submitted). Drives the applications metric."
         tests: [not_null]
+      - name: admission_id
+        description: "Admission record, if a decision has been made. Null for applications with no decision yet."
+      - name: decision_date
+        description: "Date of the admission decision."
+      - name: decision_status
+        description: "Admission decision (e.g. Admitted). Drives the admits metric."
+      - name: deposit_id
+        description: "Deposit record, if the admitted student made one."
+      - name: deposit_date
+        description: "Date the deposit was recorded."
+      - name: deposit_status
+        description: "Deposit status (e.g. Paid). Drives the deposits metric."
+      - name: deposit_amount
+        description: "Deposit amount."
+      - name: is_admitted
+        description: "True when admission_id is not null."
+      - name: is_deposited
+        description: "True when deposit_id is not null and deposit_status = Paid."
   - name: fact_census_enrollment
-    description: "One row per student and academic term with certified census and IPEDS flags."
+    description: "One row per student and academic term with certified census and IPEDS flags. Grain: one row per (student_id, term_id)."
     columns:
       - name: enrollment_id
+        description: "Unique census record identifier."
         tests: [not_null, unique]
       - name: student_id
+        description: "Student. Grain key (with term_id)."
         tests: [not_null]
       - name: term_id
+        description: "Academic term. Grain key (with student_id)."
         tests: [not_null]
+      - name: school_id
+        description: "Student's school as of census."
+      - name: program_id
+        description: "Student's program as of census."
       - name: census_enrolled_flag
+        description: "True if the student counts as enrolled at the institutional census date. Drives the census_enrollment metric."
         tests: [not_null]
       - name: ipeds_enrolled_flag
+        description: "True if the student meets the synthetic IPEDS enrollment inclusion rule. Drives the ipeds_enrollment metric."
         tests: [not_null]
+      - name: total_credit_hours
+        description: "Total credit hours for the student in the term as of census."
+      - name: enrollment_status
+        description: "Enrollment status label as of census."

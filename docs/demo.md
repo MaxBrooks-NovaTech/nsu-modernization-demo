@@ -16,20 +16,25 @@ Demonstrate that governance is QA for data, certification is a release gate, and
 1. Explain the problem: disconnected reports and conflicting institutional definitions.
 2. Show the architecture and the conceptual Banner/SQL Server boundary in `docs/architecture.md`.
 3. Generate deterministic data and start/reset PostgreSQL:
+
    ```bash
    python3 scripts/generate_synthetic_data.py
    POSTGRES_PORT=55432 bash scripts/reset_phase1.sh
    ```
+
 4. Run the quality and transformation release checks:
+
    ```bash
    POSTGRES_PORT=55432 POSTGRES_PASSWORD=replace-with-local-demo-password .venv/bin/dbt source freshness --project-dir . --profiles-dir . --no-use-colors
    POSTGRES_PORT=55432 POSTGRES_PASSWORD=replace-with-local-demo-password .venv/bin/dbt build --project-dir . --profiles-dir . --no-use-colors
    ```
+
 5. Explain `FactEnrollment` grain: one student registration, one section, one academic term.
-6. Show `semantic/metric_definitions.yml` and explain why Applications, Admits, Deposits, Enrolled, Yield, Census Enrollment, and IPEDS Enrollment are separate governed questions.
+6. Show `semantic/metric_definitions.yml` and explain why Applications, Admits, Deposits, Enrolled, Yield, Census Enrollment, and IPEDS Enrollment are separate governed questions. `docs/images/semantic-metric-definitions.png` is a ready-made visual if screen space is tight.
 7. Show `contracts/fact_enrollment.yml`, `certification/catalog.yml`, and the passing test evidence.
-8. Walk through `docs/phase4/lineage.md`: source, transformation, certified model, semantic definition, and report.
+8. Walk through `docs/phase4/lineage.md`, or open the live dbt docs lineage graph (`dbt docs generate && dbt docs serve`) — `docs/images/dbt-docs-lineage-graph.png` shows the real source-to-mart-to-test graph if you'd rather not run the server live.
 9. Demonstrate change control with a ready-made breaking scenario:
+
    ```bash
    tmp=$(mktemp -d)
    cp contracts/fact_enrollment.yml "$tmp/before.yml"
@@ -45,6 +50,7 @@ Demonstrate that governance is QA for data, certification is a release gate, and
    python3 scripts/check_contract_changes.py "$tmp/before.yml" "$tmp/after.yml"
    rm -rf "$tmp"
    ```
+
    The command must fail with a breaking required-field removal. A required-field, grain, quality-rule, or certified-metric logic change must fail the check.
 10. Open the three `powerbi/*/report-spec.yml` files. Explain that these are source-controlled report specifications; native PBIP generation is a documented manual Power BI Desktop step on Windows and is not claimed on macOS.
 11. Close with the decision: build once, reuse many times, with trust and release evidence.

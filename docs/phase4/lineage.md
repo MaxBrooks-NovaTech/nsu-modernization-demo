@@ -25,8 +25,10 @@ Conceptual Banner / SQL Server source
 | `analytics.fact_census_enrollment`  | `raw.enrollment_census`, `raw.students`, `raw.terms`, `raw.schools`, `raw.programs`                    | `stg_enrollment_census`; `models/marts/fact_census_enrollment.sql`                               | Census Enrollment, IPEDS Enrollment   | Official census and institutional reporting                                   |
 
 ## Impact analysis
+
 A source schema or grain change is assessed through `scripts/check_contract_changes.py` against `contracts/fact_enrollment.yml`. The certification catalog identifies affected semantic definitions and consumers so a change can be blocked or routed for re-certification before release.
 
 ## Limitations
+
 This is a source-controlled demonstration lineage map. It does not claim live SQL Server, Banner, Fabric, Purview, or Power BI metadata integration.
 

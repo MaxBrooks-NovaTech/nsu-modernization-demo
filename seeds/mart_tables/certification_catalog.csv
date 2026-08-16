@@ -1,0 +1,4 @@
+product,model,version,owner,steward,status,last_reviewed,approver_role,approval_decision,consumers,semantic_definitions
+fact_enrollment,analytics.FactEnrollment,1.0.0,Institutional Research and Analytics,Data Governance Lead,Certified,2026-08-16,Data Governance Lead,Approved for demonstration use,Executive Enrollment and Admissions reporting,enrolled
+recruitment_funnel,analytics.fact_recruitment_funnel,1.0.0,Institutional Research and Analytics,Data Governance Lead,Certified,2026-08-16,Data Governance Lead,Approved for demonstration use,Admissions funnel reporting,applications; admits; deposits; yield
+census_enrollment,analytics.fact_census_enrollment,1.0.0,Institutional Research and Analytics,Data Governance Lead,Certified,2026-08-16,Data Governance Lead,Approved for demonstration use,Official census and institutional reporting,census_enrollment; ipeds_enrollment

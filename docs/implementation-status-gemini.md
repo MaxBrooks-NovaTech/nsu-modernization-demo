@@ -15,16 +15,16 @@ authorized phase range.
 
 ## Phase Status
 
-| Phase | Status |
-|---|---|
-| 0 — Repository Audit | PASSED |
-| 1 — PostgreSQL + Synthetic Data | PASSED |
-| 2 — dbt + FactEnrollment | PASSED |
-| 3 — Semantic + Contracts + Quality | PASSED |
-| 4 — Lineage + Certification | PASSED |
-| 5 — Power BI / PBIP | IMPLEMENTED — REVIEW PENDING |
-| 6 — Documentation + Demo | NOT STARTED |
-| 7 — Final QA | NOT STARTED |
+| Phase                               | Status                        |
+| ------------------------------------ | ------------------------------ |
+| 0 — Repository Audit                | PASSED                        |
+| 1 — PostgreSQL + Synthetic Data     | PASSED                        |
+| 2 — dbt + FactEnrollment            | PASSED                        |
+| 3 — Semantic + Contracts + Quality  | PASSED                        |
+| 4 — Lineage + Certification         | PASSED                        |
+| 5 — Power BI / PBIP                 | IMPLEMENTED — REVIEW PENDING  |
+| 6 — Documentation + Demo            | NOT STARTED                   |
+| 7 — Final QA                        | NOT STARTED                   |
 
 ---
 
@@ -77,11 +77,13 @@ authorized phase range.
 ---
 
 ## Current Work
+
 Phase 5 report specifications are implemented and validated. Actual PBIP project generation remains a documented manual Power BI Desktop step because Power BI Desktop is unavailable in the current macOS environment. Gemini review is requested.
 
 ---
 
 ## Tests
+
 Phase 5 verification executed:
 
 - YAML parsing and required report/page/source metadata validation for all 3 report specifications.
@@ -99,6 +101,7 @@ Phase 1-3 verification results remain valid and passing.
 ---
 
 ## Known Issues
+
 - Host port `5432` collision on local machine handled cleanly using `POSTGRES_PORT=55432`.
 - Phase 4 lineage and catalog are source-controlled demonstration artifacts without live cloud metadata integrations.
 - Power BI Desktop is unavailable on this macOS environment; repository contains specification-ready PBIP source artifacts, not a fabricated `.pbix` or rendered screenshots.
@@ -106,16 +109,19 @@ Phase 1-3 verification results remain valid and passing.
 ---
 
 ## Blockers
+
 None.
 
 ---
 
 ## Decisions Required
+
 Gemini review of the Phase 5 Power BI/PBIP specifications is requested. Actual Power BI Desktop generation remains a documented manual step.
 
 ---
 
 ## Last Codex Update
+
 2026-08-16 — Commenced and completed the source-controlled Phase 5 Power BI/PBIP specification artifacts; validation passed.
 
 ---

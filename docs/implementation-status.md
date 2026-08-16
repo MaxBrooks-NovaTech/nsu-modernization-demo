@@ -2,11 +2,11 @@
 
 ## Current Phase
 
-PHASE 6 — DOCUMENTATION + DEMO COMPLETE AND CLAUDE-REVIEWED
+PHASE 7 — FINAL QA REVIEWED BY CLAUDE
 
 ## Overall Status
 
-PHASE 6 PASSED, CONFIRMED ON RE-REVIEW (0 P0, 0 open P1, 0 blocking P2). Committed as `3ddea2b` ("Phase 6 build complete, review complete, P1 complete and 1 P2 left undone because it's outside of demo scope. Human approved"), pushed to `origin/main`. PAUSED BEFORE PHASE 7 — awaiting explicit human instruction to begin.
+READY WITH CONDITIONS — NOT the unconditional "READY FOR HUMAN REVIEW" Codex reported. Phases 0–6 are genuinely ready, independently re-verified multiple times. One P0 was found in the new native Power BI artifact (`powerbi/NSU BI Modernization Demo/`) and partially fixed by Claude; it still requires a human with real Power BI Desktop access to finish before the project can be called fully done. See `docs/handoff/claude-review.md` ("PHASE 7 FINAL QA REVIEW") for full detail.
 
 ## Authorized Scope
 
@@ -15,188 +15,120 @@ authorized phase range.
 
 ## Phase Status
 
-| Phase                               | Status                                     |
-| ------------------------------------ | -------------------------------------------- |
-| 0 — Repository Audit                | PASSED                                     |
-| 1 — PostgreSQL + Synthetic Data     | PASSED                                     |
-| 2 — dbt + FactEnrollment            | PASSED                                     |
-| 3 — Semantic + Contracts + Quality  | PASSED (re-verified by Claude)             |
-| 4 — Lineage + Certification         | PASSED (re-verified by Claude)             |
-| 5 — Power BI / PBIP                 | PASSED (Claude-reviewed, human-approved)   |
-| 6 — Documentation + Demo            | PASSED, confirmed on re-review             |
-| 7 — Final QA                        | NOT STARTED                                |
+| Phase                               | Status                                          |
+| ------------------------------------- | -------------------------------------------------- |
+| 0 — Repository Audit                | PASSED                                          |
+| 1 — PostgreSQL + Synthetic Data     | PASSED                                          |
+| 2 — dbt + FactEnrollment            | PASSED                                          |
+| 3 — Semantic + Contracts + Quality  | PASSED (re-verified by Claude)                  |
+| 4 — Lineage + Certification         | PASSED (re-verified by Claude)                  |
+| 5 — Power BI / PBIP                 | PASSED (specifications; Claude-reviewed)        |
+| 6 — Documentation + Demo            | PASSED, confirmed on re-review                  |
+| 7 — Final QA                        | READY WITH CONDITIONS — PBIP artifact incomplete |
 
 ---
 
 ## Completed Work
 
 - Verified existing Git remote origin for the private GitHub repository.
-- Reviewed authoritative project documents for README clarity.
-- Created README.md with project purpose, guardrails, phase plan, key docs, and
-  publication setup notes.
-- Expanded README.md into a full finished-project style repository overview for
-  private publication.
-- Populated .env.example with placeholder-only environment variables for AI
-  provider APIs, GitHub, local PostgreSQL/dbt, synthetic data, and optional
-  Power BI/Azure integrations.
-- Enabled `python.terminal.useEnvFile` in `.vscode/settings.json`.
-- Updated `.env.example` to use the project-standard hyphenated placeholder key
-  names, including OpenAI, Claude, Gemini, and GitHub PAT placeholders.
-- Aligned Gemini-specific Codex and review instructions with the correct Gemini
-  document names.
-- Completed Phase 0 repository audit for the Claude-first review workflow.
-- Confirmed Git branch is aligned with `origin/main` and remote points to the
-  private GitHub repository.
-- Confirmed `.env` is ignored and no tracked secret patterns were detected.
-- Confirmed Gemini is configured as a temporary fallback reviewer if Claude is
-  unavailable due to usage or credits.
-- Claude session limit was reached; Gemini fallback reviewer completed Phase 0
-  review with PASS WITH CONDITIONS.
-- Addressed Gemini P1 findings for `.DS_Store`, `.gitignore`, `.env.example`
-  variable naming, and Gemini status synchronization.
-- Created Docker Compose PostgreSQL 16 foundation with a local `raw` schema.
-- Created deterministic synthetic seed generation for all required Phase 1 source-style tables and all 12 schools.
-- Created initialization/load SQL, reset script, validation script, and Phase 1 setup documentation.
-- Verified the database end to end using Docker Desktop with host port `55432` because local port `5432` was unavailable.
-- Implemented all Gemini Phase 1 P1/P2 fixes: complete entry-term FK, load ordering correction, expected-count and referential-integrity assertions, business uniqueness constraints, and port-collision documentation.
-- Added dbt-core 1.10.13/dbt-postgres 1.9.0 configuration, source declarations, staging/intermediate models, `analytics.FactEnrollment`, and Phase 2 tests.
-- Implemented Phase 3 certified recruitment funnel and census enrollment marts.
-- Added governed definitions for Applications, Admits, Deposits, Enrolled, Yield, Census Enrollment, and IPEDS Enrollment.
-- Added FactEnrollment data contract and automated quality test suite.
-- Implemented Phase 4 source-to-consumer lineage map in `docs/phase4/lineage.md`.
-- Implemented Phase 4 certification release catalog in `certification/catalog.yml`.
-- Implemented Phase 4 contract change detection in `scripts/check_contract_changes.py` with verified test suite.
-- Implemented Phase 5 Power BI/PBIP source-controlled report specifications (`powerbi/README.md` and three `report-spec.yml` files) for Executive Enrollment & Admissions, Institutional Data Trust, and Data Lineage & Certification, honestly scoped as specifications (no fabricated `.pbip`/`.pbix`/screenshots; manual Power BI Desktop step documented).
-- Claude independently re-verified Phases 3–5: re-ran `dbt build`, audited `FactEnrollment`/`fact_recruitment_funnel` joins for fan-out risk (none — all joins target unique/PK-backed columns), and re-ran the contract change-detection test suite.
-- Claude identified and fixed a gap in `scripts/check_contract_changes.py`: it could not detect changes to certified-metric calculations, certified-metric grain, or certification-status downgrades. Added `compare_metrics()` and a top-level status-downgrade check; verified via 12 test scenarios.
-- Claude identified and fixed a second gap: the contract's `minimum_row_count: 1` was decorative metadata with no enforcing test. Added `tests/fact_enrollment_minimum_row_count.sql`, wired it into `contracts/fact_enrollment.yml` and `certification/catalog.yml`.
-- Codex implemented Claude's "Option A" recommendation for freshness enforcement: added a `loaded_at timestamptz NOT NULL DEFAULT now()` column to all 11 `raw.*` tables, explicit column lists in the seed load `\copy` commands, and dbt source-freshness thresholds in `models/staging/sources.yml`.
-- Claude independently re-verified the freshness fix. Human reviewed and approved Phase 5 in full, committed as `370a9c9` ("Phased 5 complete, reviewed and human approved"), pushed to `origin/main`.
-- Codex implemented Phase 6 documentation: `docs/architecture.md`, `docs/setup.md`, `docs/demo.md`, and updated README navigation to link Phase 6 docs, lineage, certification, and Power BI specs.
-- Claude independently re-verified Phase 6: ran the exact commands documented in `docs/setup.md`/`docs/demo.md` from a clean `reset_phase1.sh` (destroy + recreate the Docker volume, reload seed data) through `dbt source freshness` (11/11 passed) and `dbt build` (62/62 passed, 0 errors, 0 warnings) — reproducibility confirmed, not just claimed. Verified all README documentation links resolve to real files.
-- Claude found and fixed a P1 gap: `CODEX_IMPLEMENTATION_SPEC.md` §14 requires a data dictionary among the maintained documentation, and none existed (README covered metrics narratively but not mart columns). Added `docs/data-dictionary.md` covering all columns of the three certified marts (`FactEnrollment`, `fact_recruitment_funnel`, `fact_census_enrollment`) — sources, types, descriptions, nullability, and which tests cover each — and linked it from README's Documentation section.
-- Full review recorded in `docs/handoff/claude-review.md`.
+- Created README.md, populated `.env.example` with placeholders, configured VS Code Python env-file loading.
+- Completed Phase 0 repository audit; addressed Gemini's Phase 0 P1 findings (`.DS_Store`, `.gitignore`, `.env.example` naming).
+- Implemented Phase 1 Docker Compose PostgreSQL 16 foundation, deterministic synthetic data generation (all 12 schools), schema init/load/reset/validation, and Gemini's Phase 1 P1/P2 fixes.
+- Implemented Phase 2 dbt project, source declarations, staging/intermediate models, `analytics.FactEnrollment`, and grain/quality tests.
+- Implemented Phase 3 certified recruitment funnel and census enrollment marts, governed semantic definitions (Applications, Admits, Deposits, Enrolled, Yield, Census Enrollment, IPEDS Enrollment), and the FactEnrollment data contract.
+- Implemented Phase 4 lineage map (`docs/phase4/lineage.md`), certification catalog (`certification/catalog.yml`), and contract change detection (`scripts/check_contract_changes.py`).
+- Implemented Phase 5 Power BI/PBIP source-controlled report specifications (`powerbi/README.md` + three `report-spec.yml` files).
+- Claude independently re-verified Phases 3–5 (dbt build, fan-out audit, change-detection regression suite) and fixed two P1 gaps: change-detection couldn't catch certified-metric/logic changes (added `compare_metrics()`), and `minimum_row_count` was unenforced metadata (added `tests/fact_enrollment_minimum_row_count.sql`).
+- Codex implemented freshness enforcement (`loaded_at` columns on all 11 raw tables + dbt source-freshness thresholds); Claude independently re-verified (11/11 freshness checks). Human approved and committed Phase 5 in full (`370a9c9`).
+- Codex implemented Phase 6 documentation (`docs/architecture.md`, `docs/setup.md`, `docs/demo.md`); Claude independently re-verified reproducibility from a clean `reset_phase1.sh` through a passing `dbt build`, and found/fixed a P1 (missing data dictionary — added `docs/data-dictionary.md`, required by `CODEX_IMPLEMENTATION_SPEC.md` §14).
+- Codex closed the Phase 6 P1 and one P2 (executable breaking-change example in `docs/demo.md`); Claude re-reviewed and confirmed, fixing one trivial cosmetic defect (duplicate README link line). Human approved and committed Phase 6 in full (`3ddea2b`, `146cdda`).
+- Codex reported Phase 7 Final QA complete with a new native Power BI artifact (`powerbi/NSU BI Modernization Demo/` — real `.pbip`/`.Report`/`.SemanticModel`/`.tmdl` structure, confirmed genuinely created via real Power BI Desktop based on authentic Windows DPAPI and Analysis Services binary signatures in the `.pbi/` files).
+- **Claude independently verified the new PBIP artifact against the real database and `semantic/metric_definitions.yml`, and found it materially incorrect**: wrong database name and username in the connection string (would fail to connect), wrong data types on all ID columns, and — most seriously — all 3 defined measures used unfiltered `COUNTROWS` instead of the certified filtered/distinct calculations (a direct instance of `CLAUDE.md`'s P0 example "broken certified metric"), with 4 of 7 certified metrics missing a measure entirely. Only 1 of 3 report pages was wired into navigation, and all 3 pages have zero visuals.
+- Claude fixed the purely textual defects within existing fix authority (connection string, data types, all 7 certified-metric DAX formulas now match `semantic/metric_definitions.yml` exactly, page navigation wired for all 3 pages). Claude explicitly did not attempt to author visual content (requires Power BI Desktop's GUI) — that remains open, disclosed work.
+- Full review recorded in `docs/handoff/claude-review.md` ("PHASE 7 FINAL QA REVIEW").
 
 ---
 
 ## Current Work
 
-Phase 6 is complete and confirmed on re-review: the demo runbook's breaking-change example was independently re-run and matches its documented claim exactly, the data dictionary is linked from both README and architecture.md, and a trivial duplicate-line defect in README (the "Data dictionary" link listed twice) was found and fixed. Fully committed and pushed (`3ddea2b`). Phase 7 (Final QA) has not started.
+Phases 0–6 are complete and independently re-verified multiple times. Phase 7 surfaced a real, now partially-fixed defect in the new native PBIP artifact. Remaining before the project can be called fully ready: a human with real Power BI Desktop access must reopen `powerbi/NSU BI Modernization Demo/`, confirm it loads/refreshes correctly against the corrected connection string, and build the actual visuals for all three pages per `powerbi/*/report-spec.yml`.
 
 ---
 
 ## Tests
 
-Claude Phase 6 re-review verification executed 2026-08-16:
+Claude Phase 7 Final QA review verification executed 2026-08-16:
+
+- Inspected `powerbi/NSU BI Modernization Demo/NSU BI Modernization Demo.SemanticModel/definition/model.tmdl` against `.env`/`docker-compose.yml` (connection string) and `db/init/01_schema.sql` (column types) — found both wrong (see Completed Work).
+- Inspected the 3 defined measures against `semantic/metric_definitions.yml`'s `calculation` field for each metric — found all 3 present measures incorrect and 4 of 7 certified metrics missing entirely.
+- Inspected `.pbi/cache.abf` (Analysis Services backup binary signature) and `.pbi/localSettings.json` (`securityBindingsSignature`, a Windows DPAPI-encrypted blob) to determine artifact authenticity — confirmed genuine Power BI Desktop origin, not fabricated.
+- Inspected `pages.json` `pageOrder` against the 3 existing page folders — found only 1 of 3 registered.
+- Inspected all 3 `page.json` files for visual content — found all empty.
+- Fixed connection string, data types, and all 7 measure formulas in `model.tmdl`; fixed `pageOrder` to include all 3 pages.
+- Re-ran `dbt build` after the TMDL fixes to confirm no unrelated regression — 62/62 nodes passed, 0 errors, 0 warnings (TMDL changes are outside the dbt project and cannot affect it; ran as a sanity check).
+- Regenerated synthetic data twice independently and diffed all 11 seed CSVs — byte-for-byte identical, confirming Codex's determinism claim.
+- Confirmed `.env` is not tracked (`git ls-files`) and `git diff --check` is clean.
+
+Claude Phase 6 re-review verification (2026-08-16, still valid):
 
 - Ran the exact breaking-change example script from `docs/demo.md` step 9 verbatim — correctly detected `breaking: required field removed: registration_id`, exit code 1.
-- Confirmed `docs/data-dictionary.md` is linked from both `README.md` and `docs/architecture.md`.
-- `git diff --check HEAD~1 HEAD` — clean.
-- Re-ran `dbt source freshness` (11/11) and `dbt build` (62/62, 0 errors, 0 warnings) against the committed state — unchanged and passing.
-- Found and fixed a duplicate "Data dictionary" link line in `README.md` (cosmetic, not a broken link or false claim).
+- Confirmed `docs/data-dictionary.md` linked from README and architecture.md.
+- Re-ran `dbt source freshness` (11/11) and `dbt build` (62/62, 0 errors, 0 warnings).
 
-Claude Phase 6 initial review verification executed 2026-08-16:
-
-- `dbt debug` — passed, connection OK.
-- `POSTGRES_PORT=55432 bash scripts/reset_phase1.sh` — passed; destroyed and recreated the Docker volume, reloaded all 11 raw tables with exact expected row counts (12 schools, 36 programs, 240 students, 6 terms, 432 sections, 300 applications, 201 admissions, 109 deposits, 2148 registrations, 1074 census rows, 24 budget rows).
-- `dbt source freshness --project-dir . --profiles-dir . --no-use-colors` (post-reset) — 11/11 sources passed.
-- `dbt build --project-dir . --profiles-dir . --no-use-colors` (post-reset) — 62/62 nodes passed (3 tables, 12 views, 47 tests), 0 errors, 0 warnings.
-- README link-target check for all `docs/architecture.md`, `docs/setup.md`, `docs/demo.md`, `docs/data-dictionary.md`, `docs/phase4/lineage.md`, `certification/catalog.yml`, `powerbi/README.md` references — all resolve.
-- Grep for a pre-existing data dictionary — none found prior to this review's fix; cross-checked against `CODEX_IMPLEMENTATION_SPEC.md` §14's required documentation list.
-
-Claude Phase 3–5 review verification (2026-08-16, still valid):
-
-- `dbt build` — 62/62 nodes passed, 0 errors, 0 warnings.
-- `dbt source freshness` — 11/11 passed.
-- Manual fan-out/grain audit of `int_registration_context.sql` and `fact_recruitment_funnel.sql` against PostgreSQL `UNIQUE`/`PRIMARY KEY` constraints in `db/init/01_schema.sql`.
-- 12-scenario `check_contract_changes.py` regression suite — all passed.
-- Grep audits confirming no real-NSU-domain references in tracked files; `scripts/generate_synthetic_data.py` uses a fixed deterministic seed (`20260816`).
-
-Phase 1-3 verification results remain valid and passing.
-
-Phase 0 verification executed:
-
-- `git status --short --branch`
-- `git remote -v`
-- `git check-ignore -v .env`
-- `rg --files -g '!venv/**' -g '!.git/**'`
-- targeted Claude/Gemini reference scans
-- tracked-file secret-pattern scan excluding `.env`
-- P1 fix verification for `.DS_Store`, `.gitignore`, `.env.example`, and status
-  synchronization
+Claude Phase 3–6 verification results (2026-08-16, still valid): dbt build, fan-out audit, 12-scenario change-detection regression suite, real-NSU-data grep audits, deterministic seed confirmation — all passing, detailed in the corresponding sections of `docs/handoff/claude-review.md`.
 
 ---
 
 ## Known Issues
 
-- Power BI Desktop is unavailable on macOS; native `.pbip`, `.pbix`, and screenshots are not claimed — `powerbi/*/report-spec.yml` remain source-controlled specifications with the manual Power BI Desktop step documented in `powerbi/README.md`.
+- **P0 (partially fixed, condition remains)**: the native PBIP semantic model's connection string, data types, and certified-metric formulas were wrong; fixed at the text level by Claude in this review. The artifact still needs to be reopened in real Power BI Desktop to confirm it loads/refreshes correctly — Claude has no Power BI Desktop access in this environment.
+- **P1 (open, disclosed)**: all three report pages (`powerbi/NSU BI Modernization Demo/NSU BI Modernization Demo.Report/`) have zero visuals. Building cards, charts, tables, and slicers per `powerbi/*/report-spec.yml` requires Power BI Desktop's GUI and is genuinely human-only work.
+- Power BI Desktop is unavailable on macOS; this is why the above must be completed on a separate Windows machine/VM, consistent with earlier discussion in this project.
 - Local host port `5432` was already unavailable, so validation used `POSTGRES_PORT=55432`. The setup guide documents the override; the compose default remains `5432` for normal use.
-- Docker credential helper resolution required adding Docker Desktop's resources directory to `PATH` during validation; this did not change repository configuration.
-- No outstanding P0 or P1 findings. All P1s found across the Claude Phase 3–6 reviews are resolved: (1) Phase 5 authorization evidence, (2) change-detection coverage of certified-metric changes, (3) freshness enforcement, (4) missing data dictionary (`docs/data-dictionary.md` added in this review).
+- No outstanding P0/P1 findings anywhere outside the new PBIP artifact. Everything from Phases 0–6 remains genuinely PASSED.
 
 ---
 
 ## Blockers
 
-None identified.
+The project cannot be honestly represented as "READY FOR HUMAN REVIEW" (unconditional) until the PBIP condition above is resolved by someone with Power BI Desktop access. Everything else has no blockers.
 
 ---
 
 ## Decisions Required
 
-None. Phase 6 is reviewed and passed. Phase 7 (Final QA) may begin once the human explicitly authorizes it — do not begin automatically.
+A human with Power BI Desktop access needs to: (1) reopen `powerbi/NSU BI Modernization Demo/`, confirm it connects/refreshes correctly against the now-corrected connection string, and (2) build the visuals for all three report pages per `powerbi/*/report-spec.yml`. Until then, do not present this PBIP artifact as a finished, working deliverable.
 
 ---
 
 ## Last Codex Update
 
-2026-08-16 — Implemented Phase 6 documentation/demo artifacts, then the P1/P2 follow-up (executable breaking-change example in `docs/demo.md`, data-dictionary link in `docs/architecture.md`); committed as `3ddea2b` with human approval. One P2 (CI documentation-link checking) intentionally left unimplemented as out of scope.
+2026-08-16 — Reported Phase 7 Final QA complete with a new native PBIP artifact and claimed "READY FOR HUMAN REVIEW." Claude's review found the PBIP artifact's connection string, data types, and certified-metric formulas were materially wrong.
 
 ---
 
 ## Last Claude / Gemini Review
 
-2026-08-16 — Claude re-review of Phase 6 completed after Codex's P1/P2 follow-up: independently re-ran the breaking-change example (matches documented claim exactly), confirmed the data-dictionary link in both README and architecture.md, re-ran `dbt source freshness`/`dbt build` against the committed state, and found/fixed one trivial defect (a duplicated "Data dictionary" link line in README). Verdict: **PASSED, confirmed** (0 P0, 0 open P1, 0 blocking P2). Detailed report recorded in `docs/handoff/claude-review.md`.
+2026-08-16 — Claude Phase 7 Final QA review completed. Independently verified the new native PBIP artifact is genuine (not fabricated — confirmed via authentic Windows DPAPI and Analysis Services binary signatures) but materially incorrect (wrong connection string, wrong data types, 3 of 3 present measures violated certified calculation definitions, 4 of 7 certified metrics had no measure, only 1 of 3 pages navigable, zero visuals on any page). Fixed the textual defects (connection, types, all 7 measure formulas, page navigation) within existing fix authority; did not attempt to author visual content (requires Power BI Desktop). Verdict: **READY WITH CONDITIONS** — everything through Phase 6 is genuinely ready; the PBIP artifact needs a human with Power BI Desktop access to finish. Detailed report in `docs/handoff/claude-review.md`.
 
 ---
 
 ## Next Action
 
-Hand off the Phase 6 P1/P2 fixes to Claude for re-review. Pause before Phase 7 Final QA.
+Do not represent this project as unconditionally "READY FOR HUMAN REVIEW" until a human with Power BI Desktop access completes the PBIP artifact (reopen to confirm it loads correctly, then build the page visuals). Everything else is genuinely done. No further phase work should begin without explicit human instruction.
 
----
+## Post-Phase-7 Follow-Up (2026-08-16)
 
-## Human Review Gates
+Human-requested supplementary work, completed and verified — full detail in `docs/handoff/claude-review.md`'s "POST-PHASE-7 FOLLOW-UP" section:
 
-### Gate 1
+- Added real column-level descriptions to `models/marts/schema.yml` for all 3 certified marts (previously untested columns had none at all).
+- Captured real dbt docs screenshots (`docs/images/`) — overview, `fact_enrollment` columns, and the full expanded lineage graph (source → staging → mart → tests).
+- Rendered and screenshotted `semantic/metric_definitions.yml` and real PostgreSQL `psql` output (`docs/images/postgres-tables.png`, `docs/images/semantic-metric-definitions.png`) since neither has a native dbt docs page or GUI client — documented as rendered-not-native in `docs/images/README.md`.
+- Added `seeds/mart_tables/*.csv` (via new `scripts/export_mart_csvs.sh`) and switched the PBIP semantic model's data source from live PostgreSQL to these CSVs (`ProjectRoot` M parameter, one manual step documented in `powerbi/README.md`). Also fixed a defect the migration surfaced: `FactEnrollment`'s TMDL had `school_name`/`program_name` columns that don't exist in the real mart.
+- Added `docs/phase5/setup.md`, `docs/phase6/setup.md`, `docs/phase7/setup.md` — `docs/phase1`–`docs/phase7` now all exist.
+- Fixed IDE-surfaced lint/type warnings: `check_contract_changes.py` (untyped yaml import), `.vscode/settings.json` (wrong CodeGPT setting key), markdown spacing in `docs/implementation-status-gemini.md` and `docs/phase4/lineage.md` (whitespace only, no content/conclusion changes).
 
-After authorized initial phase range.
-
-### Gate 2
-
-Before final interview preparation.
-
-### Gate 3
-
-Final readiness review.
-
----
-
-## Rules
-
-This document must reflect actual repository state.
-
-Do not mark work complete without evidence.
-
-Do not claim tests passed unless they were actually executed.
-
-Do not claim an artifact exists unless it exists.
-
-Do not silently remove known failures.
-
-## Next Action
-
-Phase 6 is complete and reviewed. Phase 7 (Final QA) has not started. Begin it only when the human explicitly says so (e.g., "START PHASE 7" or "BUILD THROUGH PHASE 7").
+`dbt build` (62/62) and `dbt source freshness` (11/11) re-confirmed passing after all changes. The PBIP artifact's open condition (human + Power BI Desktop needed to reopen, confirm the corrected model loads, and build page visuals) is unchanged by this work — the CSV switch only changes what the human points the `ProjectRoot` parameter at.
 
 ---
 

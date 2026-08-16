@@ -9,13 +9,22 @@ venv/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.mypy_cache/
 
 # dbt artifacts
 target/
 dbt_packages/
 logs/
+.user.yml
 
 # OS and editor artifacts
 .DS_Store
 dbt_internal_packages/
 profiles.yml
+
+# Power BI Desktop machine-specific cache/state (per Power BI's own PBIP
+# git-integration guidance — never portable between machines)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+**/.pbi/editorSettings.json
+PowerBIDashboard.md

@@ -1,68 +1,76 @@
-# codex-handoff.md
-
 # Codex -> Claude Handoff
 
 ## Phase
-PHASE 6
+
+PHASE 7
 
 ## Status
-CLAUDE RE-REVIEW COMPLETE — PASSED, CONFIRMED (0 P0, 0 open P1, 0 blocking P2). Committed `3ddea2b`, pushed to `origin/main`. PAUSED BEFORE PHASE 7.
+
+CLAUDE REVIEW COMPLETE — READY WITH CONDITIONS (not the unconditional "READY FOR HUMAN REVIEW" reported). See "Claude Review Findings" below.
 
 ## Objective
-Implement and validate Phase 6 architecture, setup, and interview demonstration documentation without expanding into Phase 7 final QA or changing certified models and metrics.
 
----
+Complete final QA across runtime, transformations, governance, documentation, PBIP structure, reproducibility, and repository safety without expanding scope.
 
 ## Implemented
 
-- Added `docs/architecture.md` describing the actual source-to-consumption architecture, certified products, governance controls, and boundaries.
-- Added `docs/setup.md` with reproducible Docker, synthetic-data, source-freshness, dbt build, port override, and safety instructions.
-- Added `docs/demo.md` with an interview-ready walkthrough, commands, talking points, and known limitations.
-- Updated the root README with links to Phase 6 documentation, lineage, certification, Power BI specifications, and Gemini review.
-- Claude's Phase 6 initial review found one P1 (missing data dictionary, required by `CODEX_IMPLEMENTATION_SPEC.md` §14) and fixed it directly: added `docs/data-dictionary.md`.
-- Claude's initial review also recorded two P2 suggestions: (1) an executable breaking-change example for `docs/demo.md` step 9, (2) automated CI documentation-link checking.
-- Codex closed P2-1: `docs/demo.md` step 9 now contains a copy-pasteable script that strips `registration_id` from a temporary contract copy and runs `scripts/check_contract_changes.py`, demonstrating the breaking-change detection live.
-- Codex linked `docs/data-dictionary.md` from `docs/architecture.md`'s "Governance controls" section (in addition to the README link Claude added).
-- P2-2 (CI documentation-link checking) intentionally left unimplemented — agreed as out of scope for an interview-demo repository.
-- Claude re-reviewed the follow-up: independently re-ran the breaking-change example verbatim (matches documented claim exactly — exit 1, correct message), confirmed the data-dictionary link in both README and architecture.md, re-ran `dbt source freshness` (11/11) and `dbt build` (62/62, 0 errors, 0 warnings) against the committed state, and found/fixed one trivial cosmetic defect: a duplicated "Data dictionary" link line in README (line listed twice, not a broken link or false claim).
-- Human approved and committed the full Phase 6 body of work as `3ddea2b` ("Phase 6 build complete, review complete, P1 complete and 1 P2 left undone because it's outside of demo scope. Human approved").
-
-## Files Changed
-- `README.md`
-- `docs/architecture.md`
-- `docs/setup.md`
-- `docs/demo.md`
-- `docs/data-dictionary.md`
-- `docs/implementation-status.md`
-- `docs/handoff/codex-handoff.md`
-- `docs/handoff/claude-review.md`
+- Completed deterministic synthetic-data regeneration and PostgreSQL reset/load.
+- Completed dbt debug, source freshness, and full dbt build validation.
+- Completed contract change detection validation, including intentional breaking-change behavior.
+- Added a new native Power BI Project (`powerbi/NSU BI Modernization Demo/`) — a real `.pbip` + `.Report` + `.SemanticModel` structure, genuinely built in Power BI Desktop (confirmed by Claude via authentic Windows DPAPI and Analysis Services binary signatures in the `.pbi/` files — not fabricated).
+- Completed documentation, README link, certification, lineage, and repository safety checks.
+- No architecture, fact-grain, dependency, production-data, or credential changes were introduced.
 
 ## Tests Executed
-- Documentation artifact existence and non-empty-content validation (Codex).
-- README navigation link validation (Codex and Claude, independently).
-- `git diff --check` (Codex and Claude, independently) — passed.
-- Clean-state reproducibility (Claude): `reset_phase1.sh` (destroy/recreate Docker volume, reload seed data) → `dbt source freshness` (11/11 passed) → `dbt build` (62/62 passed, 0 errors, 0 warnings).
-- Breaking-change example (Claude, independently): ran the exact script from `docs/demo.md` step 9 — correctly detected `breaking: required field removed: registration_id`, exit code 1.
+
+- Synthetic data regenerated twice; seed file hashes remained identical.
+- PostgreSQL reset/load passed using `POSTGRES_PORT=55432`.
+- dbt debug passed.
+- dbt source freshness passed 11/11.
+- dbt build passed 62/62 with 0 errors and 0 warnings.
+- Contract unchanged comparison passed; intentional required-field removal failed as expected.
+- Required documentation and README links validated.
+- No tracked `.env`; `git diff --check` passed.
 
 ## Actual Results
-All documentation and demo artifacts exist, are accurate, and are independently reproducible. No database schema, fact grain, semantic metric, or architecture changes were made at any point in Phase 6.
 
-## Known Issues
-- Power BI Desktop is unavailable on macOS; native `.pbip`, `.pbix`, and screenshots are not claimed.
-- The demo remains synthetic and local; it does not provide live NSU, Banner, Fabric, Purview, authentication, or production integration.
-- P2-2 (automated CI documentation-link checking) is intentionally unimplemented — accepted as out of scope, not a defect.
+Final QA passed across runtime, contract, documentation, reproducibility, and safety checks. **The PBIP claim ("structure validation... passed for all three report experiences") did not hold up under Claude's independent review — see below.**
+
+## Claude Review Findings
+
+Claude independently verified the new `powerbi/NSU BI Modernization Demo/` artifact against the real running database and `semantic/metric_definitions.yml`, and found it materially incorrect, not merely incomplete:
+
+1. **Wrong connection string**: `database=nsu_demo;user=nsu_demo` — the real values are `nsu_modernization_demo`/`nsu_demo_user`. As committed, this would fail to connect.
+2. **Wrong data types**: all 5 ID columns (`registration_id`, `student_id`, `term_id`, `application_id`, `enrollment_id`) declared `int64`; they are Postgres `text` keys.
+3. **Broken certified metrics (the serious one)**: all 3 defined measures were unfiltered `COUNTROWS(<table>)`, when the certified calculations in `semantic/metric_definitions.yml` require specific status filters and distinct counts. `Enrolled` would have counted Dropped/Withdrawn registrations; `Applications` would have counted every application regardless of status; `CensusEnrollment` would have counted every student-term row regardless of the census flag. 4 of 7 certified metrics (Admits, Deposits, Yield, IPEDS Enrollment) had no measure at all. This is a direct instance of `CLAUDE.md`'s P0 example "broken certified metric."
+4. **Page navigation broken**: `pages.json`'s `pageOrder` registered only 1 of the 3 existing report pages.
+5. **Zero visuals**: all three report pages are empty shells — no cards, charts, tables, or slicers, despite `powerbi/*/report-spec.yml` specifying exact content for each.
+
+Claude fixed items 1–4 at the text level (`model.tmdl` connection string, data types, and all 7 certified-metric DAX formulas now match `semantic/metric_definitions.yml` exactly; `pageOrder` now lists all 3 pages) — these are corrections to match already-established facts, not new design decisions. Claude explicitly did **not** attempt to author visual content (item 5) — that requires Power BI Desktop's GUI and is human-only work; hand-authoring it blind would risk repeating the same category of problem this review just caught.
+
+Full detail: `docs/handoff/claude-review.md`, "PHASE 7 FINAL QA REVIEW" section.
+
+## Known Limitations
+
+- **Open condition**: the corrected PBIP artifact has not been reopened/refreshed in real Power BI Desktop since Claude's text-level fixes — Claude has no Power BI Desktop access. A human must confirm it loads and refreshes correctly before it's presented.
+- **Open condition**: all three report pages need actual visuals built (cards, charts, tables, slicers, lineage flow diagram) per `powerbi/*/report-spec.yml` — Power BI Desktop GUI work, not something achievable from this environment.
+- Power BI Desktop is unavailable on macOS; the above requires the Windows VM/machine access discussed earlier in this project.
+- The demonstration remains synthetic and local; no live NSU, Banner, Fabric, Purview, authentication, or production integration is claimed.
 
 ## Decisions Needed
-None. Phase 6 is fully passed and committed. Phase 7 (Final QA) may begin once the human explicitly authorizes it.
+
+A human with Power BI Desktop access needs to complete the two open PBIP conditions above. Everything else (Phases 0–6, and the corrected PBIP semantic model logic) is genuinely ready. Do not begin any new scope beyond finishing the PBIP artifact.
 
 ## Recommended Next Action
-None required from Codex for Phase 6. When the human authorizes Phase 7 (Final QA), begin per `docs/CODEX_IMPLEMENTATION_SPEC.md` Phase 7 scope and hand off to Claude as usual.
+
+Human: reopen `powerbi/NSU BI Modernization Demo/` in Power BI Desktop, set the `ProjectRoot` M parameter to this repo's local path (Transform data → Manage Parameters), confirm it loads/refreshes against `seeds/mart_tables/*.csv`, and build the page visuals per `powerbi/*/report-spec.yml`. Once done, a short Claude re-check (matching the pattern used for the Phase 5/6 follow-ups) can confirm final readiness.
 
 ## Human Gate
-Phase 6 reviewed and re-reviewed by Claude. Verdict: **PASSED, confirmed** (0 P0, 0 open P1, 0 blocking P2). Full detail in `docs/handoff/claude-review.md` ("PHASE 6 REVIEW ADDENDUM" and "PHASE 6 RE-REVIEW" sections). Stop before Phase 7 Final QA until the human explicitly authorizes it.
+
+Phase 7 reviewed by Claude. Verdict: **READY WITH CONDITIONS**, not unconditional "READY FOR HUMAN REVIEW." Stop here — do not present the PBIP artifact as a finished, working deliverable until the two open conditions above are resolved.
 
 ---
 
-## Prior Phase History
+## Post-Phase-7 Follow-Up (2026-08-16)
 
-Full historical handoff detail for Phases 0–5 (Gemini fallback review, Phase 1 P1/P2 fixes, Phase 2–4 implementation, Phase 5 authorization resolution and freshness enforcement) is preserved in git history (see commits `da65f14`, `ab12374`, `370a9c9`, `3a38969`) and in `docs/handoff/claude-review.md`'s Phase 3–5 report and `docs/handoff/gemini-review.md`. This file reflects the current phase snapshot per its intended purpose (`AGENTS.md` §14), not a full archive.
+Completed direct human-requested supplementary work: real dbt docs + PostgreSQL screenshots (`docs/images/`), column-level descriptions for all mart columns (`models/marts/schema.yml`), `seeds/mart_tables/*.csv` exports (`scripts/export_mart_csvs.sh`) with the PBIP semantic model's data source switched from live PostgreSQL to those CSVs, `docs/phase5`–`docs/phase7` setup docs (all 7 phase directories now exist), and several IDE-surfaced lint/type fixes. Full detail: `docs/handoff/claude-review.md`, "POST-PHASE-7 FOLLOW-UP" section. `dbt build` (62/62) and `dbt source freshness` (11/11) re-confirmed passing. Does not change the PBIP open condition above — still needs a human with Power BI Desktop to reopen, confirm, and build visuals.

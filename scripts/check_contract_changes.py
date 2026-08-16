@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Detect breaking and non-breaking changes between two FactEnrollment contract YAML files."""
+"""Detect breaking and non-breaking changes between two FactEnrollment contract YAML files."""  # noqa: EXE001
 
 from __future__ import annotations
+
 import argparse
 import sys
 from pathlib import Path
+
 import yaml
 
 

@@ -361,15 +361,19 @@ Build
 ```
 
 ## Documentation and Demo
+
 - [Architecture](docs/architecture.md)
 - [Setup](docs/setup.md)
 - [Data dictionary](docs/data-dictionary.md)
 - [Interview demo runbook](docs/demo.md)
+- [Visual evidence (dbt docs and PostgreSQL screenshots)](docs/images/README.md)
 - [Phase 4 lineage](docs/phase4/lineage.md)
 - [Certification catalog](certification/catalog.yml)
 - [Power BI specifications](powerbi/README.md)
+- [Power BI dashboard build instructions](PowerBIDashboard.md) (local-only checklist; not tracked in git — see `.gitignore`)
 
 ## Key Documents
+
 - [Implementation specification](docs/CODEX_IMPLEMENTATION_SPEC.md)
 - [Independent review specification](docs/CLAUDE_REVIEW_SPEC.md)
 - [Implementation status](docs/implementation-status.md)
