@@ -3,17 +3,12 @@
 # Codex -> Gemini Handoff
 
 ## Phase
-
-PHASE 0
-
+PHASE 1
 ## Status
-
-READY FOR GEMINI RE-REVIEW
+COMPLETE — GEMINI P0/P1/P2 FIXES IMPLEMENTED AND VERIFIED; READY FOR PHASE 2 AUTHORIZATION
 
 ## Objective
-
-Fix Gemini Phase 0 P1 findings after Claude became temporarily unavailable due
-to session limits.
+Implement and validate the authorized Phase 1 Docker, PostgreSQL, and synthetic-data foundation without expanding into dbt or semantic-layer work.
 
 ---
 
@@ -48,17 +43,28 @@ to session limits.
     artifacts;
   - normalized `.env.example` keys to uppercase underscore names;
   - synchronized Gemini and main status files.
+- Implemented Phase 1 Docker Compose PostgreSQL 16 foundation.
+- Implemented deterministic synthetic data generation with all required source-style tables and all 12 schools.
+- Implemented PostgreSQL schema/load initialization, reset, validation, and setup documentation.
+- Verified the running database with Docker Desktop using host port `55432` because `5432` was unavailable.
+- Implemented Gemini Phase 1 review fixes: `students.entry_term_id` foreign key, dependency-correct seed load order, exact row-count and complete reviewed FK assertions, budget and section business uniqueness constraints, and port-collision setup documentation.
 
 ---
 
 ## Files Changed
-
 - docs/implementation-status.md
-- docs/implementation-status-gemini.md
 - docs/handoff/codex-handoff.md
-- .gitignore
-- .env.example
-- .DS_Store removed from Git tracking
+- .vscode/settings.json
+- requirements.txt
+- docker-compose.yml
+- db/init/01_schema.sql
+- db/init/02_load_seed_data.sql
+- scripts/generate_synthetic_data.py
+- scripts/reset_phase1.sh
+- scripts/validate_phase1.sh
+- seeds/*.csv
+- docs/phase1/setup.md
+- Previously changed Phase 0 files remain in the repository history.
 
 ---
 
@@ -97,9 +103,19 @@ to session limits.
 ---
 
 ## Tests Executed
+- `python3 scripts/generate_synthetic_data.py`
+- `docker compose config`
+- `POSTGRES_PORT=55432 docker compose up -d`
+- PostgreSQL readiness check with `pg_isready`
+- `psql` raw-schema inspection
+- `POSTGRES_PORT=55432 bash scripts/validate_phase1.sh`
+- `POSTGRES_PORT=55432 docker compose exec -T postgres psql ...` constraint inspection
 
-No code tests executed. Phase 0 is an audit/documentation handoff only, and no
-Docker, PostgreSQL, dbt, data, or Power BI implementation exists yet.
+Gemini Phase 1 review fix verification executed:
+
+- `POSTGRES_PORT=55432 bash scripts/reset_phase1.sh` (passed)
+- `POSTGRES_PORT=55432 bash scripts/validate_phase1.sh` (passed exact row counts and reviewed FK/grain assertions)
+- PostgreSQL catalog inspection confirmed `students_entry_term_id_fkey`, section uniqueness, and budget uniqueness constraints.
 
 P1 fix verification executed:
 
@@ -112,7 +128,11 @@ P1 fix verification executed:
 ---
 
 ## Actual Results
-
+- Deterministic generation completed with seed `20260816`.
+- Generated counts: 12 schools, 36 programs, 240 students, 6 terms, 432 sections, 300 applications, 201 admissions, 109 deposits, 2,148 registrations, 1,074 enrollment census rows, and 24 budget rows.
+- PostgreSQL initialized `raw` schema and loaded all 11 tables.
+- Validation passed expected row counts, all 12-school requirement, referential-integrity checks, and duplicate registration-grain check.
+- Local port `5432` was unavailable; the successful validation used host port `55432` through the existing compose variable.
 - Remote origin is already configured for the intended private GitHub repository.
 - README.md now reads as a full finished-project repository overview suitable
   for private publication.
@@ -130,7 +150,7 @@ P1 fix verification executed:
 - README.md describes the finished target state; the implementation artifacts it
   names are not present yet.
 - Gemini completed Phase 0 review with PASS WITH CONDITIONS.
-- All Gemini P1 findings have been addressed by Codex.
+- All Gemini P0/P1/P2 findings have been addressed by Codex; no P0/P1/P2 findings remain for Phase 1.
 - `git ls-files .DS_Store` returned no tracked file.
 - `git check-ignore -v` confirmed ignores for `.env`, `.DS_Store`, `target/`,
   `dbt_packages/`, `logs/`, `.pytest_cache/`, and Python cache files.
@@ -140,52 +160,41 @@ P1 fix verification executed:
 ---
 
 ## Known Issues
-
-None currently identified for Phase 0 after P1 fixes. README.md remains a
-finished-state target document, and Phase 1 implementation artifacts are not
-expected to exist yet.
+- Docker Desktop's credential helper was not on the shell `PATH`; validation used `/Applications/Docker.app/Contents/Resources` in `PATH` without changing user configuration.
+- The default host port `5432` is occupied on this machine; use the documented `POSTGRES_PORT=55432` override locally when needed.
+- Phase 2 dbt + FactEnrollment work is intentionally not included.
 
 ---
 
 ## Blockers
-
-None identified.
+None for Phase 1. Human authorization is needed before Phase 2.
 
 ---
 
 ## Decisions Needed
-
-Gemini re-review is needed to confirm the P1 fixes. Claude remains unavailable
-due to session limits.
+Authorize Phase 2 (dbt + FactEnrollment). Claude remains unavailable due to session limits; Gemini is the fallback reviewer.
 
 ---
 
-## Gemini Re-review Request
+## Gemini Review Follow-up
+The complete Gemini Phase 1 review is recorded in `docs/handoff/gemini-review.md`. All identified P1 and P2 fixes have been implemented and verified. No P0, P1, or P2 findings remain for Phase 1.
 
-Gemini should re-review Phase 0 P1 fixes using:
+Verification included:
 
-- `GEMINI.md`
-- `docs/CODEX_IMPLEMENTATION_SPEC_GEMINI.md`
-- `docs/GEMINI_REVIEW_SPEC.md`
-- `docs/implementation-status-gemini.md`
-- `docs/handoff/codex-handoff.md`
-- `docs/handoff/gemini-review.md`
-
-Focus on confirming Gemini P1 items are fixed:
-
-- `.DS_Store` no longer tracked and ignored.
-- `.gitignore` has standard development ignores.
-- `.env.example` uses uppercase underscore environment variable names.
-- status tracking is synchronized.
+- `raw.students.entry_term_id` foreign-key enforcement;
+- dependency-correct seed loading;
+- exact row-count assertions for all 11 tables;
+- admissions, deposits, students, programs, and enrollment referential-integrity assertions;
+- registration-grain duplicate detection;
+- budget and course-section business uniqueness constraints;
+- documented host-port collision handling.
 
 ---
 
 ## Recommended Next Action
-
-Start Gemini re-review. If accepted, request human authorization before Phase 1.
+Await explicit human authorization to begin Phase 2 (dbt + FactEnrollment). Do not begin Phase 2 as part of this handoff.
 
 ---
 
 ## Human Gate
-
-None yet.
+Phase 1 completion gate: reached. Gemini review fixes are complete and verified. Stop before Phase 2 until a human explicitly authorizes Phase 2.

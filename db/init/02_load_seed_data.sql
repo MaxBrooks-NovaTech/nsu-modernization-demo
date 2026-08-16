@@ -1,0 +1,11 @@
+\copy raw.schools FROM '/seed_data/schools.csv' WITH (FORMAT csv, HEADER true);
+\copy raw.terms FROM '/seed_data/terms.csv' WITH (FORMAT csv, HEADER true);
+\copy raw.programs FROM '/seed_data/programs.csv' WITH (FORMAT csv, HEADER true);
+\copy raw.students FROM '/seed_data/students.csv' WITH (FORMAT csv, HEADER true);
+\copy raw.course_sections FROM '/seed_data/course_sections.csv' WITH (FORMAT csv, HEADER true);
+\copy raw.applications FROM '/seed_data/applications.csv' WITH (FORMAT csv, HEADER true);
+\copy raw.admissions FROM '/seed_data/admissions.csv' WITH (FORMAT csv, HEADER true);
+\copy raw.deposits FROM '/seed_data/deposits.csv' WITH (FORMAT csv, HEADER true);
+\copy raw.registrations FROM '/seed_data/registrations.csv' WITH (FORMAT csv, HEADER true);
+\copy raw.enrollment_census FROM '/seed_data/enrollment_census.csv' WITH (FORMAT csv, HEADER true);
+\copy raw.budget_actuals FROM '/seed_data/budget_actuals.csv' WITH (FORMAT csv, HEADER true);

@@ -1,0 +1,13 @@
+school_id,school_name,school_code
+SCH01,College of Arts and Sciences,CAS
+SCH02,College of Business and Analytics,CBA
+SCH03,College of Computing and Engineering,CCE
+SCH04,College of Education,COE
+SCH05,College of Health Professions,CHP
+SCH06,College of Nursing,CON
+SCH07,College of Psychology,CPS
+SCH08,College of Public Policy,CPP
+SCH09,College of Law,LAW
+SCH10,College of Medicine,MED
+SCH11,College of Pharmacy,PHR
+SCH12,College of Ocean and Environment,OCE

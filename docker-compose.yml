@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: nsu_modernization_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-nsu_modernization_demo}
+      POSTGRES_USER: ${POSTGRES_USER:-nsu_demo_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nsu_demo_password}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+      - ./seeds:/seed_data:ro
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-nsu_demo_user} -d ${POSTGRES_DB:-nsu_modernization_demo}"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  postgres_data:

@@ -1,0 +1,37 @@
+program_id,school_id,program_name,degree_level,cip_code
+PRG0101,SCH01,Arts and Sciences Studies,Bachelors,01.0001
+PRG0102,SCH01,Arts and Sciences Leadership,Masters,01.0002
+PRG0103,SCH01,Arts and Sciences Applied Science,Doctoral,01.0003
+PRG0201,SCH02,Business and Analytics Studies,Bachelors,02.0001
+PRG0202,SCH02,Business and Analytics Leadership,Masters,02.0002
+PRG0203,SCH02,Business and Analytics Applied Science,Doctoral,02.0003
+PRG0301,SCH03,Computing and Engineering Studies,Bachelors,03.0001
+PRG0302,SCH03,Computing and Engineering Leadership,Masters,03.0002
+PRG0303,SCH03,Computing and Engineering Applied Science,Doctoral,03.0003
+PRG0401,SCH04,Education Studies,Bachelors,04.0001
+PRG0402,SCH04,Education Leadership,Masters,04.0002
+PRG0403,SCH04,Education Applied Science,Doctoral,04.0003
+PRG0501,SCH05,Health Professions Studies,Bachelors,05.0001
+PRG0502,SCH05,Health Professions Leadership,Masters,05.0002
+PRG0503,SCH05,Health Professions Applied Science,Doctoral,05.0003
+PRG0601,SCH06,Nursing Studies,Bachelors,06.0001
+PRG0602,SCH06,Nursing Leadership,Masters,06.0002
+PRG0603,SCH06,Nursing Applied Science,Doctoral,06.0003
+PRG0701,SCH07,Psychology Studies,Bachelors,07.0001
+PRG0702,SCH07,Psychology Leadership,Masters,07.0002
+PRG0703,SCH07,Psychology Applied Science,Doctoral,07.0003
+PRG0801,SCH08,Public Policy Studies,Bachelors,08.0001
+PRG0802,SCH08,Public Policy Leadership,Masters,08.0002
+PRG0803,SCH08,Public Policy Applied Science,Doctoral,08.0003
+PRG0901,SCH09,Law Studies,Bachelors,09.0001
+PRG0902,SCH09,Law Leadership,Masters,09.0002
+PRG0903,SCH09,Law Applied Science,Doctoral,09.0003
+PRG1001,SCH10,Medicine Studies,Bachelors,10.0001
+PRG1002,SCH10,Medicine Leadership,Masters,10.0002
+PRG1003,SCH10,Medicine Applied Science,Doctoral,10.0003
+PRG1101,SCH11,Pharmacy Studies,Bachelors,11.0001
+PRG1102,SCH11,Pharmacy Leadership,Masters,11.0002
+PRG1103,SCH11,Pharmacy Applied Science,Doctoral,11.0003
+PRG1201,SCH12,Ocean and Environment Studies,Bachelors,12.0001
+PRG1202,SCH12,Ocean and Environment Leadership,Masters,12.0002
+PRG1203,SCH12,Ocean and Environment Applied Science,Doctoral,12.0003
