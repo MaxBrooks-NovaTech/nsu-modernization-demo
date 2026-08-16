@@ -1,0 +1,54 @@
+version: 1
+catalog_status: certified
+release_gate: true
+last_reviewed: "2026-08-16"
+owner: Institutional Research and Analytics
+steward: Data Governance Lead
+products:
+  fact_enrollment:
+    model: analytics.FactEnrollment
+    contract: contracts/fact_enrollment.yml
+    version: 1.0.0
+    status: Certified
+    definition: One row per student registration in one section for one academic term.
+    tests:
+      - dbt build
+      - tests/fact_enrollment_grain.sql
+      - tests/fact_enrollment_business_rules.sql
+    lineage: docs/phase4/lineage.md
+    semantic_definitions:
+      - enrolled
+    consumers:
+      - Executive Enrollment and Admissions reporting
+    approval:
+      approver_role: Data Governance Lead
+      decision: Approved for demonstration use
+  recruitment_funnel:
+    model: analytics.fact_recruitment_funnel
+    version: 1.0.0
+    status: Certified
+    definition: One row per application with admission and deposit outcomes.
+    tests:
+      - dbt build
+    lineage: docs/phase4/lineage.md
+    semantic_definitions:
+      - applications
+      - admits
+      - deposits
+      - yield
+    consumers:
+      - Admissions funnel reporting
+  census_enrollment:
+    model: analytics.fact_census_enrollment
+    version: 1.0.0
+    status: Certified
+    definition: One row per student-term census record.
+    tests:
+      - dbt build
+      - tests/fact_census_enrollment_grain.sql
+    lineage: docs/phase4/lineage.md
+    semantic_definitions:
+      - census_enrollment
+      - ipeds_enrollment
+    consumers:
+      - Official census and institutional reporting

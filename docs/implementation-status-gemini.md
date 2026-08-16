@@ -2,11 +2,11 @@
 
 ## Current Phase
 
-PHASE 3 — SEMANTIC LAYER + CONTRACTS + QUALITY COMPLETED & REVIEWED
+PHASE 4 — LINEAGE + CERTIFICATION + CHANGE MANAGEMENT COMPLETED & TESTED
 
 ## Overall Status
 
-PHASE 3 PASSED INDEPENDENT GEMINI REVIEW — AWAITING HUMAN GOVERNANCE GATE FOR PHASE 4
+PHASE 4 IMPLEMENTED AND TESTED — READY FOR GEMINI REVIEW
 
 ## Authorized Scope
 
@@ -21,7 +21,7 @@ authorized phase range.
 | 1 — PostgreSQL + Synthetic Data | PASS WITH CONDITIONS |
 | 2 — dbt + FactEnrollment | PASSED |
 | 3 — Semantic + Contracts + Quality | PASSED |
-| 4 — Lineage + Certification | NOT STARTED |
+| 4 — Lineage + Certification | IMPLEMENTED — REVIEW PENDING |
 | 5 — Power BI / PBIP | NOT STARTED |
 | 6 — Documentation + Demo | NOT STARTED |
 | 7 — Final QA | NOT STARTED |
@@ -72,7 +72,7 @@ authorized phase range.
 ---
 
 ## Current Work
-Phase 3 implementation has been reviewed and verified by Gemini. All 61 dbt build nodes passed, 7 certified metrics reconciled, data contract validated, and 46 data quality tests verified. Waiting for human governance gate to authorize Phase 4.
+Phase 4 lineage, certification catalog, and contract change detection are implemented within the human-approved scope. Phase 3 remains verified by Gemini; Phase 4 review and handoff are pending.
 
 ---
 
@@ -95,23 +95,23 @@ Results: Phase 1 validations passed. dbt debug passed against PostgreSQL on host
 
 ## Known Issues
 - Host port `5432` collision on local machine handled cleanly using `POSTGRES_PORT=55432`.
-- No outstanding P0, P1, or P2 findings from the Gemini Phase 1 review.
-- Phase 2 dbt and FactEnrollment implementation is complete for this iteration and has been handed off for Gemini review.
+- Gemini Phase 3 identified two optional P2 preparation suggestions; human approved proceeding without implementing them as separate scope.
+- Phase 4 does not include live Banner, SQL Server, Fabric, Purview, or Power BI metadata integration.
 
 ---
 
 ## Blockers
-None identified for the completed work. Phase 3 passed independent Gemini review; Phase 4 remains on hold pending human governance gate authorization.
+None identified for Phase 4 implementation. Gemini review is requested.
 
 ---
 
 ## Decisions Required
-Phase 3 independent review is complete with verdict PASS. Human governance authorization is required before beginning Phase 4 (Lineage + Certification + Change Management).
+Gemini review of the Phase 4 lineage, certification, and change-management implementation is requested. No further human decision is required within the approved scope.
 
 ---
 
 ## Last Codex Update
-2026-08-16 19:37:38 EDT — Completed Phase 3 implementation; dbt build passed with 15 models and 46 data tests (61 total results, 0 errors).
+2026-08-16 — Completed Phase 4 lineage, certification catalog, and contract change-detection implementation; targeted tests passed.
 
 ---
 
@@ -120,7 +120,7 @@ Phase 3 independent review is complete with verdict PASS. Human governance autho
 2026-08-16 20:00:00 EDT — Completed Phase 3 independent review. Verdict: PASS (0 P0, 0 P1, 2 P2 suggestions for Phase 4 prep). Detailed report recorded in `docs/handoff/gemini-review.md`.
 
 ## Next Action
-Phase 3 independent review is complete with verdict PASS. Phase 4 (Lineage + Certification + Change Management) is on HOLD awaiting explicit human governance authorization.
+Hand off Phase 4 to Gemini for independent review. Do not begin Phase 5 until the review and applicable human governance gate are complete.
 
 ---
 

@@ -3,16 +3,21 @@
 # Codex -> Gemini Handoff
 
 ## Phase
-PHASE 3
+PHASE 4
 ## Status
 IMPLEMENTED AND TESTED — READY FOR GEMINI REVIEW
 
 ## Objective
-Implement and validate the human-authorized Phase 3 semantic layer, certified models, data contract, and actionable quality controls without expanding into Phase 4 lineage, certification workflow, or change management.
+Implement and validate the human-approved Phase 4 lineage map, certification release catalog, and actionable contract change detection without expanding into Power BI or final documentation phases.
 
 ---
 
 ## Implemented
+- Human approved proceeding after Gemini returned Phase 3 PASS with only P2 suggestions.
+- Added `docs/phase4/lineage.md` with source-to-transformation-to-model-to-semantic-to-consumer lineage and impact analysis.
+- Added `certification/catalog.yml` with owner, steward, definitions, tests, lineage, approval, status, version, and consumers for three certified products.
+- Added `scripts/check_contract_changes.py` to detect required-field removal, grain changes, and contract governance-rule changes.
+- Verified unchanged contracts pass change detection without false positives.
 
 - Verified existing remote origin:
   `https://github.com/MaxBrooks-NovaTech/nsu-modernization-demo.git`
@@ -205,17 +210,18 @@ P1 fix verification executed:
 ## Known Issues
 - Docker Desktop's credential helper was not on the shell `PATH`; validation used `/Applications/Docker.app/Contents/Resources` in `PATH` without changing user configuration.
 - The default host port `5432` is occupied on this machine; use the documented `POSTGRES_PORT=55432` override locally when needed.
-- Phase 2 semantic definitions, contracts, lineage, certification, and Power BI work are intentionally not included; they belong to later phases.
+- The lineage map and certification catalog are source-controlled demonstration artifacts; live platform metadata integration remains out of scope.
+- Power BI/PBIP work remains for Phase 5.
 
 ---
 
 ## Blockers
-None for Phase 3 implementation. Gemini review is requested.
+None for Phase 4 implementation. Gemini review is requested.
 
 ---
 
 ## Decisions Needed
-Gemini review of the Phase 3 implementation is requested. No additional human decision is required within this authorized scope.
+Gemini review of Phase 4 is requested. Do not begin Phase 5 until review and the applicable human governance gate are complete.
 
 ---
 
@@ -235,9 +241,9 @@ Verification included:
 ---
 
 ## Recommended Next Action
-Gemini should review the Phase 3 semantic definitions, contract, certified marts, and executed quality tests against `docs/CODEX_IMPLEMENTATION_SPEC_GEMINI.md`, `docs/GEMINI_REVIEW_SPEC.md`, and `AGENTS_WITH_GEMINI.md`.
+Gemini should review `docs/phase4/lineage.md`, `certification/catalog.yml`, and `scripts/check_contract_changes.py` against the Phase 4 requirements and execute the documented tests.
 
 ---
 
 ## Human Gate
-Phase 3 implementation gate reached. Stop before Phase 4 until Gemini review and the applicable human governance gate are complete.
+Phase 4 implementation gate reached. Stop before Phase 5 until Gemini review and the applicable human governance gate are complete.
