@@ -16,5 +16,5 @@ pages:
         fields:
           [product, source_entities, model, semantic_definitions, consumers]
       - type: table
-        fields: [product, owner, steward, version, status, approval]
+        fields: [product, owner, steward, version, status, approval_decision]
     slicers: [product, consumer, status]

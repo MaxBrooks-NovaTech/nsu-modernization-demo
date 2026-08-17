@@ -2,7 +2,7 @@ model Model
 	culture: en-US
 	annotation PBI_ProTooling = "Sample"
 
-expression ProjectRoot = "C:\Users\YourName\nsu-modernization-demo" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+expression ProjectRoot = "C:\Users\maxbrooks\Documents\GitHub\nsu-modernization-demo" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 	annotation PBI_ResultType = Text
 expression LakehouseName = "NSU_DEMO" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
 	annotation PBI_ResultType = Text

@@ -1,32 +1,32 @@
-	table FactEnrollment
+table FactEnrollment
 	annotation SourceSystem = "OneLake Lakehouse NSU_DEMO"
 	annotation SourceTable = "FactEnrollment"
 	column registration_id
-	dataType: string
+		dataType: string
 		sourceColumn: registration_id
 	column student_id
-	dataType: string
+		dataType: string
 		sourceColumn: student_id
 	column section_id
-	dataType: string
+		dataType: string
 		sourceColumn: section_id
 	column term_id
-	dataType: string
+		dataType: string
 		sourceColumn: term_id
 	column school_id
-	dataType: string
+		dataType: string
 		sourceColumn: school_id
 	column program_id
-	dataType: string
+		dataType: string
 		sourceColumn: program_id
 	column registration_status
-	dataType: string
+		dataType: string
 		sourceColumn: registration_status
 	column credit_hours
-	dataType: double
+		dataType: double
 		sourceColumn: credit_hours
 	measure Enrolled = CALCULATE(DISTINCTCOUNT(FactEnrollment[registration_id]), FactEnrollment[registration_status] = "Registered")
-	formatString: "#,0"
+		formatString: "#,0"
 
 	partition FactEnrollment = m
 		mode: import

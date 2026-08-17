@@ -1,31 +1,31 @@
-	table CensusEnrollment
+table CensusEnrollment
 	annotation SourceSystem = "OneLake Lakehouse NSU_DEMO"
 	annotation SourceTable = "CensusEnrollment"
 	column enrollment_id
-	dataType: string
+		dataType: string
 		sourceColumn: enrollment_id
 	column student_id
-	dataType: string
+		dataType: string
 		sourceColumn: student_id
 	column term_id
-	dataType: string
+		dataType: string
 		sourceColumn: term_id
 	column school_id
-	dataType: string
+		dataType: string
 		sourceColumn: school_id
 	column program_id
-	dataType: string
+		dataType: string
 		sourceColumn: program_id
 	column census_enrolled_flag
-	dataType: boolean
+		dataType: boolean
 		sourceColumn: census_enrolled_flag
 	column ipeds_enrolled_flag
-	dataType: boolean
+		dataType: boolean
 		sourceColumn: ipeds_enrolled_flag
 	measure CensusEnrollment = CALCULATE(DISTINCTCOUNT(CensusEnrollment[student_id]), CensusEnrollment[census_enrolled_flag] = TRUE())
-	formatString: "#,0"
+		formatString: "#,0"
 	measure IpedsEnrollment = CALCULATE(DISTINCTCOUNT(CensusEnrollment[student_id]), CensusEnrollment[ipeds_enrolled_flag] = TRUE())
-	formatString: "#,0"
+		formatString: "#,0"
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	sourceQueryCulture: en-US
 	valueFilterBehavior: independent

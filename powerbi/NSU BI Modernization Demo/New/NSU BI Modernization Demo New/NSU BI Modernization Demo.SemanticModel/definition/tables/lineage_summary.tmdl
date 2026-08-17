@@ -2,26 +2,27 @@ table lineage_summary
 	annotation SourceSystem = "OneLake Lakehouse NSU_DEMO"
 	annotation SourceSnapshot = "seeds/mart_tables/lineage_summary.csv"
 	column product
-	dataType: string
+		dataType: string
 		sourceColumn: product
 	column source_entities
-	dataType: string
+		dataType: string
 		sourceColumn: source_entities
 	column model
-	dataType: string
+		dataType: string
 		sourceColumn: model
 	column semantic_definitions
-	dataType: string
+		dataType: string
 		sourceColumn: semantic_definitions
 	column consumers
-	dataType: string
+		dataType: string
 		sourceColumn: consumers
+
 	partition lineage_summary = m
-	mode: import
+		mode: import
 		source =
-	let
-	Source = Csv.Document(File.Contents(ProjectRoot & "\\seeds\\mart_tables\\lineage_summary.csv"), [Delimiter=", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
-	#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-	#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"product", type text}, {"source_entities", type text}, {"model", type text}, {"semantic_definitions", type text}, {"consumers", type text}})
-	in
-	#"Changed Type"
+				let
+					Source = Csv.Document(File.Contents(ProjectRoot & "\seeds\mart_tables\lineage_summary.csv"), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"product", type text}, {"source_entities", type text}, {"model", type text}, {"semantic_definitions", type text}, {"consumers", type text}})
+				in
+					#"Changed Type"

@@ -1,35 +1,35 @@
-	table RecruitmentFunnel
+table RecruitmentFunnel
 	annotation SourceSystem = "OneLake Lakehouse NSU_DEMO"
 	annotation SourceTable = "RecruitmentFunnel"
 	column application_id
-	dataType: string
+		dataType: string
 		sourceColumn: application_id
 	column term_id
-	dataType: string
+		dataType: string
 		sourceColumn: term_id
 	column school_id
-	dataType: string
+		dataType: string
 		sourceColumn: school_id
 	column program_id
-	dataType: string
+		dataType: string
 		sourceColumn: program_id
 	column application_status
-	dataType: string
+		dataType: string
 		sourceColumn: application_status
 	column decision_status
-	dataType: string
+		dataType: string
 		sourceColumn: decision_status
 	column deposit_status
-	dataType: string
+		dataType: string
 		sourceColumn: deposit_status
 	measure Applications = CALCULATE(DISTINCTCOUNT(RecruitmentFunnel[application_id]), RecruitmentFunnel[application_status] = "Submitted")
-	formatString: "#,0"
+		formatString: "#,0"
 	measure Admits = CALCULATE(DISTINCTCOUNT(RecruitmentFunnel[application_id]), RecruitmentFunnel[decision_status] = "Admitted")
-	formatString: "#,0"
+		formatString: "#,0"
 	measure Deposits = CALCULATE(DISTINCTCOUNT(RecruitmentFunnel[application_id]), RecruitmentFunnel[deposit_status] = "Paid")
-	formatString: "#,0"
+		formatString: "#,0"
 	measure Yield = DIVIDE([Deposits], [Admits])
-	formatString: "0.0%"
+		formatString: "0.0%"
 
 	partition RecruitmentFunnel = m
 		mode: import

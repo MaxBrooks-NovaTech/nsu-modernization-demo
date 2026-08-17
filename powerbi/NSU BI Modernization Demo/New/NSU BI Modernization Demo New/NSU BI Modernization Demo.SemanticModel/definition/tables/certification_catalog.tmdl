@@ -2,44 +2,45 @@ table certification_catalog
 	annotation SourceSystem = "OneLake Lakehouse NSU_DEMO"
 	annotation SourceSnapshot = "seeds/mart_tables/certification_catalog.csv"
 	column product
-	dataType: string
+		dataType: string
 		sourceColumn: product
 	column model
-	dataType: string
+		dataType: string
 		sourceColumn: model
 	column version
-	dataType: string
+		dataType: string
 		sourceColumn: version
 	column owner
-	dataType: string
+		dataType: string
 		sourceColumn: owner
 	column steward
-	dataType: string
+		dataType: string
 		sourceColumn: steward
 	column status
-	dataType: string
+		dataType: string
 		sourceColumn: status
 	column last_reviewed
-	dataType: string
+		dataType: string
 		sourceColumn: last_reviewed
 	column approver_role
-	dataType: string
+		dataType: string
 		sourceColumn: approver_role
 	column approval_decision
-	dataType: string
+		dataType: string
 		sourceColumn: approval_decision
 	column consumers
-	dataType: string
+		dataType: string
 		sourceColumn: consumers
 	column semantic_definitions
-	dataType: string
+		dataType: string
 		sourceColumn: semantic_definitions
+
 	partition certification_catalog = m
-	mode: import
+		mode: import
 		source =
-	let
-	Source = Csv.Document(File.Contents(ProjectRoot & "\\seeds\\mart_tables\\certification_catalog.csv"), [Delimiter=", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
-	#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-	#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"product", type text}, {"model", type text}, {"version", type text}, {"owner", type text}, {"steward", type text}, {"status", type text}, {"last_reviewed", type text}, {"approver_role", type text}, {"approval_decision", type text}, {"consumers", type text}, {"semantic_definitions", type text}})
-	in
-	#"Changed Type"
+				let
+					Source = Csv.Document(File.Contents(ProjectRoot & "\seeds\mart_tables\certification_catalog.csv"), [Delimiter=",", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"product", type text}, {"model", type text}, {"version", type text}, {"owner", type text}, {"steward", type text}, {"status", type text}, {"last_reviewed", type text}, {"approver_role", type text}, {"approval_decision", type text}, {"consumers", type text}, {"semantic_definitions", type text}})
+				in
+					#"Changed Type"
