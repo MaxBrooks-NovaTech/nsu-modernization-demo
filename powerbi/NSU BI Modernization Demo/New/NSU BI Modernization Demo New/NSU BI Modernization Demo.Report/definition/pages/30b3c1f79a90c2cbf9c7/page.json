@@ -1,0 +1,16 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "30b3c1f79a90c2cbf9c7",
+  "displayName": "Executive Enrollment & Admissions — NSU_DEMO",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visuals": [
+    { "id": "applications_card", "type": "card", "title": "Applications", "measure": "Applications" },
+    { "id": "admits_card", "type": "card", "title": "Admits", "measure": "Admits" },
+    { "id": "deposits_card", "type": "card", "title": "Deposits", "measure": "Deposits" },
+    { "id": "enrolled_card", "type": "card", "title": "Enrolled", "measure": "Enrolled" },
+    { "id": "recruitment_funnel", "type": "funnel", "title": "Recruitment Funnel", "measures": ["Admits", "Deposits", "Yield"] },
+    { "id": "enrollment_by_school", "type": "clusteredColumnChart", "title": "Enrolled by School", "category": "dim_school.school_name", "measure": "Enrolled" }
+  ]
+}
