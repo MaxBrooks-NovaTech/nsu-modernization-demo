@@ -40,12 +40,23 @@ The source files are generated locally under `seeds/dimension_tables/`, `seeds/m
 
 ## Steps
 
-1. Upload the files using the folder layout above.
-2. Open a Fabric notebook attached to `NSU_DEMO`.
-3. Copy `scripts/load_dimension_tables_fabric.py` into notebook cells, or upload/import it if supported.
-4. Run all cells.
+1. 1. Upload the files using the folder layout above.
+2. Open a Fabric notebook and attach `NSU_DEMO` as the **default Lakehouse**. The notebook must show `NSU_DEMO` in its Lakehouse pane.
+3. Confirm the files are visible under the Lakehouse `Files` area. The script uses `/lakehouse/default/Files/...`, not the relative path `Files/...`.
+4. Copy `scripts/load_dimension_tables_fabric.py` into notebook cells, or upload/import it if supported.
+5. Run all cells.
 5. Confirm the row-count validation output.
 6. Validate the resulting tables through the SQL endpoint using `dbo.<table_name>`, for example `dbo.dim_school` and `dbo.fact_enrollment`.
+
+## Missing-file error
+If the notebook reports an error containing a path such as `.../Files/dimension_tables/dim_school.csv`, verify:
+
+- `NSU_DEMO` is attached as the notebook's default Lakehouse, not only added as an additional Lakehouse.
+- The file is named exactly `dim_school.csv`.
+- The file is directly under `Files/dimension_tables/`, not under an additional nested folder.
+- The file upload has completed and the Lakehouse Files view has been refreshed.
+
+The loader performs a preflight existence check before replacing any tables and reports the expected absolute Lakehouse path for a missing file.
 
 The loader performs `CREATE OR REPLACE` behavior for every managed Delta table. It applies the explicit schema and overwrites the complete table contents from the CSV in one operation. Rerunning it after deleting and re-uploading source files replaces every fact, dimension, and governance table deterministically. Spark writes managed tables without a namespace, and the Lakehouse SQL analytics endpoint exposes them under the `dbo` schema as `dbo.<table_name>`. It validates non-null required columns, duplicate primary keys, explicit data types, and expected row counts. Optional nullable columns in the fact tables are allowed to contain nulls. Governance CSVs are loaded as separate reference tables from `Files/data_governance/`.
 

@@ -1,10 +1,13 @@
 # Fabric notebook source
 # Load synthetic NSU BI Modernization Demo CSV files into the attached NSU_DEMO Lakehouse.
-# Upload the repository's CSV sets beneath Files/ before running this notebook:
+# Upload the repository's CSV sets beneath the Files area of the attached
+# NSU_DEMO Lakehouse before running this notebook:
 #   Files/dimension_tables/*.csv
 #   Files/mart_tables/*.csv
 #   Files/data_governance/*.csv
-# Attach this notebook to the NSU_DEMO Lakehouse. It does not use SQL endpoint credentials.
+# Attach NSU_DEMO as the notebook's default Lakehouse. Fabric notebook file
+# paths use /lakehouse/default/Files, not a relative Files/ path. This script
+# does not use SQL endpoint credentials.
 
 from pyspark.sql.types import (
     BooleanType,
@@ -18,7 +21,7 @@ from pyspark.sql.types import (
 
 LAKEHOUSE_NAME = "NSU_DEMO"
 TARGET_SCHEMA = "dbo"
-SOURCE_ROOT = "Files"
+SOURCE_ROOT = "/lakehouse/default/Files"
 DIMENSION_SOURCE_FOLDER = "dimension_tables"
 MART_SOURCE_FOLDER = "mart_tables"
 GOVERNANCE_SOURCE_FOLDER = "data_governance"
@@ -47,9 +50,22 @@ term_schema = StructType([
     StructField("term_end_date", DateType(), False),
 ])
 
-def load_csv_table(table_name, schema, source_folder, key_column=None):
-    # Read, type-cast, validate, and replace one Lakehouse table."
+def source_path(table_name, source_folder):
     path = f"{SOURCE_ROOT}/{source_folder}/{table_name}.csv"
+    try:
+        exists = notebookutils.fs.exists(path)
+    except NameError:
+        exists = True
+    if not exists:
+        raise FileNotFoundError(
+            f"Missing Lakehouse file: {path}. Attach NSU_DEMO as the default "
+            f"Lakehouse and upload {table_name}.csv to Files/{source_folder}/."
+        )
+    return path
+
+def load_csv_table(table_name, schema, source_folder, key_column=None):
+    # Read, type-cast, validate, and replace one Lakehouse table.
+    path = source_path(table_name, source_folder)
     spark_table_name = table_name
     endpoint_table_name = f"{TARGET_SCHEMA}.{table_name}"
 
@@ -133,13 +149,6 @@ mart_specs = [
     ("fact_census_enrollment", census_enrollment_schema),
 ]
 
-results = [
-    load_csv_table("dim_school", school_schema, DIMENSION_SOURCE_FOLDER),
-    load_csv_table("dim_program", program_schema, DIMENSION_SOURCE_FOLDER),
-    load_csv_table("dim_term", term_schema, DIMENSION_SOURCE_FOLDER),
-]
-results.extend(load_csv_table(table_name, schema, MART_SOURCE_FOLDER) for table_name, schema in mart_specs)
-
 governance_specs = [
     ("certification_catalog", StructType([
         StructField("product", StringType(), False), StructField("model", StringType(), False),
@@ -159,6 +168,25 @@ governance_specs = [
         StructField("evidence", StringType(), False),
     ])),
 ]
+
+# Preflight every source before replacing any table.
+source_specs = [
+    ("dim_school", school_schema, DIMENSION_SOURCE_FOLDER),
+    ("dim_program", program_schema, DIMENSION_SOURCE_FOLDER),
+    ("dim_term", term_schema, DIMENSION_SOURCE_FOLDER),
+]
+source_specs.extend((table_name, schema, MART_SOURCE_FOLDER) for table_name, schema in mart_specs)
+source_specs.extend((table_name, schema, GOVERNANCE_SOURCE_FOLDER) for table_name, schema in governance_specs)
+for table_name, _, folder in source_specs:
+    print(f"Found source: {source_path(table_name, folder)}")
+
+results = [
+    load_csv_table("dim_school", school_schema, DIMENSION_SOURCE_FOLDER),
+    load_csv_table("dim_program", program_schema, DIMENSION_SOURCE_FOLDER),
+    load_csv_table("dim_term", term_schema, DIMENSION_SOURCE_FOLDER),
+]
+results.extend(load_csv_table(table_name, schema, MART_SOURCE_FOLDER) for table_name, schema in mart_specs)
+
 results.extend(load_csv_table(table_name, schema, GOVERNANCE_SOURCE_FOLDER) for table_name, schema in governance_specs)
 
 for table_name, row_count in results:
