@@ -1,45 +1,89 @@
-relationship FactEnrollment_school {
-	fromColumn: FactEnrollment.school_id
-	toColumn: dim_school.school_id
-	crossFilteringBehavior: singleDirection
-}
-relationship FactEnrollment_program {
-	fromColumn: FactEnrollment.program_id
+relationship ddb3b499-4678-4338-8f99-49f2eca54d33
+	joinOnDateBehavior: datePartOnly
+	fromColumn: certification_catalog.last_reviewed
+	toColumn: LocalDateTable_f7b17752-f760-4d81-95eb-e1f96a25384e.Date
+
+relationship 278b201e-2bc4-40f9-805d-5b5e87bb2754
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_term.term_start_date
+	toColumn: LocalDateTable_2ddf41f5-f633-41a0-9dc2-61ac0c38fb6a.Date
+
+relationship 6c22a02c-b490-4948-ac31-eca7a6a3c16b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_term.census_date
+	toColumn: LocalDateTable_918a524c-54b7-4dff-9cf9-321abcf5c954.Date
+
+relationship 64c58f6e-f4d3-4d6a-86aa-cb7af85240d0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_term.term_end_date
+	toColumn: LocalDateTable_9d69ea8f-56ce-4c0b-a4f6-83453f35c78f.Date
+
+relationship f26f73f7-8b6c-4ff3-a97d-d205dec16b01
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_enrollment.registration_date
+	toColumn: LocalDateTable_6b44f70a-f13d-4611-8f4c-89a3d967bf93.Date
+
+relationship 5ae37381-3db6-4afb-89d8-e0c3e7355434
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_recruitment_funnel.application_date
+	toColumn: LocalDateTable_07c40def-ead7-43e4-9f58-eda9a2917061.Date
+
+relationship 392c6dc5-c7e6-4f69-b3e6-7aa3078bb15e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_recruitment_funnel.decision_date
+	toColumn: LocalDateTable_077245ca-8a0f-4b5f-a9fc-fe30fa163cfc.Date
+
+relationship 6dd3750e-1aa6-430d-bd7e-124664c417a8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fact_recruitment_funnel.deposit_date
+	toColumn: LocalDateTable_9a6d6737-0bc7-4b51-bd91-e2ac7c9545a4.Date
+
+relationship AutoDetected_88bd51c2-c228-4baa-b26a-b34fa2de4ece
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: lineage_summary.product
+	toColumn: certification_catalog.product
+
+relationship AutoDetected_71b3af61-df46-4bfa-b680-f1020912edec
+	fromColumn: fact_census_enrollment.program_id
 	toColumn: dim_program.program_id
-	crossFilteringBehavior: singleDirection
-}
-relationship FactEnrollment_term {
-	fromColumn: FactEnrollment.term_id
-	toColumn: dim_term.term_id
-	crossFilteringBehavior: singleDirection
-}
-relationship RecruitmentFunnel_school {
-	fromColumn: RecruitmentFunnel.school_id
-	toColumn: dim_school.school_id
-	crossFilteringBehavior: singleDirection
-}
-relationship RecruitmentFunnel_program {
-	fromColumn: RecruitmentFunnel.program_id
+
+relationship AutoDetected_3449e75b-f629-492c-81dd-5934d76d1f80
+	fromColumn: fact_enrollment.program_id
 	toColumn: dim_program.program_id
-	crossFilteringBehavior: singleDirection
-}
-relationship RecruitmentFunnel_term {
-	fromColumn: RecruitmentFunnel.term_id
-	toColumn: dim_term.term_id
-	crossFilteringBehavior: singleDirection
-}
-relationship CensusEnrollment_school {
-	fromColumn: CensusEnrollment.school_id
-	toColumn: dim_school.school_id
-	crossFilteringBehavior: singleDirection
-}
-relationship CensusEnrollment_program {
-	fromColumn: CensusEnrollment.program_id
+
+relationship AutoDetected_a1bcd63d-44d9-46f9-aabe-73d7a6507786
+	fromColumn: fact_recruitment_funnel.program_id
 	toColumn: dim_program.program_id
-	crossFilteringBehavior: singleDirection
-}
-relationship CensusEnrollment_term {
-	fromColumn: CensusEnrollment.term_id
+
+relationship AutoDetected_5ce75b31-0578-4de4-aaea-6d8dc99fa3dc
+	fromColumn: dim_program.school_id
+	toColumn: dim_school.school_id
+
+relationship AutoDetected_b3af0836-272f-45ea-9162-1fe0b4bae01c
+	isActive: false
+	fromColumn: fact_census_enrollment.school_id
+	toColumn: dim_school.school_id
+
+relationship AutoDetected_c2f304dd-e13b-49e3-abb3-b42e24d119d4
+	isActive: false
+	fromColumn: fact_enrollment.school_id
+	toColumn: dim_school.school_id
+
+relationship AutoDetected_d4d6fb0f-4222-4c54-9f0d-fc63094e03da
+	isActive: false
+	fromColumn: fact_recruitment_funnel.school_id
+	toColumn: dim_school.school_id
+
+relationship AutoDetected_1c773450-e996-4092-b057-922ad7558dcd
+	fromColumn: fact_census_enrollment.term_id
 	toColumn: dim_term.term_id
-	crossFilteringBehavior: singleDirection
-}
+
+relationship AutoDetected_0998a29f-115c-49fc-b541-c963deb65b48
+	fromColumn: fact_enrollment.term_id
+	toColumn: dim_term.term_id
+
+relationship AutoDetected_3a415fb7-d92c-496c-9a31-73ecac2e60a5
+	fromColumn: fact_recruitment_funnel.term_id
+	toColumn: dim_term.term_id
+

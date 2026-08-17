@@ -1,42 +1,170 @@
-table RecruitmentFunnel
-	annotation SourceSystem = "OneLake Lakehouse NSU_DEMO"
-	annotation SourceTable = "RecruitmentFunnel"
+table fact_recruitment_funnel
+	lineageTag: 8d770fd4-edf5-4b4c-b724-80753a8cebbc
+
 	column application_id
 		dataType: string
+		lineageTag: f330e633-ba92-46c5-b73f-120751458456
+		summarizeBy: none
 		sourceColumn: application_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column student_id
+		dataType: string
+		lineageTag: 57fc4ac2-2149-4c92-9085-4a9fec114341
+		summarizeBy: none
+		sourceColumn: student_id
+
+		annotation SummarizationSetBy = Automatic
+
 	column term_id
 		dataType: string
+		lineageTag: 66b4d830-1dc8-468c-9074-2f147a104d6e
+		summarizeBy: none
 		sourceColumn: term_id
+
+		annotation SummarizationSetBy = Automatic
+
 	column school_id
 		dataType: string
+		lineageTag: 6608bd1f-fa32-4939-a000-b7ffdde55965
+		summarizeBy: none
 		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
 	column program_id
 		dataType: string
+		lineageTag: 2a947923-31f5-444d-924b-8d111a9ede4b
+		summarizeBy: none
 		sourceColumn: program_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column application_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 991e9f2c-5e07-4dec-845b-8e351e6c8e68
+		summarizeBy: none
+		sourceColumn: application_date
+
+		variation Variation
+			isDefault
+			relationship: 5ae37381-3db6-4afb-89d8-e0c3e7355434
+			defaultHierarchy: LocalDateTable_07c40def-ead7-43e4-9f58-eda9a2917061.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	column application_status
 		dataType: string
+		lineageTag: a282ac11-5e36-477a-b845-766be176c9a3
+		summarizeBy: none
 		sourceColumn: application_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column admission_id
+		dataType: string
+		lineageTag: f71d5b6f-e440-4ffb-8317-2163a6a551f4
+		summarizeBy: none
+		sourceColumn: admission_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column decision_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2a9a14c2-011b-4a54-97d8-c09e4db651be
+		summarizeBy: none
+		sourceColumn: decision_date
+
+		variation Variation
+			isDefault
+			relationship: 392c6dc5-c7e6-4f69-b3e6-7aa3078bb15e
+			defaultHierarchy: LocalDateTable_077245ca-8a0f-4b5f-a9fc-fe30fa163cfc.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	column decision_status
 		dataType: string
+		lineageTag: 76d9961d-2d90-41c1-8667-0734a59bee1c
+		summarizeBy: none
 		sourceColumn: decision_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column deposit_id
+		dataType: string
+		lineageTag: f4211c15-a9f0-405e-86ff-28dc5ff20bd6
+		summarizeBy: none
+		sourceColumn: deposit_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column deposit_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 36e76a9e-86e2-4d0b-b194-8767eca1a233
+		summarizeBy: none
+		sourceColumn: deposit_date
+
+		variation Variation
+			isDefault
+			relationship: 6dd3750e-1aa6-430d-bd7e-124664c417a8
+			defaultHierarchy: LocalDateTable_9a6d6737-0bc7-4b51-bd91-e2ac7c9545a4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	column deposit_status
 		dataType: string
+		lineageTag: c1e361d0-a470-4b41-bb21-193c8faeb370
+		summarizeBy: none
 		sourceColumn: deposit_status
-	measure Applications = CALCULATE(DISTINCTCOUNT(RecruitmentFunnel[application_id]), RecruitmentFunnel[application_status] = "Submitted")
-		formatString: "#,0"
-	measure Admits = CALCULATE(DISTINCTCOUNT(RecruitmentFunnel[application_id]), RecruitmentFunnel[decision_status] = "Admitted")
-		formatString: "#,0"
-	measure Deposits = CALCULATE(DISTINCTCOUNT(RecruitmentFunnel[application_id]), RecruitmentFunnel[deposit_status] = "Paid")
-		formatString: "#,0"
-	measure Yield = DIVIDE([Deposits], [Admits])
-		formatString: "0.0%"
 
-	partition RecruitmentFunnel = m
+		annotation SummarizationSetBy = Automatic
+
+	column deposit_amount
+		dataType: double
+		lineageTag: 1928080e-a602-466d-b728-31eeb4cfb79c
+		summarizeBy: sum
+		sourceColumn: deposit_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_admitted
+		dataType: string
+		lineageTag: 9885bf19-3f42-47df-a2ed-1782bbfd89ca
+		summarizeBy: none
+		sourceColumn: is_admitted
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_deposited
+		dataType: string
+		lineageTag: 3ea7abaa-5bc7-493d-85b6-b51c2c221b56
+		summarizeBy: none
+		sourceColumn: is_deposited
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_recruitment_funnel = m
 		mode: import
 		source =
 				let
-					Source = Csv.Document(File.Contents(ProjectRoot & "\seeds\mart_tables\fact_recruitment_funnel.csv"), [Delimiter=",", Columns=16, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
-					#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-					#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"application_id", type text}, {"student_id", type text}, {"term_id", type text}, {"school_id", type text}, {"program_id", type text}, {"application_status", type text}, {"admission_id", type text}, {"decision_status", type text}, {"deposit_id", type text}, {"deposit_status", type text}, {"deposit_amount", type number}, {"is_admitted", type logical}, {"is_deposited", type logical}})
+				    Source = Sql.Database("e24kd4t5iotezbksgc6j5zwpeq-ctcxpmaaogturcuygmjtlcx4hy.datawarehouse.fabric.microsoft.com", "nsu_demo"),
+				    dbo_fact_recruitment_funnel = Source{[Schema="dbo",Item="fact_recruitment_funnel"]}[Data]
 				in
-					#"Changed Type"
+				    dbo_fact_recruitment_funnel
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,151 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 615.52198091318974,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1190.7182840918979,
+            "y": 313.48555544657415
+          },
+          "nodeIndex": "certification_catalog",
+          "nodeLineageTag": "0a1b991b-ccd1-4d37-9763-c6749462f8fc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 530.37571901419517,
+            "y": -50
+          },
+          "nodeIndex": "dim_program",
+          "nodeLineageTag": "6a77b30f-4eb9-44d1-b9d7-e5c2d6cc7268",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 245.9343859418799,
+            "y": 195.21905071217418
+          },
+          "nodeIndex": "dim_school",
+          "nodeLineageTag": "de50544f-5de6-406c-95f8-fc37ca7e9077",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 396.79874861759566,
+            "y": 752.97111089314831
+          },
+          "nodeIndex": "dim_term",
+          "nodeLineageTag": "690fa3e9-a0ab-46af-be96-b788bad89b2f",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 622.718284091898,
+            "y": 403.95551505942728
+          },
+          "nodeIndex": "fact_census_enrollment",
+          "nodeLineageTag": "374821c2-b8c0-47c5-a24c-6093a0cf52a6",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 434.85580465605972
+          },
+          "nodeIndex": "fact_enrollment",
+          "nodeLineageTag": "3c916dd4-1919-4240-b1da-e94f154e6ce3",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 336.242053615459,
+            "y": 399.70506147973379
+          },
+          "nodeIndex": "fact_recruitment_funnel",
+          "nodeLineageTag": "8d770fd4-edf5-4b4c-b724-80753a8cebbc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 906.71828409189789,
+            "y": 363.48555544657415
+          },
+          "nodeIndex": "lineage_summary",
+          "nodeLineageTag": "12312bc2-7d99-4aa5-8a5d-58ebe3b54a79",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1476.2920748423655,
+            "y": 463.272450821808
+          },
+          "nodeIndex": "quality_test_evidence",
+          "nodeLineageTag": "5aad6afa-4c8a-400c-b86c-bafa4ccbe891",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1315.0799081981775,
+            "y": 40.136157187754122
+          },
+          "nodeIndex": "measure_table",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 89.19259052056961,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

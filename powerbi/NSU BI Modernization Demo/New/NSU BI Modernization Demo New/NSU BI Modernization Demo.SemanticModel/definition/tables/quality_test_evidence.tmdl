@@ -1,22 +1,40 @@
 table quality_test_evidence
-	annotation SourceSystem = "OneLake Lakehouse NSU_DEMO"
-	annotation SourceSnapshot = "seeds/mart_tables/quality_test_evidence.csv"
+	lineageTag: 5aad6afa-4c8a-400c-b86c-bafa4ccbe891
+
 	column test_name
 		dataType: string
+		lineageTag: bcf26411-728b-48a3-b05a-e24ab9ef2795
+		summarizeBy: none
 		sourceColumn: test_name
+
+		annotation SummarizationSetBy = Automatic
+
 	column result
 		dataType: string
+		lineageTag: 60bb8099-c696-40b9-a260-b3002792862a
+		summarizeBy: none
 		sourceColumn: result
+
+		annotation SummarizationSetBy = Automatic
+
 	column evidence
 		dataType: string
+		lineageTag: 86d5554b-3a63-4ef8-a069-79729166b4db
+		summarizeBy: none
 		sourceColumn: evidence
+
+		annotation SummarizationSetBy = Automatic
 
 	partition quality_test_evidence = m
 		mode: import
 		source =
 				let
-					Source = Csv.Document(File.Contents(ProjectRoot & "\seeds\mart_tables\quality_test_evidence.csv"), [Delimiter=",", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
-					#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-					#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"test_name", type text}, {"result", type text}, {"evidence", type text}})
+				    Source = Sql.Database("e24kd4t5iotezbksgc6j5zwpeq-ctcxpmaaogturcuygmjtlcx4hy.datawarehouse.fabric.microsoft.com", "nsu_demo"),
+				    dbo_quality_test_evidence = Source{[Schema="dbo",Item="quality_test_evidence"]}[Data]
 				in
-					#"Changed Type"
+				    dbo_quality_test_evidence
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

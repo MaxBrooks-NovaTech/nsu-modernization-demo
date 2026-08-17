@@ -1,32 +1,86 @@
 table dim_term
-	annotation SourceSystem = "OneLake Lakehouse NSU_DEMO"
-	annotation SourceSnapshot = "seeds/dimension_tables/dim_term.csv"
+	lineageTag: 690fa3e9-a0ab-46af-be96-b788bad89b2f
+
 	column term_id
 		dataType: string
-		isKey
+		lineageTag: 0a230b10-cefe-4991-927e-0c696521a095
+		summarizeBy: none
 		sourceColumn: term_id
+
+		annotation SummarizationSetBy = Automatic
+
 	column term_name
 		dataType: string
+		lineageTag: 6b036a25-c964-4791-bee5-7fd488f5aec4
+		summarizeBy: none
 		sourceColumn: term_name
+
+		annotation SummarizationSetBy = Automatic
+
 	column academic_year
 		dataType: string
+		lineageTag: e925167f-4ee6-4241-9ac6-2c8a20b115b0
+		summarizeBy: none
 		sourceColumn: academic_year
+
+		annotation SummarizationSetBy = Automatic
+
 	column term_start_date
 		dataType: dateTime
+		formatString: Long Date
+		lineageTag: fcc64b17-075d-4181-9557-1ac02177a57c
+		summarizeBy: none
 		sourceColumn: term_start_date
+
+		variation Variation
+			isDefault
+			relationship: 278b201e-2bc4-40f9-805d-5b5e87bb2754
+			defaultHierarchy: LocalDateTable_2ddf41f5-f633-41a0-9dc2-61ac0c38fb6a.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	column census_date
 		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c2e2c87d-f059-47fa-8069-ad0ee2fbddee
+		summarizeBy: none
 		sourceColumn: census_date
+
+		variation Variation
+			isDefault
+			relationship: 6c22a02c-b490-4948-ac31-eca7a6a3c16b
+			defaultHierarchy: LocalDateTable_918a524c-54b7-4dff-9cf9-321abcf5c954.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	column term_end_date
 		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 251dd6e7-65ab-4943-97b9-2861b34be328
+		summarizeBy: none
 		sourceColumn: term_end_date
+
+		variation Variation
+			isDefault
+			relationship: 64c58f6e-f4d3-4d6a-86aa-cb7af85240d0
+			defaultHierarchy: LocalDateTable_9d69ea8f-56ce-4c0b-a4f6-83453f35c78f.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition dim_term = m
 		mode: import
 		source =
 				let
-					Source = Csv.Document(File.Contents(ProjectRoot & "\seeds\dimension_tables\dim_term.csv"), [Delimiter=",", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
-					#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-					#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"term_id", type text}, {"term_name", type text}, {"academic_year", type text}, {"term_start_date", type date}, {"census_date", type date}, {"term_end_date", type date}})
+				    Source = Sql.Database("e24kd4t5iotezbksgc6j5zwpeq-ctcxpmaaogturcuygmjtlcx4hy.datawarehouse.fabric.microsoft.com", "nsu_demo"),
+				    dbo_dim_term = Source{[Schema="dbo",Item="dim_term"]}[Data]
 				in
-					#"Changed Type"
+				    dbo_dim_term
+
+	annotation PBI_ResultType = Table
+

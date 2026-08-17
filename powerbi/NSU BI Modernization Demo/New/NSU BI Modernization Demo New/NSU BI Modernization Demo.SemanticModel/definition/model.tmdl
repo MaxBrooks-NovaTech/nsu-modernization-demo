@@ -1,19 +1,37 @@
 model Model
 	culture: en-US
-	annotation PBI_ProTooling = "Sample"
-
-expression ProjectRoot = "C:\Users\maxbrooks\Documents\GitHub\nsu-modernization-demo" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
-	annotation PBI_ResultType = Text
-expression LakehouseName = "NSU_DEMO" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
-	annotation PBI_ResultType = Text
-
 	defaultPowerBIDataSourceVersion: powerBI_V3
 	sourceQueryCulture: en-US
 	valueFilterBehavior: independent
 	dataAccessOptions
 		legacyRedirects
 		returnErrorValuesAsNull
+
 annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["certification_catalog","dim_program","dim_school","dim_term","fact_census_enrollment","fact_enrollment","fact_recruitment_funnel","lineage_summary","quality_test_evidence"]
+
 annotation PBI_ProTooling = ["DevMode"]
 
+ref table certification_catalog
+ref table DateTableTemplate_045fdbfa-ca8f-4a79-868d-531bdcfaeaf6
+ref table LocalDateTable_f7b17752-f760-4d81-95eb-e1f96a25384e
+ref table dim_program
+ref table dim_school
+ref table dim_term
+ref table LocalDateTable_2ddf41f5-f633-41a0-9dc2-61ac0c38fb6a
+ref table LocalDateTable_918a524c-54b7-4dff-9cf9-321abcf5c954
+ref table LocalDateTable_9d69ea8f-56ce-4c0b-a4f6-83453f35c78f
+ref table fact_census_enrollment
+ref table fact_enrollment
+ref table LocalDateTable_6b44f70a-f13d-4611-8f4c-89a3d967bf93
+ref table fact_recruitment_funnel
+ref table LocalDateTable_07c40def-ead7-43e4-9f58-eda9a2917061
+ref table LocalDateTable_077245ca-8a0f-4b5f-a9fc-fe30fa163cfc
+ref table LocalDateTable_9a6d6737-0bc7-4b51-bd91-e2ac7c9545a4
+ref table lineage_summary
+ref table quality_test_evidence
+ref table measure_table
+
 ref cultureInfo en-US
+

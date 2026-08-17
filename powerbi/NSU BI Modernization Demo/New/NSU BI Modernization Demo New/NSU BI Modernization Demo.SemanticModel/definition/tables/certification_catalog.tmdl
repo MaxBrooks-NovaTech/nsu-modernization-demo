@@ -1,46 +1,112 @@
 table certification_catalog
-	annotation SourceSystem = "OneLake Lakehouse NSU_DEMO"
-	annotation SourceSnapshot = "seeds/mart_tables/certification_catalog.csv"
+	lineageTag: 0a1b991b-ccd1-4d37-9763-c6749462f8fc
+
 	column product
 		dataType: string
+		lineageTag: 2a9661a5-6bec-4da3-900a-51b9966cc094
+		summarizeBy: none
 		sourceColumn: product
+
+		annotation SummarizationSetBy = Automatic
+
 	column model
 		dataType: string
+		lineageTag: 250ac4f4-fc51-4488-b8c9-850326af563e
+		summarizeBy: none
 		sourceColumn: model
+
+		annotation SummarizationSetBy = Automatic
+
 	column version
 		dataType: string
+		lineageTag: 9a1c555d-4c4f-4074-bc0f-af41964a09c8
+		summarizeBy: none
 		sourceColumn: version
+
+		annotation SummarizationSetBy = Automatic
+
 	column owner
 		dataType: string
+		lineageTag: c2365fd5-1111-4d54-86f4-9c6b5d869cd7
+		summarizeBy: none
 		sourceColumn: owner
+
+		annotation SummarizationSetBy = Automatic
+
 	column steward
 		dataType: string
+		lineageTag: 7476c302-0250-41a8-874b-515f1f6e80fe
+		summarizeBy: none
 		sourceColumn: steward
+
+		annotation SummarizationSetBy = Automatic
+
 	column status
 		dataType: string
+		lineageTag: 52fa6302-c523-4252-a2b8-7c823ca268f9
+		summarizeBy: none
 		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
 	column last_reviewed
-		dataType: string
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 27a8669e-9936-4f28-b0a9-19dc3c429a4a
+		summarizeBy: none
 		sourceColumn: last_reviewed
+
+		variation Variation
+			isDefault
+			relationship: ddb3b499-4678-4338-8f99-49f2eca54d33
+			defaultHierarchy: LocalDateTable_f7b17752-f760-4d81-95eb-e1f96a25384e.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
 	column approver_role
 		dataType: string
+		lineageTag: b2bba640-ecb8-4e3b-ab9e-d99666deaf96
+		summarizeBy: none
 		sourceColumn: approver_role
+
+		annotation SummarizationSetBy = Automatic
+
 	column approval_decision
 		dataType: string
+		lineageTag: 1bcda382-c939-4452-a1c9-eafc88dd14d7
+		summarizeBy: none
 		sourceColumn: approval_decision
+
+		annotation SummarizationSetBy = Automatic
+
 	column consumers
 		dataType: string
+		lineageTag: 225e7836-4929-4cc5-90e0-442f41587d84
+		summarizeBy: none
 		sourceColumn: consumers
+
+		annotation SummarizationSetBy = Automatic
+
 	column semantic_definitions
 		dataType: string
+		lineageTag: ba18b83d-297d-4419-8cfa-da280af35e44
+		summarizeBy: none
 		sourceColumn: semantic_definitions
+
+		annotation SummarizationSetBy = Automatic
 
 	partition certification_catalog = m
 		mode: import
 		source =
 				let
-					Source = Csv.Document(File.Contents(ProjectRoot & "\seeds\mart_tables\certification_catalog.csv"), [Delimiter=",", Columns=11, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
-					#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-					#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"product", type text}, {"model", type text}, {"version", type text}, {"owner", type text}, {"steward", type text}, {"status", type text}, {"last_reviewed", type text}, {"approver_role", type text}, {"approval_decision", type text}, {"consumers", type text}, {"semantic_definitions", type text}})
+				    Source = Sql.Database("e24kd4t5iotezbksgc6j5zwpeq-ctcxpmaaogturcuygmjtlcx4hy.datawarehouse.fabric.microsoft.com", "nsu_demo"),
+				    dbo_certification_catalog = Source{[Schema="dbo",Item="certification_catalog"]}[Data]
 				in
-					#"Changed Type"
+				    dbo_certification_catalog
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

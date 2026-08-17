@@ -1,23 +1,40 @@
 table dim_school
-	annotation SourceSystem = "OneLake Lakehouse NSU_DEMO"
-	annotation SourceSnapshot = "seeds/dimension_tables/dim_school.csv"
+	lineageTag: de50544f-5de6-406c-95f8-fc37ca7e9077
+
 	column school_id
 		dataType: string
-		isKey
+		lineageTag: 4f1dd3ee-fda9-48fb-94c5-12fa75cc61f7
+		summarizeBy: none
 		sourceColumn: school_id
+
+		annotation SummarizationSetBy = Automatic
+
 	column school_name
 		dataType: string
+		lineageTag: 5dd8db0c-ded8-4a4c-ab68-5e1a4a5e7bcc
+		summarizeBy: none
 		sourceColumn: school_name
+
+		annotation SummarizationSetBy = Automatic
+
 	column school_code
 		dataType: string
+		lineageTag: beb7e4d8-8642-426d-a034-efb20165df1e
+		summarizeBy: none
 		sourceColumn: school_code
+
+		annotation SummarizationSetBy = Automatic
 
 	partition dim_school = m
 		mode: import
 		source =
 				let
-					Source = Csv.Document(File.Contents(ProjectRoot & "\seeds\dimension_tables\dim_school.csv"), [Delimiter=",", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
-					#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-					#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"school_id", type text}, {"school_name", type text}, {"school_code", type text}})
+				    Source = Sql.Database("e24kd4t5iotezbksgc6j5zwpeq-ctcxpmaaogturcuygmjtlcx4hy.datawarehouse.fabric.microsoft.com", "nsu_demo"),
+				    dbo_dim_school = Source{[Schema="dbo",Item="dim_school"]}[Data]
 				in
-					#"Changed Type"
+				    dbo_dim_school
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

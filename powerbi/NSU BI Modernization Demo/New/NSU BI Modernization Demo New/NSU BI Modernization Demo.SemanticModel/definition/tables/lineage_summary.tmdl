@@ -1,28 +1,57 @@
 table lineage_summary
-	annotation SourceSystem = "OneLake Lakehouse NSU_DEMO"
-	annotation SourceSnapshot = "seeds/mart_tables/lineage_summary.csv"
+	lineageTag: 12312bc2-7d99-4aa5-8a5d-58ebe3b54a79
+
 	column product
 		dataType: string
+		lineageTag: ce29a5f9-0f4a-453a-9c87-b4e3af35c97a
+		summarizeBy: none
 		sourceColumn: product
+
+		annotation SummarizationSetBy = Automatic
+
 	column source_entities
 		dataType: string
+		lineageTag: b3ca582d-68d6-4df7-a119-1023afd656d5
+		summarizeBy: none
 		sourceColumn: source_entities
+
+		annotation SummarizationSetBy = Automatic
+
 	column model
 		dataType: string
+		lineageTag: adb9932c-d788-4272-a506-17690ad0f5bb
+		summarizeBy: none
 		sourceColumn: model
+
+		annotation SummarizationSetBy = Automatic
+
 	column semantic_definitions
 		dataType: string
+		lineageTag: 9a9a212c-40af-4c47-b3f0-26d2ce0e2e8b
+		summarizeBy: none
 		sourceColumn: semantic_definitions
+
+		annotation SummarizationSetBy = Automatic
+
 	column consumers
 		dataType: string
+		lineageTag: c9595aee-2163-40f5-9cc7-c89965ac1664
+		summarizeBy: none
 		sourceColumn: consumers
+
+		annotation SummarizationSetBy = Automatic
 
 	partition lineage_summary = m
 		mode: import
 		source =
 				let
-					Source = Csv.Document(File.Contents(ProjectRoot & "\seeds\mart_tables\lineage_summary.csv"), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
-					#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-					#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"product", type text}, {"source_entities", type text}, {"model", type text}, {"semantic_definitions", type text}, {"consumers", type text}})
+				    Source = Sql.Database("e24kd4t5iotezbksgc6j5zwpeq-ctcxpmaaogturcuygmjtlcx4hy.datawarehouse.fabric.microsoft.com", "nsu_demo"),
+				    dbo_lineage_summary = Source{[Schema="dbo",Item="lineage_summary"]}[Data],
+				    #"Replaced Value" = Table.ReplaceValue(dbo_lineage_summary,"analytics.FactEnrollment","analytics.fact_enrollment",Replacer.ReplaceText,{"model"})
 				in
-					#"Changed Type"
+				    #"Replaced Value"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

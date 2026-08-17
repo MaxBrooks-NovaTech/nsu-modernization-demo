@@ -1,0 +1,77 @@
+table measure_table
+	lineageTag: 76d9b2e2-7352-480b-b7ff-abebaf59086d
+
+	measure Applications = CALCULATE(DISTINCTCOUNT(fact_recruitment_funnel[application_id]), fact_recruitment_funnel[application_status] = "Submitted")
+		formatString: #,0
+		displayFolder: Recruitment Funnel
+		lineageTag: c1a2e3f4-1111-4a2b-8c3d-9e0f1a2b3c4d
+
+	measure Admits = CALCULATE(DISTINCTCOUNT(fact_recruitment_funnel[application_id]), fact_recruitment_funnel[decision_status] = "Admitted")
+		formatString: #,0
+		displayFolder: Recruitment Funnel
+		lineageTag: c1a2e3f4-2222-4a2b-8c3d-9e0f1a2b3c4d
+
+	measure Deposits = CALCULATE(DISTINCTCOUNT(fact_recruitment_funnel[deposit_id]), fact_recruitment_funnel[deposit_status] = "Paid")
+		formatString: #,0
+		displayFolder: Recruitment Funnel
+		lineageTag: c1a2e3f4-3333-4a2b-8c3d-9e0f1a2b3c4d
+
+	measure Yield = DIVIDE([Deposits], [Admits])
+		formatString: 0.0%
+		displayFolder: Recruitment Funnel
+		lineageTag: c1a2e3f4-4444-4a2b-8c3d-9e0f1a2b3c4d
+
+	measure Enrolled = CALCULATE(DISTINCTCOUNT(fact_enrollment[registration_id]), fact_enrollment[registration_status] = "Registered")
+		formatString: #,0
+		displayFolder: Enrollment
+		lineageTag: c1a2e3f4-5555-4a2b-8c3d-9e0f1a2b3c4d
+
+	measure 'Census Enrollment' = CALCULATE(DISTINCTCOUNT(fact_census_enrollment[student_id]), fact_census_enrollment[census_enrolled_flag] = "t")
+		formatString: #,0
+		displayFolder: Census
+		lineageTag: c1a2e3f4-6666-4a2b-8c3d-9e0f1a2b3c4d
+
+	measure 'IPEDS Enrollment' = CALCULATE(DISTINCTCOUNT(fact_census_enrollment[student_id]), fact_census_enrollment[ipeds_enrolled_flag] = "t")
+		formatString: #,0
+		displayFolder: Census
+		lineageTag: c1a2e3f4-7777-4a2b-8c3d-9e0f1a2b3c4d
+
+	measure 'Release Gate Status' = "Enabled"
+		displayFolder: Governance
+		lineageTag: c1a2e3f4-8888-4a2b-8c3d-9e0f1a2b3c4d
+
+	measure 'Certification Status' = IF(HASONEVALUE(certification_catalog[status]), VALUES(certification_catalog[status]), "Mixed")
+		displayFolder: Governance
+		lineageTag: c1a2e3f4-9999-4a2b-8c3d-9e0f1a2b3c4d
+
+	column measure_name
+		lineageTag: 680f724f-b9e0-4abc-8500-afcd1a287af0
+		isNameInferred
+		sourceColumn: [measure_name]
+
+	column measure_defintion
+		lineageTag: e57b2e83-6a8c-4154-81e2-95a76fc16720
+		isNameInferred
+		sourceColumn: [measure_defintion]
+
+	partition measure_table = calculated
+		mode: import
+		source =
+				DATATABLE(
+					"measure_name", STRING,
+					"measure_defintion", STRING,
+					{
+						{"Applications", "CALCULATE(DISTINCTCOUNT(fact_recruitment_funnel[application_id]), fact_recruitment_funnel[application_status] = ""Submitted"")"},
+						{"Admits", "CALCULATE(DISTINCTCOUNT(fact_recruitment_funnel[application_id]), fact_recruitment_funnel[decision_status] = ""Admitted"")"},
+						{"Deposits", "CALCULATE(DISTINCTCOUNT(fact_recruitment_funnel[deposit_id]), fact_recruitment_funnel[deposit_status] = ""Paid"")"},
+						{"Yield", "DIVIDE([Deposits], [Admits])"},
+						{"Enrolled", "CALCULATE(DISTINCTCOUNT(fact_enrollment[registration_id]), fact_enrollment[registration_status] = ""Registered"")"},
+						{"Census Enrollment", "CALCULATE(DISTINCTCOUNT(fact_census_enrollment[student_id]), fact_census_enrollment[census_enrolled_flag] = ""t"")"},
+						{"IPEDS Enrollment", "CALCULATE(DISTINCTCOUNT(fact_census_enrollment[student_id]), fact_census_enrollment[ipeds_enrolled_flag] = ""t"")"},
+						{"Release Gate Status", """Enabled"""},
+						{"Certification Status", "IF(HASONEVALUE(certification_catalog[status]), VALUES(certification_catalog[status]), ""Mixed"")"}
+					}
+				)
+
+	annotation PBI_Id = a18a28db72cb46c4bdc5d1a285a77397
+

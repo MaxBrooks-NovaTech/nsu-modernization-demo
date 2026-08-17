@@ -1,0 +1,163 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "1416765189b3a28549b1",
+  "position": {
+    "x": 20,
+    "y": 480,
+    "z": 4000,
+    "height": 220,
+    "width": 1240,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "certification_catalog"
+                    }
+                  },
+                  "Property": "product"
+                }
+              },
+              "queryRef": "certification_catalog.product",
+              "nativeQueryRef": "product"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "certification_catalog"
+                    }
+                  },
+                  "Property": "owner"
+                }
+              },
+              "queryRef": "certification_catalog.owner",
+              "nativeQueryRef": "owner"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "certification_catalog"
+                    }
+                  },
+                  "Property": "steward"
+                }
+              },
+              "queryRef": "certification_catalog.steward",
+              "nativeQueryRef": "steward"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "certification_catalog"
+                    }
+                  },
+                  "Property": "version"
+                }
+              },
+              "queryRef": "certification_catalog.version",
+              "nativeQueryRef": "version"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "certification_catalog"
+                    }
+                  },
+                  "Property": "status"
+                }
+              },
+              "queryRef": "certification_catalog.status",
+              "nativeQueryRef": "status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "certification_catalog"
+                    }
+                  },
+                  "Property": "approval_decision"
+                }
+              },
+              "queryRef": "certification_catalog.approval_decision",
+              "nativeQueryRef": "approval_decision"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": -0.5
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Certification Release Details'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "stylePreset": [
+        {
+          "properties": {
+            "name": {
+              "expr": {
+                "Literal": {
+                  "Value": "'AlternatingRowsNew'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
