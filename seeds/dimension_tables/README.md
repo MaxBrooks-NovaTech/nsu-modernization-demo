@@ -20,8 +20,8 @@ python3 scripts/export_onelake_dimension_tables.py
 
 Upload each CSV as a separate Lakehouse table using the filename without `.csv` as the table name, or retain the `dim_` prefix for explicit dimensional modeling. Preserve the key columns and use them for many-to-one relationships from the fact tables:
 
-- `FactEnrollment`, `RecruitmentFunnel`, and `CensusEnrollment` `school_id` -> `dim_school.school_id`
-- `FactEnrollment`, `RecruitmentFunnel`, and `CensusEnrollment` `program_id` -> `dim_program.program_id`
-- `FactEnrollment`, `RecruitmentFunnel`, and `CensusEnrollment` `term_id` -> `dim_term.term_id`
+- `fact_enrollment`, `fact_recruitment_funnel`, and `fact_census_enrollment` `school_id` -> `dim_school.school_id`
+- `fact_enrollment`, `fact_recruitment_funnel`, and `fact_census_enrollment` `program_id` -> `dim_program.program_id`
+- `fact_enrollment`, `fact_recruitment_funnel`, and `fact_census_enrollment` `term_id` -> `dim_term.term_id`
 
 This is a synthetic demonstration dataset. It is not connected to NSU production systems and must not be replaced with real student or institutional data without separate governance authorization.

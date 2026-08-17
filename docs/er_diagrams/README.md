@@ -3,7 +3,7 @@
 Two SVGs, generated directly from the real schema definitions (not hand-drawn or approximated):
 
 - **`transactional-data-model.svg`** — the 11-table `raw` schema (PostgreSQL), with every real primary key, foreign key, and unique constraint from `db/init/01_schema.sql`.
-- **`analytics-data-model.svg`** — the 3 certified marts (`analytics.FactEnrollment`, `analytics.fact_recruitment_funnel`, `analytics.fact_census_enrollment`) from `models/marts/*.sql`, each with its grain, columns, and the certified metrics it feeds from `semantic/metric_definitions.yml`.
+- **`analytics-data-model.svg`** — the 3 certified marts (`analytics.fact_enrollment`, `analytics.fact_recruitment_funnel`, `analytics.fact_census_enrollment`) from `models/marts/*.sql`, each with its grain, columns, and the certified metrics it feeds from `semantic/metric_definitions.yml`.
 
 ## Why the analytics diagram has no FK lines between tables
 

@@ -19,7 +19,7 @@ authorized phase range.
 | ------------------------------------- | -------------------------------------------------- |
 | 0 — Repository Audit                | PASSED                                          |
 | 1 — PostgreSQL + Synthetic Data     | PASSED                                          |
-| 2 — dbt + FactEnrollment            | PASSED                                          |
+| 2 — dbt + fact_enrollment            | PASSED                                          |
 | 3 — Semantic + Contracts + Quality  | PASSED (re-verified by Claude)                  |
 | 4 — Lineage + Certification         | PASSED (re-verified by Claude)                  |
 | 5 — Power BI / PBIP                 | PASSED (specifications; Claude-reviewed)        |
@@ -34,8 +34,8 @@ authorized phase range.
 - Created README.md, populated `.env.example` with placeholders, configured VS Code Python env-file loading.
 - Completed Phase 0 repository audit; addressed Gemini's Phase 0 P1 findings (`.DS_Store`, `.gitignore`, `.env.example` naming).
 - Implemented Phase 1 Docker Compose PostgreSQL 16 foundation, deterministic synthetic data generation (all 12 schools), schema init/load/reset/validation, and Gemini's Phase 1 P1/P2 fixes.
-- Implemented Phase 2 dbt project, source declarations, staging/intermediate models, `analytics.FactEnrollment`, and grain/quality tests.
-- Implemented Phase 3 certified recruitment funnel and census enrollment marts, governed semantic definitions (Applications, Admits, Deposits, Enrolled, Yield, Census Enrollment, IPEDS Enrollment), and the FactEnrollment data contract.
+- Implemented Phase 2 dbt project, source declarations, staging/intermediate models, `analytics.fact_enrollment`, and grain/quality tests.
+- Implemented Phase 3 certified recruitment funnel and census enrollment marts, governed semantic definitions (Applications, Admits, Deposits, Enrolled, Yield, Census Enrollment, IPEDS Enrollment), and the fact_enrollment data contract.
 - Implemented Phase 4 lineage map (`docs/phase4/lineage.md`), certification catalog (`certification/catalog.yml`), and contract change detection (`scripts/check_contract_changes.py`).
 - Implemented Phase 5 Power BI/PBIP source-controlled report specifications (`powerbi/README.md` + three `report-spec.yml` files).
 - Claude independently re-verified Phases 3–5 (dbt build, fan-out audit, change-detection regression suite) and fixed two P1 gaps: change-detection couldn't catch certified-metric/logic changes (added `compare_metrics()`), and `minimum_row_count` was unenforced metadata (added `tests/fact_enrollment_minimum_row_count.sql`).
@@ -124,7 +124,7 @@ Human-requested supplementary work, completed and verified — full detail in `d
 - Added real column-level descriptions to `models/marts/schema.yml` for all 3 certified marts (previously untested columns had none at all).
 - Captured real dbt docs screenshots (`docs/images/`) — overview, `fact_enrollment` columns, and the full expanded lineage graph (source → staging → mart → tests).
 - Rendered and screenshotted `semantic/metric_definitions.yml` and real PostgreSQL `psql` output (`docs/images/postgres-tables.png`, `docs/images/semantic-metric-definitions.png`) since neither has a native dbt docs page or GUI client — documented as rendered-not-native in `docs/images/README.md`.
-- Added `seeds/mart_tables/*.csv` (via new `scripts/export_mart_csvs.sh`) and switched the PBIP semantic model's data source from live PostgreSQL to these CSVs (`ProjectRoot` M parameter, one manual step documented in `powerbi/README.md`). Also fixed a defect the migration surfaced: `FactEnrollment`'s TMDL had `school_name`/`program_name` columns that don't exist in the real mart.
+- Added `seeds/mart_tables/*.csv` (via new `scripts/export_mart_csvs.sh`) and switched the PBIP semantic model's data source from live PostgreSQL to these CSVs (`ProjectRoot` M parameter, one manual step documented in `powerbi/README.md`). Also fixed a defect the migration surfaced: `fact_enrollment`'s TMDL had `school_name`/`program_name` columns that don't exist in the real mart.
 - Added `docs/phase5/setup.md`, `docs/phase6/setup.md`, `docs/phase7/setup.md` — `docs/phase1`–`docs/phase7` now all exist.
 - Fixed IDE-surfaced lint/type warnings: `check_contract_changes.py` (untyped yaml import), `.vscode/settings.json` (wrong CodeGPT setting key), markdown spacing in `docs/implementation-status-gemini.md` and `docs/phase4/lineage.md` (whitespace only, no content/conclusion changes).
 

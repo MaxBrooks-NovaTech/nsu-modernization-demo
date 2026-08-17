@@ -24,7 +24,7 @@ IPEDS reporting requires pulling from the same student-level education records F
 
 - **Wrong grain in, wrong report out.** If the pipeline computing an IPEDS count accidentally operates at the wrong grain (e.g., double-counting a student registered in multiple sections — see `docs/legacy-reporting/README.md` for exactly this failure mode with the Registrar's 376-vs-188 discrepancy), the aggregate submitted to the federal government is wrong, and there's no way to tell from the aggregate alone.
 - **No lineage, no defensibility.** If a federal auditor or an internal reviewer asks "how was this IPEDS number derived, and what raw records fed it," an ungoverned report has no answer. `docs/phase4/lineage.md` traces `analytics.fact_census_enrollment` back through `raw.enrollment_census` to `raw.students`/`raw.terms` for exactly this reason.
-- **Uncontrolled downstream access defeats the aggregation.** An aggregate IPEDS number is FERPA-safe; the student-level table it was computed from is not. Access to `analytics.fact_census_enrollment` and `analytics.FactEnrollment` (student-level, registration-level) needs to be governed differently than access to a published IPEDS summary — this is what the `sensitivity` field on every metric in `semantic/metric_definitions.yml` exists to signal.
+- **Uncontrolled downstream access defeats the aggregation.** An aggregate IPEDS number is FERPA-safe; the student-level table it was computed from is not. Access to `analytics.fact_census_enrollment` and `analytics.fact_enrollment` (student-level, registration-level) needs to be governed differently than access to a published IPEDS summary — this is what the `sensitivity` field on every metric in `semantic/metric_definitions.yml` exists to signal.
 
 ## How this project's existing governance controls map to FERPA/IPEDS needs
 
@@ -41,6 +41,6 @@ Nothing new was built for this — the controls already exist for general data-g
 
 ## Known limitations (be direct about these when presenting this project)
 
-- This demo does not implement row-level or column-level access control — `sensitivity` values are documentation, not an enforced permission system. In a real deployment, `census_enrollment`/`FactEnrollment` (student-level) and `ipeds_enrollment`/aggregate reports would need actual database or BI-tool-level access restrictions layered on top of this same governance metadata.
+- This demo does not implement row-level or column-level access control — `sensitivity` values are documentation, not an enforced permission system. In a real deployment, `census_enrollment`/`fact_enrollment` (student-level) and `ipeds_enrollment`/aggregate reports would need actual database or BI-tool-level access restrictions layered on top of this same governance metadata.
 - No directory-information opt-out modeling, no FERPA consent/disclosure-log tracking, no actual small-cell suppression logic (the `yield` sensitivity note is a documented intent, not a query-level enforcement).
 - IPEDS's real submission specifications (exact cohort definitions, reporting windows, survey components) are far more detailed than the single synthetic `ipeds_enrolled_flag` this demo uses — `ipeds_enrollment` here demonstrates the *governance pattern* for a federal aggregate metric, not a production-ready IPEDS submission pipeline.

@@ -2,7 +2,7 @@
 
 Phase 2 adds a local dbt transformation layer over the synthetic `raw` schema.
 It creates staging models, an intermediate registration context, and the
-certified `analytics.FactEnrollment` table.
+certified `analytics.fact_enrollment` table.
 
 ## Install dbt
 
@@ -33,6 +33,6 @@ dbt debug --project-dir . --profiles-dir .
 dbt build --project-dir . --profiles-dir .
 ```
 
-`FactEnrollment` grain: one row per student registration in one section for
+`fact_enrollment` grain: one row per student registration in one section for
 one academic term. Its uniqueness is tested through `registration_id` and the
 custom composite-grain test.

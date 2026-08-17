@@ -95,7 +95,7 @@ Review:
 
 ### Critical test
 
-FactEnrollment must have explicit grain:
+fact_enrollment must have explicit grain:
 
 "One row = one student registration in one section for one academic term."
 

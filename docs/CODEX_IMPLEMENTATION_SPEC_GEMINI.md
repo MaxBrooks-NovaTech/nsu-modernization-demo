@@ -112,7 +112,7 @@ Include tests.
 
 Create:
 
-FactEnrollment
+fact_enrollment
 
 Required grain:
 
@@ -302,7 +302,7 @@ Repository audit.
 Docker + PostgreSQL + synthetic data.
 
 ### Phase 2
-dbt + FactEnrollment.
+dbt + fact_enrollment.
 
 ### Phase 3
 Semantic layer + contracts + quality.

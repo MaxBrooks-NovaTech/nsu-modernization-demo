@@ -16,7 +16,7 @@ Phase 4 delivers the operational governance mechanisms required to manage change
 
 - **Lineage Architecture Document**: `docs/phase4/lineage.md`
   - Defines the 5-tier lineage architecture: Conceptual Source -> Landing (`raw`) -> Staging/Intermediate -> Certified Marts -> Semantic Definitions -> Consumers.
-  - Documents product-specific lineage and impact analysis for `FactEnrollment`, `fact_recruitment_funnel`, and `fact_census_enrollment`.
+  - Documents product-specific lineage and impact analysis for `fact_enrollment`, `fact_recruitment_funnel`, and `fact_census_enrollment`.
 - **Certification Catalog**: `certification/catalog.yml`
   - Operational governance catalog covering all 3 certified data products and 7 semantic metrics.
   - Specifies ownership (`Institutional Research and Analytics`), stewardship (`Data Governance Lead`), model definitions, required test suites, lineage references, downstream consumers, and formal approval.

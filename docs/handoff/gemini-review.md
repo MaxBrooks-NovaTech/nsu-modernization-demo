@@ -49,7 +49,7 @@ READY FOR GEMINI REVIEW (Phase 4 Implementation Complete)
 
 - **dbt Core / Adapter**: `dbt-core 1.10.13`, `dbt-postgres 1.9.0` installed and operational.
 - **Docker Container**: `nsu_modernization_postgres` running `postgres:16-alpine`, healthy on port `55432`.
-- **Database Schemas**: `raw` (11 tables), `staging` (11 views), `intermediate` (1 view), `analytics` (3 mart tables: `FactEnrollment`, `fact_recruitment_funnel`, `fact_census_enrollment`).
+- **Database Schemas**: `raw` (11 tables), `staging` (11 views), `intermediate` (1 view), `analytics` (3 mart tables: `fact_enrollment`, `fact_recruitment_funnel`, `fact_census_enrollment`).
 - **Total dbt Build Execution**: 61/61 successful nodes (12 views, 3 tables, 46 data tests) with 0 errors and 0 warnings.
 - **Lineage Architecture**: `docs/phase4/lineage.md` establishes comprehensive end-to-end data lineage across source entities, staging/intermediate transformations, certified mart models, semantic metric definitions, and downstream consumers.
 - **Certification Catalog**: `certification/catalog.yml` operational as a governance release gate covering all 3 certified products (`fact_enrollment`, `recruitment_funnel`, `census_enrollment`) with complete steward approval, test suites, and consumer mappings.
@@ -80,7 +80,7 @@ Zero P0 defects and zero P1 issues remain.
 - **Verification**: `docs/phase4/lineage.md` defines:
   - Conceptual source tier: Banner / SQL Server source representations in synthetic `raw.*` tables.
   - Transformation tier: Staging views (`stg_*`) and intermediate view (`int_registration_context`).
-  - Mart tier: `analytics.FactEnrollment`, `analytics.fact_recruitment_funnel`, `analytics.fact_census_enrollment`.
+  - Mart tier: `analytics.fact_enrollment`, `analytics.fact_recruitment_funnel`, `analytics.fact_census_enrollment`.
   - Semantic layer tier: All 7 metrics (`Enrolled`, `Applications`, `Admits`, `Deposits`, `Yield`, `Census Enrollment`, `IPEDS Enrollment`).
   - Consumption tier: Executive Enrollment and Admissions reporting, admissions funnel analysis, official census reporting, and planned Phase 5 Power BI artifacts.
   - Clear boundaries and limitations: Explicitly documented as a source-controlled demonstration lineage artifact without claiming unconfigured live cloud metadata integrations.
@@ -89,7 +89,7 @@ Zero P0 defects and zero P1 issues remain.
 - **Specification**: A demonstrable certification state where certification acts as a release control with owner, steward, definition, tests, lineage, status, version, and consumer impact.
 - **Verification**: `certification/catalog.yml` establishes:
   - Catalog-level metadata: `version: 1`, `catalog_status: certified`, `release_gate: true`, `owner: Institutional Research and Analytics`, `steward: Data Governance Lead`.
-  - Product `fact_enrollment`: Model `analytics.FactEnrollment`, contract `contracts/fact_enrollment.yml`, definition, test suite (`dbt build`, composite grain test, credit business-rule test), lineage reference, metric `enrolled`, consumers, and Data Governance Lead approval.
+  - Product `fact_enrollment`: Model `analytics.fact_enrollment`, contract `contracts/fact_enrollment.yml`, definition, test suite (`dbt build`, composite grain test, credit business-rule test), lineage reference, metric `enrolled`, consumers, and Data Governance Lead approval.
   - Product `recruitment_funnel`: Model `analytics.fact_recruitment_funnel`, definition, test suite (`dbt build`), lineage reference, metrics (`applications`, `admits`, `deposits`, `yield`), consumers, and Data Governance Lead approval.
   - Product `census_enrollment`: Model `analytics.fact_census_enrollment`, definition, test suite (`dbt build`, student-term grain test), lineage reference, metrics (`census_enrollment`, `ipeds_enrollment`), consumers, and Data Governance Lead approval.
 

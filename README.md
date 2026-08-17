@@ -23,7 +23,7 @@ It demonstrates:
   admissions, deposits, registrations, enrollment, sections, and finance
 - dbt models organized from source to staging, intermediate, marts, and certified
   products
-- A governed `FactEnrollment` model with an explicit registration-level grain
+- A governed `fact_enrollment` model with an explicit registration-level grain
 - Certified semantic definitions for admissions and enrollment measures
 - Data contracts, quality tests, and release-style certification metadata
 - Lineage from source data through transformation, semantic definition, and
@@ -176,7 +176,7 @@ data is permitted in this repository.
 
 ## Core Data Product
 
-The principal certified model is `FactEnrollment`.
+The principal certified model is `fact_enrollment`.
 
 Required grain:
 
@@ -312,26 +312,6 @@ The planned Power BI / PBIP outputs are:
 Where manual Power BI Desktop work is required, the step is documented rather
 than represented as automated.
 
-## Demo Walkthrough
-
-A typical walkthrough:
-
-1. Start with the modernization problem: many reports, many definitions, uneven
-   trust.
-2. Show the synthetic source data and explain why the demo is isolated from
-   production.
-3. Start PostgreSQL with Docker to demonstrate reproducibility.
-4. Run dbt models and tests.
-5. Open `FactEnrollment` and explain the registration-level grain.
-6. Review semantic definitions for applications, admits, deposits, enrollment,
-   yield, census enrollment, and IPEDS enrollment.
-7. Show the data contract and quality gates.
-8. Walk through lineage from source to certified model to report.
-9. Explain certification as a release gate.
-10. Discuss how change detection protects downstream consumers.
-11. Open the Power BI / PBIP artifacts and connect the governed model to
-    institutional decision-making.
-
 ## Governance Rules
 
 - Use synthetic data only.
@@ -341,7 +321,7 @@ A typical walkthrough:
 - Never store NSU credentials or production connection strings.
 - Do not imply the local PostgreSQL database is NSU production.
 - Do not change certified metric definitions without human approval.
-- Do not change the `FactEnrollment` grain without human approval.
+- Do not change the `fact_enrollment` grain without human approval.
 - Keep implementation status and handoff documents current.
 
 ## Operating Model
@@ -368,15 +348,27 @@ Build
 - [Architecture](docs/architecture.md)
 - [Setup](docs/setup.md)
 - [Data dictionary](docs/data-dictionary.md)
-- Demo runbook: `docs/demo.md` (local-only; not tracked in git — see `.gitignore`)
 - [Visual evidence (dbt docs and PostgreSQL screenshots)](docs/images/README.md)
+  - [dbt docs — welcome/navigation page](docs/images/dbt-docs-overview.png)
+  - [dbt docs — `fact_enrollment` columns, types, and test badges](docs/images/dbt-docs-fact-enrollment-columns.png)
+  - [dbt docs — `fact_enrollment` lineage graph](docs/images/dbt-docs-lineage-graph.png)
+  - [Governed semantic metric definitions](docs/images/semantic-metric-definitions.png)
+  - [PostgreSQL `raw`/`analytics` tables and sample rows](docs/images/postgres-tables.png)
+  - [Real `dbt build` run log](docs/images/dbt-build-log.png)
+  - [Quality/metrics dashboard mockup (superseded by the real Power BI screenshots below)](docs/images/dashboard-quality-metrics-summary.png)
+  - [`fact_enrollment` data contract](docs/images/data-contract.png)
+  - [Contract change detection catching a breaking change](docs/images/change-management-detection.png)
+  - [Legacy vs. certified enrollment counts — the "before" picture](docs/images/legacy-vs-certified-enrollment.png)
+  - [Power BI — Executive Enrollment & Admissions page](docs/images/Executive%20Enrollment%20%26%20Admissions.png)
+  - [Power BI — Institutional Data Trust page](docs/images/Institutional%20Data%20Trust.png)
+  - [Power BI — Data Lineage & Certification page](docs/images/Data%20Lineage%20%26%20Certification.png)
+  - [Power BI — governed measure names and DAX](docs/images/Metric%20Definitions%20and%20Measure%20Code.png)
 - [Phase 4 lineage](docs/phase4/lineage.md)
 - [Certification catalog](certification/catalog.yml)
 - [Legacy reporting — the "before" picture](docs/legacy-reporting/README.md)
 - [FERPA and IPEDS governance](docs/ferpa-ipeds-governance.md)
 - [ER diagrams (transactional and analytics)](docs/er_diagrams/README.md)
 - [Power BI specifications](powerbi/README.md)
-- [Power BI visualization build instructions](PowerBIVisualizationInstructions.md) — tracked, page-by-page checklist for building the report visuals in Power BI Desktop
 - [Power BI dashboard build instructions](PowerBIDashboard.md) (local-only checklist; not tracked in git — see `.gitignore`)
 
 ## Key Documents

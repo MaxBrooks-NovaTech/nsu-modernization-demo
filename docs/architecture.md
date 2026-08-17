@@ -24,7 +24,7 @@ SQL Server/Banner represents the conceptual source environment in the project's 
 
 ## Certified products
 
-- `analytics.FactEnrollment`: registration grain; one row per student registration in one section for one academic term.
+- `analytics.fact_enrollment`: registration grain; one row per student registration in one section for one academic term.
 - `analytics.fact_recruitment_funnel`: one row per application with admissions and deposit outcomes.
 - `analytics.fact_census_enrollment`: one row per student-term census record.
 

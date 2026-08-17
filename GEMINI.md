@@ -463,7 +463,7 @@ Final readiness requires:
 - reproducible setup;
 - working PostgreSQL;
 - working dbt;
-- correct FactEnrollment grain;
+- correct fact_enrollment grain;
 - governed semantic definitions;
 - contracts;
 - passing quality tests;

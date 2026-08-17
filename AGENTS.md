@@ -204,7 +204,7 @@ Default phases:
 
 PHASE 0 — Repository Audit
 PHASE 1 — Docker + PostgreSQL + Synthetic Data
-PHASE 2 — dbt + FactEnrollment
+PHASE 2 — dbt + fact_enrollment
 PHASE 3 — Semantic Layer + Contracts + Quality
 PHASE 4 — Lineage + Certification + Change Management
 PHASE 5 — Power BI / PBIP

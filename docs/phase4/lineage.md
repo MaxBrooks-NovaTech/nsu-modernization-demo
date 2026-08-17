@@ -11,7 +11,7 @@ Conceptual Banner / SQL Server source
   -> raw.* PostgreSQL landing tables (synthetic seed data)
   -> staging.* dbt views
   -> intermediate.int_registration_context
-  -> analytics.FactEnrollment
+  -> analytics.fact_enrollment
   -> semantic/metric_definitions.yml
   -> Power BI / downstream data products (planned Phase 5 artifacts)
 ```
@@ -20,7 +20,7 @@ Conceptual Banner / SQL Server source
 
 | Product                             | Source entities                                                                                        | Transformations                                                                                  | Semantic definitions                  | Consumers                                                                     |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------- | ----------------------------------------------------------------------------- |
-| `analytics.FactEnrollment`          | `raw.registrations`, `raw.course_sections`, `raw.students`, `raw.terms`, `raw.schools`, `raw.programs` | `stg_*` views; `int_registration_context`; `models/marts/fact_enrollment.sql`                    | Enrolled                              | Executive Enrollment and Admissions reporting; downstream enrollment analysis |
+| `analytics.fact_enrollment`          | `raw.registrations`, `raw.course_sections`, `raw.students`, `raw.terms`, `raw.schools`, `raw.programs` | `stg_*` views; `int_registration_context`; `models/marts/fact_enrollment.sql`                    | Enrolled                              | Executive Enrollment and Admissions reporting; downstream enrollment analysis |
 | `analytics.fact_recruitment_funnel` | `raw.applications`, `raw.admissions`, `raw.deposits`                                                   | `stg_applications`, `stg_admissions`, `stg_deposits`; `models/marts/fact_recruitment_funnel.sql` | Applications, Admits, Deposits, Yield | Admissions funnel reporting                                                   |
 | `analytics.fact_census_enrollment`  | `raw.enrollment_census`, `raw.students`, `raw.terms`, `raw.schools`, `raw.programs`                    | `stg_enrollment_census`; `models/marts/fact_census_enrollment.sql`                               | Census Enrollment, IPEDS Enrollment   | Official census and institutional reporting                                   |
 

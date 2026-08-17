@@ -7,7 +7,7 @@ Phase 3 establishes institutional data governance, certified semantic metric def
 Phase 3 transitions the project from a raw transformation pipeline to a governed institutional data product architecture:
 
 1. **Governed Semantic Layer**: Formalizes 7 certified institutional metrics with standard calculations, grains, ownership, and stewards.
-2. **Actionable Data Contracts**: Establishes machine-readable contract specifications for core facts (`analytics.FactEnrollment`) with freshness SLAs, schema enforcement, and breaking change rules.
+2. **Actionable Data Contracts**: Establishes machine-readable contract specifications for core facts (`analytics.fact_enrollment`) with freshness SLAs, schema enforcement, and breaking change rules.
 3. **Certified Marts Expansion**: Delivers dedicated marts for recruitment funnel analysis (`fact_recruitment_funnel`) and official census reporting (`fact_census_enrollment`).
 4. **Data Quality Suite**: Implements 46 automated tests covering schema integrity, referential relationships, uniqueness, and business logic.
 
@@ -22,7 +22,7 @@ Defined in `semantic/metric_definitions.yml`:
 | **Applications**      | `application_id`                 | Submitted applications in `analytics.fact_recruitment_funnel`       | Institutional Research / Data Governance Lead |
 | **Admits**            | `application_id`                 | Admitted applicants in `analytics.fact_recruitment_funnel`          | Institutional Research / Data Governance Lead |
 | **Deposits**          | `deposit_id`                     | Paid deposits in `analytics.fact_recruitment_funnel`                | Institutional Research / Data Governance Lead |
-| **Enrolled**          | `registration_id`                | Active registrations (`Registered`) in `analytics.FactEnrollment`   | Institutional Research / Data Governance Lead |
+| **Enrolled**          | `registration_id`                | Active registrations (`Registered`) in `analytics.fact_enrollment`   | Institutional Research / Data Governance Lead |
 | **Yield**             | `term_id, school_id, program_id` | `Deposits / Admits` conversion ratio                                | Institutional Research / Data Governance Lead |
 | **Census Enrollment** | `student_id, term_id`            | Census-date enrolled students in `analytics.fact_census_enrollment` | Institutional Research / Data Governance Lead |
 | **IPEDS Enrollment**  | `student_id, term_id`            | IPEDS-eligible student cohort in `analytics.fact_census_enrollment` | Institutional Research / Data Governance Lead |
@@ -41,7 +41,7 @@ The semantic layer explicitly disambiguates common higher-education metric discr
 
 Defined in `contracts/fact_enrollment.yml`:
 
-- **Model**: `analytics.FactEnrollment` (v1.0.0, Certified)
+- **Model**: `analytics.fact_enrollment` (v1.0.0, Certified)
 - **Grain**: One row per student registration in one section for one academic term.
 - **Freshness SLA**: 24-hour target.
 - **Required Fields**: `registration_id`, `student_id`, `section_id`, `term_id`, `registration_status`, `credit_hours`.
@@ -51,7 +51,7 @@ Defined in `contracts/fact_enrollment.yml`:
 
 ## Certified Mart Models
 
-1. **`analytics.FactEnrollment`** (2,148 rows):
+1. **`analytics.fact_enrollment`** (2,148 rows):
    - One row per registration event.
    - Preserves complete course-section and registration context.
 2. **`analytics.fact_recruitment_funnel`** (300 rows):

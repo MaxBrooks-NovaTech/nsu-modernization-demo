@@ -2,7 +2,7 @@
 
 Column-level reference for the three certified analytical marts in `analytics`. Governed business definitions for the metrics built on top of these marts live in `semantic/metric_definitions.yml`; this document covers the underlying fields, not the metrics themselves. See `docs/architecture.md` for how these marts fit into the end-to-end flow, `docs/phase4/lineage.md` for source-to-report lineage, and `docs/er_diagrams/` for visual ER diagrams of both the transactional and analytics schemas.
 
-## `analytics.FactEnrollment`
+## `analytics.fact_enrollment`
 
 **Grain**: one row = one student registration in one section for one academic term. Certified via `contracts/fact_enrollment.yml`.
 

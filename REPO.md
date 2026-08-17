@@ -1,0 +1,276 @@
+# Repository Tree
+
+```
+- .env.example
+- .gitignore
+- .markdownlint.json
+- .vscode/
+    - extensions.json
+    - settings.json
+- AGENTS.md
+- AGENTS_WITH_GEMINI.md
+- CLAUDE.md
+- GEMINI.md
+- README.md
+- certification/
+    - catalog.yml
+- contracts/
+    - fact_enrollment.yml
+- db/
+    - init/
+        - 01_schema.sql
+        - 02_load_seed_data.sql
+- dbt_project.yml
+- docker-compose.yml
+- docs/
+    - CLAUDE_REVIEW_SPEC.md
+    - CODEX_IMPLEMENTATION_SPEC.md
+    - CODEX_IMPLEMENTATION_SPEC_GEMINI.md
+    - GEMINI_REVIEW_SPEC.md
+    - architecture.md
+    - data-dictionary.md
+    - er_diagrams/
+        - README.md
+        - analytics-data-model.svg
+        - transactional-data-model.svg
+    - ferpa-ipeds-governance.md
+    - handoff/
+        - claude-review.md
+        - codex-handoff.md
+        - gemini-review.md
+    - images/
+        - Data Lineage & Certification.png
+        - Executive Enrollment & Admissions.png
+        - Institutional Data Trust.png
+        - Metric Definitions and Measure Code.png
+        - README.md
+        - change-management-detection.png
+        - dashboard-quality-metrics-summary.png
+        - data-contract.png
+        - dbt-build-log.png
+        - dbt-docs-fact-enrollment-columns.png
+        - dbt-docs-lineage-graph.png
+        - dbt-docs-overview.png
+        - legacy-vs-certified-enrollment.png
+        - postgres-tables.png
+        - semantic-metric-definitions.png
+    - implementation-status-gemini.md
+    - implementation-status.md
+    - legacy-reporting/
+        - README.md
+        - argos_census_office_fall2025.csv
+        - argos_enrollment_management_fall2025.csv
+        - argos_finance_fall2025.csv
+        - argos_registrar_fall2025.csv
+    - phase1/
+        - setup.md
+    - phase2/
+        - setup.md
+    - phase3/
+        - setup.md
+    - phase4/
+        - lineage.md
+        - setup.md
+    - phase5/
+        - setup.md
+    - phase6/
+        - setup.md
+    - phase7/
+        - setup.md
+    - quickstart.md
+    - setup.md
+- macros/
+    - generate_schema_name.sql
+- models/
+    - intermediate/
+        - int_registration_context.sql
+    - marts/
+        - fact_census_enrollment.sql
+        - fact_enrollment.sql
+        - fact_recruitment_funnel.sql
+        - schema.yml
+    - staging/
+        - sources.yml
+        - stg_admissions.sql
+        - stg_applications.sql
+        - stg_budget_actuals.sql
+        - stg_course_sections.sql
+        - stg_deposits.sql
+        - stg_enrollment_census.sql
+        - stg_programs.sql
+        - stg_registrations.sql
+        - stg_schools.sql
+        - stg_students.sql
+        - stg_terms.sql
+- powerbi/
+    - NSU BI Modernization Demo/
+        - New/
+            - NSU BI Modernization Demo New/
+                - NSU BI Modernization Demo.Report/
+                    - .platform
+                    - StaticResources/
+                        - SharedResources/
+                            - BaseThemes/
+                                - CY26SU07.json
+                            - BuiltInThemes/
+                                - AccessibleTidal.json
+                    - definition.pbir
+                    - definition/
+                        - pages/
+                            - 47f71acc17ea439f925a/
+                                - page.json
+                                - visuals/
+                                    - 325360ce3a463a9d119b/
+                                        - visual.json
+                                    - 3c0dda175f58d39c17ab/
+                                        - visual.json
+                                    - 486734da8064863c4f0a/
+                                        - visual.json
+                                    - 504e13a0eee9cccd8c6b/
+                                        - visual.json
+                                    - 735a3e5e8c6abbcbd29b/
+                                        - visual.json
+                                    - 9a1b2c3d4e5f60718293/
+                                        - visual.json
+                                    - a8e8b2d2132b231365af/
+                                        - visual.json
+                                    - b23737dd899166e26f8a/
+                                        - visual.json
+                                    - d3bac82e5efb47d7ece4/
+                                        - visual.json
+                                    - e122eb615a3577af2b55/
+                                        - visual.json
+                                    - e3164ce650f1c7a22242/
+                                        - visual.json
+                            - 490b3ee31184bfdf9445/
+                                - page.json
+                                - visuals/
+                                    - 88e1fa67bebe4b47d423/
+                                        - visual.json
+                                    - 9ed6c54a3d241c06abd8/
+                                        - visual.json
+                            - cba742e9762e4cfbc90f/
+                                - page.json
+                                - visuals/
+                                    - 509348328513712ffe25/
+                                        - visual.json
+                                    - 8301084a9e41d97756b0/
+                                        - visual.json
+                                    - 9a1b2c3d4e5f60718294/
+                                        - visual.json
+                                    - d575420c013fd4a401e8/
+                                        - visual.json
+                                    - d637b6f1118f649373b3/
+                                        - visual.json
+                                    - f04dc878b88b320b0dad/
+                                        - visual.json
+                                    - f5f114c55adb08c34314/
+                                        - visual.json
+                            - e29a8580a28a64feec21/
+                                - page.json
+                                - visuals/
+                                    - 1416765189b3a28549b1/
+                                        - visual.json
+                                    - 211b5cc82081774cd23a/
+                                        - visual.json
+                                    - 3aee7ad7596b7d790b60/
+                                        - visual.json
+                                    - 671e94a5d6b16d335934/
+                                        - visual.json
+                                    - 9a1b2c3d4e5f60718295/
+                                        - visual.json
+                                    - c338006e73339e67ef19/
+                                        - visual.json
+                            - pages.json
+                        - report.json
+                        - version.json
+                - NSU BI Modernization Demo.SemanticModel/
+                    - .platform
+                    - definition.pbism
+                    - definition/
+                        - cultures/
+                            - en-US.tmdl
+                        - database.tmdl
+                        - model.tmdl
+                        - relationships.tmdl
+                        - tables/
+                            - DateTableTemplate_045fdbfa-ca8f-4a79-868d-531bdcfaeaf6.tmdl
+                            - LocalDateTable_077245ca-8a0f-4b5f-a9fc-fe30fa163cfc.tmdl
+                            - LocalDateTable_07c40def-ead7-43e4-9f58-eda9a2917061.tmdl
+                            - LocalDateTable_2ddf41f5-f633-41a0-9dc2-61ac0c38fb6a.tmdl
+                            - LocalDateTable_6b44f70a-f13d-4611-8f4c-89a3d967bf93.tmdl
+                            - LocalDateTable_918a524c-54b7-4dff-9cf9-321abcf5c954.tmdl
+                            - LocalDateTable_9a6d6737-0bc7-4b51-bd91-e2ac7c9545a4.tmdl
+                            - LocalDateTable_9d69ea8f-56ce-4c0b-a4f6-83453f35c78f.tmdl
+                            - LocalDateTable_f7b17752-f760-4d81-95eb-e1f96a25384e.tmdl
+                            - certification_catalog.tmdl
+                            - dim_program.tmdl
+                            - dim_school.tmdl
+                            - dim_term.tmdl
+                            - fact_census_enrollment.tmdl
+                            - fact_enrollment.tmdl
+                            - fact_recruitment_funnel.tmdl
+                            - lineage_summary.tmdl
+                            - measure_table.tmdl
+                            - quality_test_evidence.tmdl
+                    - diagramLayout.json
+                - NSU BI Modernization Demo.pbip
+                - NSU BI Modernization Demo.pbix
+                - report-visual-specs/
+                    - 30b3c1f79a90c2cbf9c7.visual-spec.json
+                    - 7d0b4c17e6cc4c4f9e7a.visual-spec.json
+                    - 8e5c2a6d9f1b4c7e8a3d.visual-spec.json
+                    - visual-manifest.json
+    - README.md
+    - data-lineage-certification/
+        - report-spec.yml
+    - executive-enrollment-admissions/
+        - report-spec.yml
+    - institutional-data-trust/
+        - report-spec.yml
+- profiles.yml.example
+- requirements.txt
+- scripts/
+    - README-fabric-dimension-loader.md
+    - check_contract_changes.py
+    - drop_tables.ipynb
+    - export_dashboard_reference_csvs.py
+    - export_mart_csvs.sh
+    - export_onelake_dimension_tables.py
+    - generate_synthetic_data.py
+    - load_dimension_tables_fabric.ipynb
+    - load_dimension_tables_fabric.py
+    - reset_phase1.sh
+    - validate_phase1.sh
+- seeds/
+    - admissions.csv
+    - applications.csv
+    - budget_actuals.csv
+    - course_sections.csv
+    - deposits.csv
+    - dimension_tables/
+        - README.md
+        - dim_program.csv
+        - dim_school.csv
+        - dim_term.csv
+    - enrollment_census.csv
+    - mart_tables/
+        - certification_catalog.csv
+        - fact_census_enrollment.csv
+        - fact_enrollment.csv
+        - fact_recruitment_funnel.csv
+        - lineage_summary.csv
+        - quality_test_evidence.csv
+    - programs.csv
+    - registrations.csv
+    - schools.csv
+    - students.csv
+    - terms.csv
+- semantic/
+    - metric_definitions.yml
+- tests/
+    - fact_census_enrollment_grain.sql
+    - fact_enrollment_business_rules.sql
+    - fact_enrollment_grain.sql
+    - fact_enrollment_minimum_row_count.sql
+```

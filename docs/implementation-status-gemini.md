@@ -19,7 +19,7 @@ authorized phase range.
 | ------------------------------------ | ------------------------------ |
 | 0 — Repository Audit                | PASSED                        |
 | 1 — PostgreSQL + Synthetic Data     | PASSED                        |
-| 2 — dbt + FactEnrollment            | PASSED                        |
+| 2 — dbt + fact_enrollment            | PASSED                        |
 | 3 — Semantic + Contracts + Quality  | PASSED                        |
 | 4 — Lineage + Certification         | PASSED                        |
 | 5 — Power BI / PBIP                 | IMPLEMENTED — REVIEW PENDING  |
@@ -62,12 +62,12 @@ authorized phase range.
   - expanded validation with exact row counts for all 11 tables and reviewed referential-integrity checks;
   - added business uniqueness constraints for budget actuals and course sections;
   - documented host-port collision handling with `POSTGRES_PORT` overrides.
-- Added dbt 1.10/Postgres 1.9 project configuration, source declarations, staging models, intermediate registration context, and `analytics.FactEnrollment`.
-- Added dbt schema tests and a custom FactEnrollment grain test.
+- Added dbt 1.10/Postgres 1.9 project configuration, source declarations, staging models, intermediate registration context, and `analytics.fact_enrollment`.
+- Added dbt schema tests and a custom fact_enrollment grain test.
 - Implemented Phase 3 certified recruitment funnel and census enrollment marts.
 - Added governed definitions for Applications, Admits, Deposits, Enrolled, Yield, Census Enrollment, and IPEDS Enrollment.
-- Added the FactEnrollment data contract and upstream relationship/source quality tests.
-- Added census grain and FactEnrollment business-rule tests.
+- Added the fact_enrollment data contract and upstream relationship/source quality tests.
+- Added census grain and fact_enrollment business-rule tests.
 - Implemented Phase 4 source-to-consumer lineage map in `docs/phase4/lineage.md`.
 - Implemented Phase 4 certification release catalog in `certification/catalog.yml`.
 - Implemented Phase 4 contract change detection in `scripts/check_contract_changes.py` with verified test suite.
