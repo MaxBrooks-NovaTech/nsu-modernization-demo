@@ -5,9 +5,11 @@
 #   Files/dimension_tables/*.csv
 #   Files/mart_tables/*.csv
 #   Files/data_governance/*.csv
-# Attach NSU_DEMO as the notebook's default Lakehouse. Fabric notebook file
-# paths use /lakehouse/default/Files, not a relative Files/ path. This script
-# does not use SQL endpoint credentials.
+# Attach NSU_DEMO as the notebook's default Lakehouse. In Fabric notebooks,
+# use the relative Lakehouse path Files/... after the default Lakehouse is
+# attached. Do not use /lakehouse/default/Files/...; Fabric treats that as an
+# invalid OneLake URL in this notebook context. This script does not use SQL
+# endpoint credentials.
 
 from pyspark.sql.types import (
     BooleanType,
@@ -21,7 +23,7 @@ from pyspark.sql.types import (
 
 LAKEHOUSE_NAME = "NSU_DEMO"
 TARGET_SCHEMA = "dbo"
-SOURCE_ROOT = "/lakehouse/default/Files"
+SOURCE_ROOT = "Files"
 DIMENSION_SOURCE_FOLDER = "dimension_tables"
 MART_SOURCE_FOLDER = "mart_tables"
 GOVERNANCE_SOURCE_FOLDER = "data_governance"
