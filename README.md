@@ -376,6 +376,7 @@ Build
 - [FERPA and IPEDS governance](docs/ferpa-ipeds-governance.md)
 - [ER diagrams (transactional and analytics)](docs/er_diagrams/README.md)
 - [Power BI specifications](powerbi/README.md)
+- [Power BI visualization build instructions](PowerBIVisualizationInstructions.md) — tracked, page-by-page checklist for building the report visuals in Power BI Desktop
 - [Power BI dashboard build instructions](PowerBIDashboard.md) (local-only checklist; not tracked in git — see `.gitignore`)
 
 ## Key Documents

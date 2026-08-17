@@ -125,6 +125,7 @@ At this point you have a working local copy of the entire demo: a PostgreSQL dat
 - `docs/demo.md` — the walkthrough script (if present — it's a local-only file for the repository owner, not tracked in git).
 - `docs/architecture.md` — how the pieces fit together.
 - `docs/images/` — screenshots if you'd rather look than run things live.
+- `PowerBIVisualizationInstructions.md` (repository root) — page-by-page instructions for building the report visuals, which requires Power BI Desktop on Windows separately.
 - `PowerBIDashboard.md` (repository root, if present) — instructions for the Power BI portion, which requires Power BI Desktop on Windows separately.
 
 ## Resetting or starting over
