@@ -68,7 +68,7 @@ If the notebook reports an error containing a path such as `.../lakehouse/defaul
 - The file is directly under `Files/dimension_tables/`, not under an additional nested folder.
 - The file upload has completed and the Lakehouse Files view has been refreshed.
 
-The loader performs a preflight existence check before replacing any tables and reports the expected absolute Lakehouse path for a missing file.
+The loader prints the expected source paths and lets the first Spark CSV read validate that each file exists and is readable. It intentionally does not call `notebookutils.fs.exists()` because some Fabric runtimes resolve relative paths through `/user/trusted-service-user/Files` and return a misleading OneLake HTTP 400.
 
 The loader performs `CREATE OR REPLACE` behavior for every managed Delta table. It applies the explicit schema and overwrites the complete table contents from the CSV in one operation. Rerunning it after deleting and re-uploading source files replaces every fact, dimension, and governance table deterministically. Spark writes managed tables without a namespace, and the Lakehouse SQL analytics endpoint exposes them under the `dbo` schema as `dbo.<table_name>`. It validates non-null required columns, duplicate primary keys, explicit data types, and expected row counts. Optional nullable columns in the fact tables are allowed to contain nulls. Governance CSVs are loaded as separate reference tables from `Files/data_governance/`.
 

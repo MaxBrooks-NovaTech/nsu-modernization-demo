@@ -53,17 +53,11 @@ term_schema = StructType([
 ])
 
 def source_path(table_name, source_folder):
-    path = f"{SOURCE_ROOT}/{source_folder}/{table_name}.csv"
-    try:
-        exists = notebookutils.fs.exists(path)
-    except NameError:
-        exists = True
-    if not exists:
-        raise FileNotFoundError(
-            f"Missing Lakehouse file: {path}. Attach NSU_DEMO as the default "
-            f"Lakehouse and upload {table_name}.csv to Files/{source_folder}/."
-        )
-    return path
+    # Do not call notebookutils.fs.exists() here. In some Fabric runtimes it
+    # resolves a relative path to /user/trusted-service-user/Files and returns
+    # a misleading OneLake 400 even when the default Lakehouse is attached.
+    # Spark's CSV reader resolves the attached Lakehouse Files path correctly.
+    return f"{SOURCE_ROOT}/{source_folder}/{table_name}.csv"
 
 def load_csv_table(table_name, schema, source_folder, key_column=None):
     # Read, type-cast, validate, and replace one Lakehouse table.
@@ -171,7 +165,8 @@ governance_specs = [
     ])),
 ]
 
-# Preflight every source before replacing any table.
+# Print expected source paths. The first Spark read below validates that the
+# files exist and are readable without notebookutils.fs.exists().
 source_specs = [
     ("dim_school", school_schema, DIMENSION_SOURCE_FOLDER),
     ("dim_program", program_schema, DIMENSION_SOURCE_FOLDER),
@@ -180,7 +175,7 @@ source_specs = [
 source_specs.extend((table_name, schema, MART_SOURCE_FOLDER) for table_name, schema in mart_specs)
 source_specs.extend((table_name, schema, GOVERNANCE_SOURCE_FOLDER) for table_name, schema in governance_specs)
 for table_name, _, folder in source_specs:
-    print(f"Found source: {source_path(table_name, folder)}")
+    print(f"Expected source: {source_path(table_name, folder)}")
 
 results = [
     load_csv_table("dim_school", school_schema, DIMENSION_SOURCE_FOLDER),
