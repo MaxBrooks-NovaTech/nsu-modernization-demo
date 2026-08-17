@@ -6,8 +6,8 @@
   "height": 720,
   "width": 1280,
   "visuals": [
-    { "id": "certification_status", "type": "card", "title": "Certification Status", "field": "CertificationCatalog.status" },
-    { "id": "release_gate", "type": "card", "title": "Release Gate", "field": "CertificationCatalog.release_gate" },
+    { "id": "certification_status", "type": "card", "title": "Certification Status", "field": "certification_catalog.status" },
+    { "id": "release_gate", "type": "card", "title": "Release Gate", "field": "certification_catalog.release_gate" },
     { "id": "certified_products", "type": "table", "title": "Certified Products", "fields": ["product", "model", "version", "owner", "steward", "status", "last_reviewed"] },
     { "id": "quality_evidence", "type": "table", "title": "Quality Test Evidence", "fields": ["test_name", "result", "evidence"] }
   ]

@@ -1,0 +1,45 @@
+relationship FactEnrollment_school {
+	fromColumn: FactEnrollment.school_id
+	toColumn: dim_school.school_id
+	crossFilteringBehavior: singleDirection
+}
+relationship FactEnrollment_program {
+	fromColumn: FactEnrollment.program_id
+	toColumn: dim_program.program_id
+	crossFilteringBehavior: singleDirection
+}
+relationship FactEnrollment_term {
+	fromColumn: FactEnrollment.term_id
+	toColumn: dim_term.term_id
+	crossFilteringBehavior: singleDirection
+}
+relationship RecruitmentFunnel_school {
+	fromColumn: RecruitmentFunnel.school_id
+	toColumn: dim_school.school_id
+	crossFilteringBehavior: singleDirection
+}
+relationship RecruitmentFunnel_program {
+	fromColumn: RecruitmentFunnel.program_id
+	toColumn: dim_program.program_id
+	crossFilteringBehavior: singleDirection
+}
+relationship RecruitmentFunnel_term {
+	fromColumn: RecruitmentFunnel.term_id
+	toColumn: dim_term.term_id
+	crossFilteringBehavior: singleDirection
+}
+relationship CensusEnrollment_school {
+	fromColumn: CensusEnrollment.school_id
+	toColumn: dim_school.school_id
+	crossFilteringBehavior: singleDirection
+}
+relationship CensusEnrollment_program {
+	fromColumn: CensusEnrollment.program_id
+	toColumn: dim_program.program_id
+	crossFilteringBehavior: singleDirection
+}
+relationship CensusEnrollment_term {
+	fromColumn: CensusEnrollment.term_id
+	toColumn: dim_term.term_id
+	crossFilteringBehavior: singleDirection
+}

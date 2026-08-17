@@ -2,12 +2,12 @@
   "pageTitle": "Institutional Data Trust — NSU_DEMO",
   "slicers": [
     {
-      "field": "CertificationCatalog.product",
+      "field": "certification_catalog.product",
       "caption": "Product",
       "singleSelect": false
     },
     {
-      "field": "CertificationCatalog.status",
+      "field": "certification_catalog.status",
       "caption": "Status",
       "singleSelect": false
     }
@@ -17,13 +17,13 @@
       "id": "certification_status",
       "type": "card",
       "title": "Certification Status",
-      "field": "CertificationCatalog.status"
+      "field": "certification_catalog.status"
     },
     {
       "id": "release_gate",
       "type": "card",
       "title": "Release Gate",
-      "field": "CertificationCatalog.release_gate"
+      "field": "certification_catalog.release_gate"
     },
     {
       "id": "certified_products",

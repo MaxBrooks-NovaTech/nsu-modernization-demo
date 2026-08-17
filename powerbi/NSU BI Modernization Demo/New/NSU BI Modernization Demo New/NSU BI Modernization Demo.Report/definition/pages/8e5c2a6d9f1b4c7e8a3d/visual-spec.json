@@ -2,17 +2,17 @@
   "pageTitle": "Data Lineage & Certification — NSU_DEMO",
   "slicers": [
     {
-      "field": "CertificationCatalog.product",
+      "field": "certification_catalog.product",
       "caption": "Product",
       "singleSelect": false
     },
     {
-      "field": "LineageSummary.consumers",
+      "field": "lineage_summary.consumers",
       "caption": "Consumer",
       "singleSelect": false
     },
     {
-      "field": "CertificationCatalog.status",
+      "field": "certification_catalog.status",
       "caption": "Status",
       "singleSelect": false
     }

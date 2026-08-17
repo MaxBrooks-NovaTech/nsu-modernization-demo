@@ -1,0 +1,31 @@
+	table dim_term
+	annotation SourceSystem = "OneLake Lakehouse NSU_DEMO"
+	annotation SourceSnapshot = "seeds/dimension_tables/dim_term.csv"
+	column term_id
+	dataType: string
+	isKey
+		sourceColumn: term_id
+	column term_name
+	dataType: string
+		sourceColumn: term_name
+	column academic_year
+	dataType: string
+		sourceColumn: academic_year
+	column term_start_date
+	dataType: dateTime
+		sourceColumn: term_start_date
+	column census_date
+	dataType: dateTime
+		sourceColumn: census_date
+	column term_end_date
+	dataType: dateTime
+		sourceColumn: term_end_date
+	partition dim_term = m
+	mode: import
+		source =
+	let
+	Source = Csv.Document(File.Contents(ProjectRoot & "\\seeds\\dimension_tables\\dim_term.csv"), [Delimiter=", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+	#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+	#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{"term_id", type text}, {"term_name", type text}, {"academic_year", type text}, {"term_start_date", type date}, {"census_date", type date}, {"term_end_date", type date}})
+	in
+	#"Changed Type"
