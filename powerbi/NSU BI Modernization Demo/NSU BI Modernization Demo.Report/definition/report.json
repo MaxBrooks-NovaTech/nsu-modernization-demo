@@ -40,6 +40,8 @@
     }
   ],
   "settings": {
+    "displayName": "NSU BI Modernization Demo — NSU_DEMO OneLake Lakehouse",
+    "description": "Three-page governed reporting experience sourced from the NSU_DEMO OneLake Lakehouse. Fact, dimension, and governance tables are synthetic demonstration data.",
     "useStylableVisualContainerHeader": true,
     "exportDataMode": "AllowSummarized",
     "defaultDrillFilterOtherVisuals": true,

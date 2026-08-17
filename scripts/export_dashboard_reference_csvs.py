@@ -5,9 +5,8 @@ Institutional Data Trust and Data Lineage & Certification report pages.
 These pages describe governance metadata (certification/catalog.yml,
 docs/phase4/lineage.md) and real dbt test outcomes (target/run_results.json)
 rather than transactional data, so they have no natural PostgreSQL table to
-export from. This script turns those real sources into CSVs instead, so the
-whole Power BI model — not just the transactional fact tables — can run
-without a live database or manual data entry in Power BI Desktop.
+export from. This script turns those real sources into CSVs under
+`data_governance/`, keeping governance/reference data separate from mart facts.
 
 Run after `dbt build` so run_results.json reflects the current test run.
 """
@@ -20,7 +19,7 @@ from pathlib import Path
 
 import yaml
 
-OUT_DIR = Path("seeds/mart_tables")
+OUT_DIR = Path("data_governance")
 
 
 def export_certification_catalog() -> None:

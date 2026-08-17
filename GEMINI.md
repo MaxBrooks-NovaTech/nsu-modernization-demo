@@ -1,8 +1,10 @@
 # GEMINI.md
 
-# NSU BI / Data Products Demonstration
-# GEMINI Operating Instructions
-# Version 1.0
+## NSU BI / Data Products Demonstration
+
+## GEMINI Operating Instructions
+
+### Version 1.0
 
 ---
 

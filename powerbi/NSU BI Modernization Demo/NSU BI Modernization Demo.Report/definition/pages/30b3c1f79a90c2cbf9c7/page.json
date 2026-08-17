@@ -1,8 +1,9 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
   "name": "30b3c1f79a90c2cbf9c7",
-  "displayName": "Executive Enrollment & Admissions",
+  "displayName": "Executive Enrollment & Admissions — NSU_DEMO",
   "displayOption": "FitToPage",
   "height": 720,
-  "width": 1280
+  "width": 1280,
+  "visuals": []
 }

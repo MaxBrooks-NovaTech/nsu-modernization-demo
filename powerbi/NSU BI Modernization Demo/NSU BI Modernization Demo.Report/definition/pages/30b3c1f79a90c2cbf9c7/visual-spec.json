@@ -1,0 +1,55 @@
+{
+  "pageTitle": "Executive Enrollment & Admissions — NSU_DEMO",
+  "slicers": [
+    { "field": "dim_term.term_name", "caption": "Term", "singleSelect": false },
+    {
+      "field": "dim_school.school_name",
+      "caption": "School",
+      "singleSelect": false
+    },
+    {
+      "field": "dim_program.program_name",
+      "caption": "Program",
+      "singleSelect": false
+    }
+  ],
+  "visuals": [
+    {
+      "id": "applications_card",
+      "type": "card",
+      "title": "Applications",
+      "measure": "Applications"
+    },
+    {
+      "id": "admits_card",
+      "type": "card",
+      "title": "Admits",
+      "measure": "Admits"
+    },
+    {
+      "id": "deposits_card",
+      "type": "card",
+      "title": "Deposits",
+      "measure": "Deposits"
+    },
+    {
+      "id": "enrolled_card",
+      "type": "card",
+      "title": "Enrolled",
+      "measure": "Enrolled"
+    },
+    {
+      "id": "recruitment_funnel",
+      "type": "funnel",
+      "title": "Recruitment Funnel",
+      "measures": ["Admits", "Deposits", "Yield"]
+    },
+    {
+      "id": "enrollment_by_school",
+      "type": "clusteredColumnChart",
+      "title": "Enrolled by School",
+      "category": "dim_school.school_name",
+      "measure": "Enrolled"
+    }
+  ]
+}

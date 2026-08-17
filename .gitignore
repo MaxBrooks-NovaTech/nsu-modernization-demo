@@ -28,6 +28,11 @@ profiles.yml
 **/.pbi/cache.abf
 **/.pbi/editorSettings.json
 PowerBIDashboard.md
+PowerBIWireframes.md
+
+# Microsoft Fabric
+lakehouse_sql_endpoint.md
+Screenshot 2026-08-17 at 8.50.17 AM.png
 
 # Local-only human instructions and demo notes (not published)
 max_instructions.md

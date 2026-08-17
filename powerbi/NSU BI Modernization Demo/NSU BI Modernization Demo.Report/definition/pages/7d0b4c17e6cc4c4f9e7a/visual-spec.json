@@ -1,0 +1,49 @@
+{
+  "pageTitle": "Institutional Data Trust — NSU_DEMO",
+  "slicers": [
+    {
+      "field": "CertificationCatalog.product",
+      "caption": "Product",
+      "singleSelect": false
+    },
+    {
+      "field": "CertificationCatalog.status",
+      "caption": "Status",
+      "singleSelect": false
+    }
+  ],
+  "visuals": [
+    {
+      "id": "certification_status",
+      "type": "card",
+      "title": "Certification Status",
+      "field": "CertificationCatalog.status"
+    },
+    {
+      "id": "release_gate",
+      "type": "card",
+      "title": "Release Gate",
+      "field": "CertificationCatalog.release_gate"
+    },
+    {
+      "id": "certified_products",
+      "type": "table",
+      "title": "Certified Products",
+      "fields": [
+        "product",
+        "model",
+        "version",
+        "owner",
+        "steward",
+        "status",
+        "last_reviewed"
+      ]
+    },
+    {
+      "id": "quality_evidence",
+      "type": "table",
+      "title": "Quality Test Evidence",
+      "fields": ["test_name", "result", "evidence"]
+    }
+  ]
+}
